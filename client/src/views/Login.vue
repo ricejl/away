@@ -12,11 +12,17 @@
             <!-- LOGIN FORM -->
             <form v-if="loginForm" @submit.prevent="loginUser">
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" />
+                <input
+                  type="email"
+                  v-model="creds.email"
+                  class="form-control"
+                  placeholder="Email"
+                />
               </div>
               <div class="form-group">
                 <input
                   type="text"
+                  v-model="creds.password"
                   class="form-control"
                   placeholder="Password"
                 />
@@ -27,17 +33,16 @@
             <form v-else @submit.prevent="register">
               <div class="form-group">
                 <input
-                  type="text"
+                  type="email"
+                  v-model="newUser.email"
                   class="form-control"
-                  placeholder="Username"
+                  placeholder="Email"
                 />
               </div>
               <div class="form-group">
-                <input type="email" class="form-control" placeholder="Email" />
-              </div>
-              <div class="form-group">
                 <input
-                  type="text"
+                  type="password"
+                  v-model="newUser.password"
                   class="form-control"
                   placeholder="Password"
                 />
@@ -70,8 +75,7 @@ export default {
       },
       newUser: {
         email: "",
-        password: "",
-        name: ""
+        password: ""
       }
     };
   },
