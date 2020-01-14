@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-10 col-md-8 mx-auto text-center pb-4">
             <!-- LOGIN FORM -->
-            <form v-if="loginForm">
+            <form v-if="loginForm" @submit.prevent="loginUser">
               <div class="form-group">
                 <input type="email" class="form-control" placeholder="Email" />
               </div>
@@ -24,7 +24,7 @@
               <button>Login</button>
             </form>
             <!-- REGISTRATION FORM -->
-            <form v-else>
+            <form v-else @submit.prevent="register">
               <div class="form-group">
                 <input
                   type="text"
@@ -79,7 +79,7 @@ export default {
     register() {
       this.$store.dispatch("register", this.newUser);
     },
-    loginuser() {
+    loginUser() {
       this.$store.dispatch("login", this.creds);
     }
   }
