@@ -9,7 +9,8 @@
       <div class="col-10 col-md-6 mx-auto login-container">
         <div class="row">
           <div class="col-10 col-md-8 mx-auto text-center pb-4">
-            <form>
+            <!-- LOGIN FORM -->
+            <form v-if="loginForm">
               <div class="form-group">
                 <input type="email" class="form-control" placeholder="Email" />
               </div>
@@ -22,9 +23,34 @@
               </div>
               <button>Login</button>
             </form>
+            <!-- REGISTRATION FORM -->
+            <form v-else>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Username"
+                />
+              </div>
+              <div class="form-group">
+                <input type="email" class="form-control" placeholder="Email" />
+              </div>
+              <div class="form-group">
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Password"
+                />
+              </div>
+              <button>Register</button>
+            </form>
           </div>
-          <div class="col-12 text-center">
-            <p>click here to register</p>
+          <div
+            @click="loginForm = !loginForm"
+            class="col-12 text-center hoverhand"
+          >
+            <p v-if="loginForm">click here to register</p>
+            <p v-else>click here to login</p>
           </div>
         </div>
       </div>
@@ -34,11 +60,36 @@
 
 <script>
 export default {
-  name: "login"
+  name: "login",
+  data() {
+    return {
+      loginForm: true,
+      creds: {
+        email: "",
+        password: ""
+      },
+      newUser: {
+        email: "",
+        password: "",
+        name: ""
+      }
+    };
+  },
+  methods: {
+    register() {
+      this.$store.dispatch("register", this.newUser);
+    },
+    loginuser() {
+      this.$store.dispatch("login", this.creds);
+    }
+  }
 };
 </script>
 
 <style>
+.hoverhand {
+  cursor: pointer;
+}
 .appName {
   margin-top: -0.5rem;
   font-size: 3rem;

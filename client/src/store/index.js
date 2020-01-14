@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import AuthService from "../AuthService";
+import router from "../router/index";
 
 Vue.use(Vuex);
 
@@ -19,7 +20,7 @@ export default new Vuex.Store({
       try {
         let user = await AuthService.Register(creds);
         commit("setUser", user);
-        router.push({ name: "boards" });
+        router.push({ name: "dashboard" });
       } catch (e) {
         console.warn(e.message);
       }
@@ -28,7 +29,7 @@ export default new Vuex.Store({
       try {
         let user = await AuthService.Login(creds);
         commit("setUser", user);
-        router.push({ name: "boards" });
+        router.push({ name: "dashboard" });
       } catch (e) {
         console.warn(e.message);
       }
