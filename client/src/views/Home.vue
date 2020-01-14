@@ -17,9 +17,11 @@
     <div class="row">
       <div class="col-12">
         <div class="btn-container">
-          <button class="login-btn mx-auto">
-            <p class="mb-0">LOGIN</p>
-          </button>
+          <router-link :to="{ name: 'login' }">
+            <button class="login-btn mx-auto">
+              <p class="mb-0">LOGIN</p>
+            </button>
+          </router-link>
         </div>
       </div>
     </div>
