@@ -1,0 +1,30 @@
+{
+    "name": "kanban",
+    "version": "1.0.0",
+    "description": "Kanban a tool for organizing projects",
+    "main": "index.js",
+    "scripts": {
+        "debug": "node index.js",
+        "start": "node index.js",
+        "dev": "node index.js",
+        "serve": "npm run --prefix ./client serve"
+    },
+    "dependencies": {
+        "bcryptjs": "^2.4.3",
+        "body-parser": "^1.16.0",
+        "connect-mongo": "^3.2.0",
+        "connect-mongodb-session": "^2.2.0",
+        "cors": "^2.8.1",
+        "dotenv": "^8.2.0",
+        "esm": "^3.2.25",
+        "express": "^4.14.1",
+        "express-session": "^1.17.0",
+        "mongoose": "^5.8.5",
+        "vue": "^2.6.11",
+        "vue-template-compiler": "^2.6.11"
+    },
+    "engines": {
+        "node": "^10.0.0",
+        "npm": "^6.5.0"
+    }
+}
