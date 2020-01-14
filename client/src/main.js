@@ -3,6 +3,8 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+
+
 import AuthService from "./AuthService";
 
 // Vue.config.productionTip = false
@@ -21,3 +23,4 @@ async function init() {
   }).$mount("#app");
 }
 init();
+
