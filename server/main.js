@@ -37,8 +37,10 @@ server.use("/account", new UserController().router);
 
 //YOUR ROUTES HERE!!!!!!
 import TripController from "./controllers/TripController";
+import ProfileController from "./controllers/ProfileController";
 
 server.use("/api/trips", new TripController().router);
+server.use("/api/profiles", new ProfileController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
