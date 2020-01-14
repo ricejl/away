@@ -36,9 +36,9 @@ server.use(new Session().express);
 server.use("/account", new UserController().router);
 
 //YOUR ROUTES HERE!!!!!!
-import ValueController from "./controllers/ValueController";
+import TripController from "./controllers/TripController";
 
-server.use("/api/value", new ValueController().router);
+server.use("/api/trips", new TripController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
