@@ -9,15 +9,20 @@ export default class TripController {
       .use(Authorize.authenticated)
       .get("", this.getAll)
       .get("/:id", this.getByTripId)
+      .get("/:id/destinations", this.getDestinationsByTripId)
       .post("", this.create)
+      .post("/:id/destinations", this.addDestination)
       .put("/:id", this.edit)
-      .delete("/:id", this.delete);
+      .put("/:id/destinations", this.editDestination)
+      .delete("/:id", this.delete)
+      .delete("/:id/destinations", this.removeDestination);
   }
 
   defaultRoute(req, res, next) {
     next({ status: 404, message: "No Such Route" });
   }
 
+  // #region -- TRIPS --
   async getAll(req, res, next) {
     try {
       let data = await tripService.getAll(req.session.uid);
@@ -67,4 +72,59 @@ export default class TripController {
       next(error);
     }
   }
+  // #endregion
+
+  // #region -- DESTINATIONS --
+  async getDestinationsByTripId(req, res, next) {
+    try {
+      let data = await tripService.getDestinationsByTripId(
+        req.params.id,
+        req.session.uid
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addDestination(req, res, next) {
+    try {
+      req.body.authorId = req.session.uid;
+      // FIXME do we do anything with the authorId here? It's not sent to service. We also do this in the create fn above
+      let data = await tripService.addDestination(req.params.id, req.body);
+      return res.status(201).send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async editDestination(req, res, next) {
+    try {
+      let data = await tripService.editDestination({
+        tripId: req.params.id,
+        userId: req.session.uid,
+        destinationId: req.body._id,
+        location: req.body.location
+      });
+      console.log("Controller:" + data);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeDestination(req, res, next) {
+    try {
+      let data = await tripService.removeDestination({
+        tripId: req.params.id,
+        userId: req.session.uid,
+        destinationId: req.body._id
+        //NOTE Be Sure Destination Id is sent with Front End Reqs
+      });
+      return res.send("Deletion Successful");
+    } catch (error) {
+      next(error);
+    }
+  }
+  // #endregion
 }

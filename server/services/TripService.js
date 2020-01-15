@@ -5,6 +5,7 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Trip", Trip);
 
 class TripService {
+  // #region -- TRIPS --
   async getAll(userId) {
     return await _repository.find({ authorId: userId });
   }
@@ -41,6 +42,58 @@ class TripService {
     });
     if (!data) {
       throw new ApiError("Invalid Id or you do not own this trip", 400);
+    }
+  }
+  // #endregion
+
+  // #region -- DESTINATIONS --
+  async getDestinationsByTripId(tripId, userId) {
+    let data = await _repository.find({ tripId: tripId, authorId: userId });
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
+
+  async addDestination(tripId, rawData) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: tripId },
+      { $push: { destinations: rawData } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
+
+  async editDestination(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId },
+      {
+        $set: {
+          destinations: {
+            _id: payload.destinationId,
+            location: payload.location
+          }
+        }
+      },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
+
+  async removeDestination(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId },
+      { $pull: { destinations: { _id: payload.destinationId } } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
   }
 }
