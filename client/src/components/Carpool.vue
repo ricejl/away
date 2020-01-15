@@ -1,7 +1,7 @@
 <template>
-  <div class="card-container top-card">
+  <div class="card-container">
     <br />
-    <h4 class="mb-0">{{ tripData.title }}</h4>
+    <h4 class="mb-0">Carpool</h4>
     <br />
     <div class="arrow" @click="dropdownBool = !dropdownBool" v-if="!dropdownBool">
       <i class="fas fa-angle-double-down"></i>
@@ -11,12 +11,7 @@
     </div>
     <!-- <transition name="slide"> -->
     <div v-if="dropdownBool" class="dropdown">
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
+      <div>Your carpool info here</div>
     </div>
     <!-- </transition> -->
   </div>
@@ -24,7 +19,7 @@
 
 <script>
 export default {
-  name: "Destination",
+  name: "Carpool",
   props: ["tripData"],
   data() {
     return {
