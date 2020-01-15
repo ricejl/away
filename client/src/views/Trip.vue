@@ -12,6 +12,9 @@
       <div class="col-12 col-lg-10 mx-auto">
         <Carpool :tripData="trip"></Carpool>
       </div>
+      <div class="col-12 col-lg-10 mx-auto">
+        <Meals :tripData="trip"></Meals>
+      </div>
       <!-- <div class="col-12">
         <div class="card-container">
           <h4 class="mb-0">Car Pool</h4>
@@ -30,6 +33,7 @@
 import Navbar from "@/components/Navbar";
 import Destination from "@/components/Destination";
 import Carpool from "@/components/Carpool";
+import Meals from "@/components/Meals";
 
 export default {
   name: "Trip",
@@ -52,7 +56,8 @@ export default {
   components: {
     Navbar,
     Destination,
-    Carpool
+    Carpool,
+    Meals
   },
   methods: {}
 };
