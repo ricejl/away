@@ -5,6 +5,7 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Trip", Trip);
 
 class TripService {
+  // #region -- TRIPS --
   async getAll(userId) {
     return await _repository.find({ authorId: userId });
   }
@@ -43,6 +44,15 @@ class TripService {
       throw new ApiError("Invalid Id or you do not own this trip", 400);
     }
   }
+  // #endregion
+
+  // #region -- DESTINATIONS --
+  // FIXME pickup here
+  async getDestinationsByTripId() {}
+
+  async addDestination() {}
+
+  async removeDestination() {}
 }
 
 const tripService = new TripService();
