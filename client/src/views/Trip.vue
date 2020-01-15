@@ -7,9 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-10 mx-auto">
-        <div class="card-container top-card">
-          <h4 class="mb-0">{{trip.title}}</h4>
-        </div>
+        <Destination :tripData="trip"></Destination>
       </div>
       <!-- <div class="col-12">
         <div class="card-container">
@@ -27,6 +25,8 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import Destination from "@/components/Destination";
+
 export default {
   name: "Trip",
   params: ["tripId"],
@@ -46,7 +46,8 @@ export default {
     }
   },
   components: {
-    Navbar
+    Navbar,
+    Destination
   },
   methods: {}
 };
@@ -67,8 +68,5 @@ export default {
   align-items: center;
   margin-top: 1em;
   min-height: 5em;
-}
-.top-card {
-  background: rgba(255, 162, 75, 0.75);
 }
 </style>
