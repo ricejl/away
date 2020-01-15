@@ -12,16 +12,11 @@
             <!-- LOGIN FORM -->
             <form v-if="loginForm" @submit.prevent="loginUser">
               <div class="form-group">
-                <input
-                  type="email"
-                  v-model="creds.email"
-                  class="form-control"
-                  placeholder="Email"
-                />
+                <input type="email" v-model="creds.email" class="form-control" placeholder="Email" />
               </div>
               <div class="form-group">
                 <input
-                  type="text"
+                  type="password"
                   v-model="creds.password"
                   class="form-control"
                   placeholder="Password"
@@ -50,10 +45,7 @@
               <button>Register</button>
             </form>
           </div>
-          <div
-            @click="loginForm = !loginForm"
-            class="col-12 text-center hoverhand"
-          >
+          <div @click="loginForm = !loginForm" class="col-12 text-center hoverhand">
             <p v-if="loginForm">click here to register</p>
             <p v-else>click here to login</p>
           </div>
@@ -90,7 +82,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .hoverhand {
   cursor: pointer;
 }
