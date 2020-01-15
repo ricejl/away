@@ -28,7 +28,7 @@ export default {
   props: ["tripData"],
   data() {
     return {
-      dropdownBool: false
+      dropdownBool: true // TODO return to false
     };
   },
   methods: {
