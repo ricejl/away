@@ -31,6 +31,9 @@ export default new Vuex.Store({
     },
     addTrip(state, trip) {
       state.trips.push(trip);
+    },
+    resetState(state) {
+      (state.user = {}), (state.trips = []);
     }
   },
   actions: {

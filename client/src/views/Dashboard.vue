@@ -6,10 +6,12 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip.id">
-        <div class="card-container">
-          <h1 class="mb-0">{{trip.title}}</h1>
-        </div>
+      <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
+        <router-link :to="{name: 'trip', params: {tripId: trip._id}}">
+          <div class="card-container">
+            <h1 class="mb-0">{{trip.title}}</h1>
+          </div>
+        </router-link>
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card-container">
@@ -62,6 +64,10 @@ export default {
 </script>
 
 <style scoped>
+a {
+  color: black;
+  text-decoration: none;
+}
 .dashboard {
   background: url("https://images.unsplash.com/photo-1473772564351-202a22a93101?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=671&q=80")
     no-repeat center;
