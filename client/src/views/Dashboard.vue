@@ -6,24 +6,24 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="col-12 col-md-6 col-lg-3">
+      <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip.id">
         <div class="card-container">
-          <h1 class="mb-0">Stanley</h1>
+          <h1 class="mb-0">{{trip.title}}</h1>
         </div>
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card-container">
-          <h1 class="mb-0">Hot Springs</h1>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card-container">
-          <h1 class="mb-0">Idaho City</h1>
-        </div>
-      </div>
-      <div class="col-12 col-md-6 col-lg-3">
-        <div class="card-container">
-          <h1 class="mb-0">+</h1>
+          <form @submit.prevent="createTrip">
+            <input
+              type="text"
+              v-model="newTrip.title"
+              class="form-control mx-auto"
+              placeholder="New Trip Name"
+            />
+            <button class="mb-0">
+              <i class="fas fa-plus"></i>
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -34,8 +34,29 @@
 import Navbar from "@/components/Navbar";
 export default {
   name: "Dashboard",
+  mounted() {
+    this.$store.dispatch("getAllTrips");
+  },
+  data() {
+    return {
+      newTrip: {
+        title: ""
+      }
+    };
+  },
+  computed: {
+    trips() {
+      return this.$store.state.trips;
+    }
+  },
   components: {
     Navbar
+  },
+  methods: {
+    createTrip() {
+      this.$store.dispatch("createTrip", this.newTrip);
+      this.newTrip = { title: "" };
+    }
   }
 };
 </script>
@@ -56,5 +77,15 @@ export default {
   margin-top: 1em;
   min-height: 10em;
   min-width: 10em;
+}
+form input {
+  max-width: 90%;
+}
+form button {
+  background: rgba(4, 0, 198, 0.5);
+  border: none;
+  font-size: 1.4em;
+  margin-top: 1em;
+  padding: 0.45em 1em;
 }
 </style>
