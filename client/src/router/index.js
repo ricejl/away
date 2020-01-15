@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Dashboard from "../views/Dashboard.vue";
+import Trip from "../views/Trip.vue";
 
 Vue.use(VueRouter);
 
@@ -21,6 +22,11 @@ const routes = [
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard
+  },
+  {
+    path: "/trip/:tripId",
+    name: "trip",
+    component: Trip
   }
   // {
   //   path: '/about',

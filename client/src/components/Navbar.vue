@@ -13,17 +13,41 @@
       <span class="navbar-toggler-icon"></span>
     </button>
 
-    <div class="collapse navbar-collapse" id="navbarSupportedContent"></div>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">
+            Home
+            <span class="sr-only">(current)</span>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+        <li class="nav-item">
+          <button class="btn btn-logout" @click="logout">Log Out</button>
+        </li>
+        <br />
+      </ul>
+    </div>
   </nav>
 </template>
 
 <script>
 export default {
-  name: "Navbar"
+  name: "Navbar",
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+    }
+  }
 };
 </script>
 
 <style scoped>
+.btn-logout {
+  background-color: #ffa24b;
+}
 .navbar {
   padding: 0rem 1rem;
 }
