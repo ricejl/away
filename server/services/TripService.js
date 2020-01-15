@@ -47,12 +47,55 @@ class TripService {
   // #endregion
 
   // #region -- DESTINATIONS --
-  // FIXME pickup here
-  async getDestinationsByTripId() {}
+  async getDestinationsByTripId(tripId, userId) {
+    let data = await _repository.find({ tripId: tripId, authorId: userId });
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
 
-  async addDestination() {}
+  async addDestination(tripId, rawData) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: tripId },
+      { $push: { destinations: rawData } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
 
-  async removeDestination() {}
+  async editDestination(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId },
+      {
+        $set: {
+          destinations: {
+            _id: payload.destinationId,
+            location: payload.location
+          }
+        }
+      },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+    return data;
+  }
+
+  async removeDestination(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId },
+      { $pull: { destinations: { _id: payload.destinationId } } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+  }
 }
 
 const tripService = new TripService();
