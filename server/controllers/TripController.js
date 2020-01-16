@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import tripService from "../services/TripService";
+import mealService from "../services/MealService";
 
 export default class TripController {
   constructor() {
@@ -9,6 +10,7 @@ export default class TripController {
       .use(Authorize.authenticated)
       .get("", this.getAll)
       .get("/:id", this.getByTripId)
+      .get("/:id/meals", this.getMealsByTripId)
       .get("/:id/destinations", this.getDestinationsByTripId)
       .get("/:id/carpools", this.getCarpoolsByTripId)
       .post("", this.create)
@@ -26,6 +28,17 @@ export default class TripController {
 
   defaultRoute(req, res, next) {
     next({ status: 404, message: "No Such Route" });
+  }
+  async getMealsByTripId(req, res, next) {
+    try {
+      let data = await mealService.getMealsByTripId(
+        req.params.id,
+        req.session.uid
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
   }
 
   // #region -- SECTION TRIPS --
