@@ -64,6 +64,17 @@ class MealService {
       );
     }
   }
+
+  async removeFoodItem(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.mealId },
+      { $pull: { foodItems: { _id: payload.foodItemId } } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid ID or you do not own this trip", 400);
+    }
+  }
 }
 
 const mealService = new MealService();

@@ -214,8 +214,8 @@ export default class TripController {
       let data = await tripService.removeCarpool({
         tripId: req.params.id,
         userId: req.session.uid,
-        destinationId: req.body._id
-        //NOTE Be Sure Destination Id is sent with Front End Reqs
+        carpoolId: req.body.carpoolId
+        //NOTE Be Sure Carpool Id is sent with Front End Reqs
       });
       return res.send("Deletion Successful");
     } catch (error) {
