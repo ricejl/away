@@ -10,10 +10,9 @@ const Destination = new Schema({
 const Carpool = new Schema({
   name: { type: String, required: true },
   totalSeats: { type: Number, required: true },
-  occupants: [{ type: ObjectId, ref: "User" }],
+  occupants: [{ type: ObjectId, ref: "Profile" }],
   description: { type: String },
-  authorId: { type: ObjectId, ref: "User", required: true },
-  addOccupant: { type: Boolean }
+  authorId: { type: ObjectId, ref: "User", required: true }
 });
 
 const Trip = new Schema(

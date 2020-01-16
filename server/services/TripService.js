@@ -100,8 +100,13 @@ class TripService {
 
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(tripId, userId) {
-    console.log(tripId, userId);
-    let data = await _repository.find({ _id: tripId, authorId: userId });
+    let data = await _repository
+      .find({ _id: tripId, authorId: userId })
+      .populate({
+        path: "carpools.occupants",
+        populate: { path: "Profile" }
+      });
+    console.log(data);
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
@@ -147,7 +152,7 @@ class TripService {
       { _id: payload.tripId, "carpools._id": payload.carpoolId },
       { $push: { "carpools.$.occupants": payload.occupants } },
       { new: true }
-    );
+    ); //.populate("carpools","occupants")
 
     if (!data) {
       throw new ApiError(
