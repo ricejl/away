@@ -7,11 +7,21 @@ const Destination = new Schema({
   authorId: { type: ObjectId, ref: "User", required: true }
 });
 
+const Carpool = new Schema({
+  name: { type: String, required: true },
+  totalSeats: { type: Number, required: true },
+  occupants: [{ type: ObjectId, ref: "User" }],
+  description: { type: String },
+  authorId: { type: ObjectId, ref: "User", required: true },
+  addOccupant: { type: Boolean }
+});
+
 const Trip = new Schema(
   {
     title: { type: String, required: true },
     authorId: { type: ObjectId, ref: "User", required: true },
-    destinations: [Destination]
+    destinations: [Destination],
+    carpools: [Carpool]
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
