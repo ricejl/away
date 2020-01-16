@@ -42,17 +42,20 @@ export default {
   name: "Trip",
   params: ["tripId"],
   mounted() {
-    this.$store.dispatch("getAllTrips");
-    console.log("tripId from params:", this.$route.params.tripId);
+    this.$store.dispatch("getTripById", this.$route.params.tripId);
+    // console.log("tripId from params:", this.$route.params.tripId);
   },
   computed: {
     trip() {
       return (
-        this.$store.state.trips.find(
-          t => t._id == this.$route.params.tripId
-        ) || {
+        this.$store.state.activeTrip || {
           title: "Loading..."
         }
+        // this.$store.state.trips.find(
+        //   t => t._id == this.$route.params.tripId
+        // ) || {
+        //   title: "Loading..."
+        // }
       );
     }
   },

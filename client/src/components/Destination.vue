@@ -1,8 +1,9 @@
 <template>
   <div class="card-container top-card">
-    <div @click="dropdown=!dropdown">
+    <div class="w-100" @click="dropdown=!dropdown">
       <br />
-      <h4 class="mb-0">Destination</h4>
+      <!-- FIXME  getting error in console-->
+      <h4 class="mb-0">{{tripData.destinations[0].location}}</h4>
       <br />
       <div class="arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
@@ -12,7 +13,12 @@
       </div>
     </div>
     <!-- <transition name="slide"> -->
-    <div v-if="dropdown" class="dropdown">
+    <div v-if="dropdown" class="dropdown w-100">
+      <div
+        @click="dropdown=!dropdown"
+        v-for="destination in tripData.destinations"
+        :key="destination._id"
+      >{{destination.location}}</div>
       <form @submit.prevent="addDestination(tripData._id)" class="p-3">
         <input type="text" v-model="newDestination.location" placeholder="Enter location..." />
         <button type="submit">Add</button>
@@ -25,6 +31,9 @@
 <script>
 export default {
   name: "Destination",
+  mounted() {
+    this.$store.dispatch("getTripById", this.$route.params.tripId);
+  },
   props: ["tripData"],
   data() {
     return {
@@ -43,7 +52,8 @@ export default {
         location: ""
       };
     }
-  }
+  },
+  computed: {}
 };
 </script>
 

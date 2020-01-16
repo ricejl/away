@@ -82,6 +82,11 @@ export default new Vuex.Store({
       let res = await api.post("trips", trip);
       commit("addTrip", res.data);
     },
+
+    async getTripById({ commit, dispatch }, tripId) {
+      let res = await api.get("trips/" + tripId);
+      commit("setActiveTrip", res.data);
+    },
     // #endregion
 
     // #region -- DESTINATIONS --
