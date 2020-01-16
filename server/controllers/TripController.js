@@ -10,19 +10,25 @@ export default class TripController {
       .get("", this.getAll)
       .get("/:id", this.getByTripId)
       .get("/:id/destinations", this.getDestinationsByTripId)
+      .get("/:id/carpools", this.getCarpoolsByTripId)
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
+      .post("/:id/carpools", this.addCarpool)
+      .post("/:id/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
       .put("/:id/destinations", this.editDestination)
+      .put("/:id/carpools", this.editCarpool)
+      .put("/:tripId/carpools/:id", this.editCarpoolOccupants)
       .delete("/:id", this.delete)
-      .delete("/:id/destinations", this.removeDestination);
+      .delete("/:id/destinations", this.removeDestination)
+      .delete("/:id/carpools", this.removeCarpool);
   }
 
   defaultRoute(req, res, next) {
     next({ status: 404, message: "No Such Route" });
   }
 
-  // #region -- TRIPS --
+  // #region -- SECTION TRIPS --
   async getAll(req, res, next) {
     try {
       let data = await tripService.getAll(req.session.uid);
@@ -74,7 +80,7 @@ export default class TripController {
   }
   // #endregion
 
-  // #region -- DESTINATIONS --
+  // #region -- SECTION DESTINATIONS --
   async getDestinationsByTripId(req, res, next) {
     try {
       let data = await tripService.getDestinationsByTripId(
@@ -90,7 +96,6 @@ export default class TripController {
   async addDestination(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
-      // FIXME do we do anything with the authorId here? It's not sent to service. We also do this in the create fn above
       let data = await tripService.addDestination(req.params.id, req.body);
       return res.status(201).send(data);
     } catch (error) {
@@ -106,7 +111,6 @@ export default class TripController {
         destinationId: req.body._id,
         location: req.body.location
       });
-      console.log("Controller:" + data);
       return res.send(data);
     } catch (error) {
       next(error);
@@ -116,6 +120,72 @@ export default class TripController {
   async removeDestination(req, res, next) {
     try {
       let data = await tripService.removeDestination({
+        tripId: req.params.id,
+        userId: req.session.uid,
+        destinationId: req.body._id
+        //NOTE Be Sure Destination Id is sent with Front End Reqs
+      });
+      return res.send("Deletion Successful");
+    } catch (error) {
+      next(error);
+    }
+  }
+  // #endregion
+
+  // #region -- SECTION CARPOOLS --
+  async getCarpoolsByTripId(req, res, next) {
+    try {
+      let data = await tripService.getCarpoolsByTripId(
+        req.params.id,
+        req.session.uid
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async addCarpool(req, res, next) {
+    try {
+      req.body.authorId = req.session.uid;
+      let data = await tripService.addCarpool(req.params.id, req.body);
+      return res.status(201).send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async editCarpool(req, res, next) {
+    try {
+      let data = await tripService.editCarpool({
+        tripId: req.params.id,
+        userId: req.session.uid,
+        carpoolId: req.body.carpoolId,
+        ...req.body
+      });
+      console.log("Controller:" + data);
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async editCarpoolOccupants(req, res, next) {
+    try {
+      let data = await tripService.editCarpoolOccupants({
+        tripId: req.params.tripId,
+        carpoolId: req.params.id,
+        userId: req.session.uid,
+        ...req.body
+      });
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  async removeCarpool(req, res, next) {
+    try {
+      let data = await tripService.removeCarpool({
         tripId: req.params.id,
         userId: req.session.uid,
         destinationId: req.body._id
