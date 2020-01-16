@@ -1,16 +1,16 @@
 <template>
-  <div class="card-container" @click="dropdownBool = !dropdownBool">
+  <div class="card-container" @click="dropdown = !dropdown">
     <br />
     <h4 class="mb-0">Carpool</h4>
     <br />
-    <div class="arrow" v-if="!dropdownBool">
+    <div class="arrow" v-if="!dropdown">
       <i class="fas fa-angle-double-down"></i>
     </div>
     <div v-else class="arrow">
       <i class="fas fa-angle-double-up"></i>
     </div>
     <!-- <transition name="slide"> -->
-    <div v-if="dropdownBool" class="dropdown">
+    <div v-if="dropdown" class="dropdown">
       <div>Your carpool info here</div>
     </div>
     <!-- </transition> -->
@@ -23,13 +23,8 @@ export default {
   props: ["tripData"],
   data() {
     return {
-      dropdownBool: false
+      dropdown: false
     };
-  },
-  methods: {
-    // changeDropdownBool() {
-    //   this.dropdownBool = !this.dropdownBool;
-    // }
   }
 };
 </script>

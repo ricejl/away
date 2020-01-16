@@ -15,15 +15,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">
-            Home
-            <span class="sr-only">(current)</span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
-        </li>
+        <router-link :to="{name: 'profile'}">
+          <li v-if="this.$route.name != 'profile'" class="nav-item">
+            <a class="nav-link" href="#">
+              Profile
+              <span class="sr-only">(current)</span>
+            </a>
+          </li>
+        </router-link>
+        <router-link :to="{name: 'dashboard'}">
+          <li v-if="this.$route.name != 'dashboard'" class="nav-item">
+            <a class="nav-link">My Trips</a>
+          </li>
+        </router-link>
         <li class="nav-item">
           <button class="btn btn-logout" @click="logout">Log Out</button>
         </li>
@@ -61,5 +65,14 @@ export default {
 }
 .bg-dark {
   background-color: black !important;
+}
+
+a {
+  text-decoration: none;
+}
+
+.nav-link:hover {
+  color: #f3f3f3;
+  text-shadow: 0 0 2px #f3f3f3;
 }
 </style>

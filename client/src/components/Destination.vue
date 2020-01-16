@@ -1,22 +1,32 @@
 <template>
-  <div class="card-container top-card" @click="dropdownBool = !dropdownBool">
-    <br />
-    <h4 class="mb-0">{{ tripData.title }}</h4>
-    <br />
-    <div class="arrow" v-if="!dropdownBool">
-      <i class="fas fa-angle-double-down"></i>
-    </div>
-    <div v-else class="arrow">
-      <i class="fas fa-angle-double-up"></i>
+  <div class="card-container top-card">
+    <div class="w-100" @click="dropdown=!dropdown">
+      <br />
+      <!-- FIXME  old destination flashes on new trip view-->
+      <h4
+        v-if="trip.destinations && trip.destinations.length"
+        class="mb-0"
+      >{{trip.destinations[0].location}}</h4>
+      <h4 v-else class="mb-0">Destination</h4>
+      <br />
+      <div class="arrow" v-if="!dropdown">
+        <i class="fas fa-angle-double-down"></i>
+      </div>
+      <div v-else class="arrow">
+        <i class="fas fa-angle-double-up"></i>
+      </div>
     </div>
     <!-- <transition name="slide"> -->
-    <div v-if="dropdownBool" class="dropdown">
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
+    <div v-if="dropdown" class="dropdown w-100">
+      <div
+        @click="dropdown=!dropdown"
+        v-for="destination in tripData.destinations"
+        :key="destination._id"
+      >{{destination.location}}</div>
+      <form @submit.prevent="addDestination(tripData._id)" class="p-3">
+        <input type="text" v-model="newDestination.location" placeholder="Enter location..." />
+        <button type="submit">Add</button>
+      </form>
     </div>
     <!-- </transition> -->
   </div>
@@ -25,16 +35,32 @@
 <script>
 export default {
   name: "Destination",
+  mounted() {
+    this.$store.dispatch("getTripById", this.$route.params.tripId);
+  },
   props: ["tripData"],
   data() {
     return {
-      dropdownBool: false
+      newDestination: {
+        location: ""
+      },
+      dropdown: false
     };
   },
   methods: {
-    // changeDropdownBool() {
-    //   this.dropdownBool = !this.dropdownBool;
-    // }
+    addDestination(tripId) {
+      console.log(tripId);
+      let destination = { ...this.newDestination };
+      this.$store.dispatch("addDestination", { tripId, destination });
+      this.newDestination = {
+        location: ""
+      };
+    }
+  },
+  computed: {
+    trip() {
+      return this.$store.state.activeTrip;
+    }
   }
 };
 </script>
