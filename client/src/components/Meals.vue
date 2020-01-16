@@ -1,12 +1,12 @@
 <template>
-  <div class="card-container">
+  <div class="card-container" @click="dropdownBool = !dropdownBool">
     <br />
     <h4 class="mb-0">Meals</h4>
     <br />
-    <div class="arrow" @click="dropdownBool = !dropdownBool" v-if="!dropdownBool">
+    <div class="arrow" v-if="!dropdownBool">
       <i class="fas fa-angle-double-down"></i>
     </div>
-    <div v-else class="arrow" @click="dropdownBool = !dropdownBool">
+    <div v-else class="arrow">
       <i class="fas fa-angle-double-up"></i>
     </div>
     <div v-if="dropdownBool" class="dropdown">
@@ -43,6 +43,7 @@ export default {
   align-items: center;
   margin-top: 1em;
   min-height: 5em;
+  cursor: pointer;
 }
 .top-card {
   background: rgba(255, 162, 75, 0.75) !important;
