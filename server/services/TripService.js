@@ -141,55 +141,38 @@ class TripService {
     return data;
   }
 
-  async editCarpoolOccupants(payload) {
-    // console.log(payload);
-    // let data = await _repository.findOne({
-    //   _id: payload.tripId
-    //   // "carpools._id": payload.carpoolId
-    // });
-    // console.log(data);
-    if (
-      payload.addOccupant
-      //data.carpools.includes(e => e._id == payload.carpoolId)
-    ) {
-      // NOTE THIS WORKS!!! However...
-      //FIXME better to have different route to add vs remove occupants and use POST request instead of PUT
-      // NOTE we may not need the boolean addOccupant property
-      let data = await _repository.findOneAndUpdate(
-        { _id: payload.tripId, "carpools._id": payload.carpoolId },
-        { $push: { "carpools.$.occupants": payload.occupants } },
-        { new: true }
-        // still editing a trip here; in the push
+  //NOTE Below function works
+  async addOccupant(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      { $push: { "carpools.$.occupants": payload.occupants } },
+      { new: true }
+    );
+
+    if (!data) {
+      throw new ApiError(
+        "Invalid ID or you do not have access to this carpool",
+        400
       );
-      return data;
-    } else if (
-      !payload.addOccupant
-      //data.carpools.includes(e => e._id == payload.carpoolId)
-    ) {
-      let data = await _repository.findOneAndUpdate(
-        { _id: payload.tripId },
-        {
-          $pull: {
-            carpools: {
-              _id: payload.carpoolId,
-              occupants: payload.occupants
-            }
-          }
-        },
-        { new: true }
-      );
-      return data;
-    } else if (!data) {
-      throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
-    console.log("data rfom editCarpool" + data);
-    // data.occupants.push(...payload.occupants);
-    // data.markModified("occupants");
-    // data.save(err => {
-    //   console.error(err);
-    // });
     return data;
   }
+  //NOTE This one also works
+  async removeOccupant(payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      { $pull: { "carpools.$.occupants": { $in: payload.occupants } } },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError(
+        "Invalid ID or you do not have access to this trip",
+        400
+      );
+    }
+    return data;
+  }
+
   async removeCarpool(payload) {
     let data = await _repository.findOneAndUpdate(
       { _id: payload.tripId },

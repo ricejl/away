@@ -14,11 +14,11 @@ export default class TripController {
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
       .post("/:id/carpools", this.addCarpool)
-      .post("/:id/carpools/:id/occupants", this.addOccupant)
+      .post("/:tripId/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
       .put("/:id/destinations", this.editDestination)
       .put("/:id/carpools", this.editCarpool)
-      .put("/:tripId/carpools/:id", this.editCarpoolOccupants)
+      .put("/:tripId/carpools/:id", this.removeOccupant)
       .delete("/:id", this.delete)
       .delete("/:id/destinations", this.removeDestination)
       .delete("/:id/carpools", this.removeCarpool);
@@ -154,6 +154,19 @@ export default class TripController {
       next(error);
     }
   }
+  async addOccupant(req, res, next) {
+    try {
+      req.body.authorId = req.session.uid;
+      let data = await tripService.addOccupant({
+        tripId: req.params.tripId,
+        carpoolId: req.params.id,
+        ...req.body
+      });
+      return res.status(201).send(data);
+    } catch (error) {
+      next;
+    }
+  }
 
   async editCarpool(req, res, next) {
     try {
@@ -169,9 +182,9 @@ export default class TripController {
       next(error);
     }
   }
-  async editCarpoolOccupants(req, res, next) {
+  async removeOccupant(req, res, next) {
     try {
-      let data = await tripService.editCarpoolOccupants({
+      let data = await tripService.removeOccupant({
         tripId: req.params.tripId,
         carpoolId: req.params.id,
         userId: req.session.uid,
