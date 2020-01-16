@@ -181,7 +181,8 @@ class TripService {
   async removeCarpool(payload) {
     let data = await _repository.findOneAndUpdate(
       { _id: payload.tripId },
-      { $pull: { destinations: { _id: payload.destinationId } } },
+      // TODO fix me
+      { $pull: { carpools: { _id: payload.carpoolId } } },
       { new: true }
     );
     if (!data) {
