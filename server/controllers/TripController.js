@@ -2,6 +2,7 @@ import express from "express";
 import { Authorize } from "../middleware/authorize";
 import tripService from "../services/TripService";
 import mealService from "../services/MealService";
+import listService from "../services/ListService";
 
 export default class TripController {
   constructor() {
@@ -13,6 +14,7 @@ export default class TripController {
       .get("/:id/meals", this.getMealsByTripId)
       .get("/:id/destinations", this.getDestinationsByTripId)
       .get("/:id/carpools", this.getCarpoolsByTripId)
+      .get("/:id/lists", this.getListsByTripId)
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
       .post("/:id/carpools", this.addCarpool)
@@ -32,6 +34,17 @@ export default class TripController {
   async getMealsByTripId(req, res, next) {
     try {
       let data = await mealService.getMealsByTripId(
+        req.params.id,
+        req.session.uid
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getListsByTripId(req, res, next) {
+    try {
+      let data = await listService.getListsByTripId(
         req.params.id,
         req.session.uid
       );

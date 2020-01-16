@@ -39,10 +39,12 @@ server.use("/account", new UserController().router);
 import TripController from "./controllers/TripController";
 import ProfileController from "./controllers/ProfileController";
 import MealController from "./controllers/MealController";
+import ListController from "./controllers/ListController";
 
 server.use("/api/trips", new TripController().router);
 server.use("/api/profiles", new ProfileController().router);
 server.use("/api/meals", new MealController().router);
+server.use("/api/lists", new ListController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
