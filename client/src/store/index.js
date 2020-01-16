@@ -20,7 +20,8 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
-    trips: []
+    trips: [],
+    activeTrip: {}
   },
   mutations: {
     setUser(state, user) {
@@ -31,6 +32,9 @@ export default new Vuex.Store({
     },
     addTrip(state, trip) {
       state.trips.push(trip);
+    },
+    setActiveTrip(state, trip) {
+      state.activeTrip = trip;
     },
     resetState(state) {
       (state.user = {}), (state.trips = []);
@@ -67,6 +71,9 @@ export default new Vuex.Store({
         console.warn(e.message);
       }
     },
+    //#endregion
+
+    // #region -- TRIPS --
     async getAllTrips({ commit, dispatch }) {
       let res = await api.get("trips");
       commit("setAllTrips", res.data);
@@ -74,8 +81,19 @@ export default new Vuex.Store({
     async createTrip({ commit, dispatch }, trip) {
       let res = await api.post("trips", trip);
       commit("addTrip", res.data);
+    },
+    // #endregion
+
+    // #region -- DESTINATIONS --
+    async addDestination({ commit, dispatch }, { tripId, destination }) {
+      let res = await api.post(
+        "trips/" + tripId + "/destinations",
+        destination
+      );
+      console.log("res.data in store add destination" + res.data);
+      commit("setActiveTrip", res.data);
     }
-    //#endregion
+    // #endregion
   },
   modules: {}
 });

@@ -1,22 +1,22 @@
 <template>
-  <div class="card-container top-card" @click="dropdownBool = !dropdownBool">
-    <br />
-    <h4 class="mb-0">Destination</h4>
-    <br />
-    <div class="arrow" v-if="!dropdownBool">
-      <i class="fas fa-angle-double-down"></i>
-    </div>
-    <div v-else class="arrow">
-      <i class="fas fa-angle-double-up"></i>
+  <div class="card-container top-card">
+    <div @click="dropdown=!dropdown">
+      <br />
+      <h4 class="mb-0">Destination</h4>
+      <br />
+      <div class="arrow" v-if="!dropdown">
+        <i class="fas fa-angle-double-down"></i>
+      </div>
+      <div v-else class="arrow">
+        <i class="fas fa-angle-double-up"></i>
+      </div>
     </div>
     <!-- <transition name="slide"> -->
-    <div v-if="dropdownBool" class="dropdown">
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
-      <div>The weather is currently 5000 °F</div>
-      <div>map here</div>
+    <div v-if="dropdown" class="dropdown">
+      <form @submit.prevent="addDestination(tripData._id)" class="p-3">
+        <input type="text" v-model="newDestination.location" placeholder="Enter location..." />
+        <button type="submit">Add</button>
+      </form>
     </div>
     <!-- </transition> -->
   </div>
@@ -28,13 +28,21 @@ export default {
   props: ["tripData"],
   data() {
     return {
-      dropdownBool: false
+      newDestination: {
+        location: ""
+      },
+      dropdown: false
     };
   },
   methods: {
-    // changeDropdownBool() {
-    //   this.dropdownBool = !this.dropdownBool;
-    // }
+    addDestination(tripId) {
+      console.log(tripId);
+      let destination = { ...this.newDestination };
+      this.$store.dispatch("addDestination", { tripId, destination });
+      this.newDestination = {
+        location: ""
+      };
+    }
   }
 };
 </script>
