@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Login from "../views/Login.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Trip from "../views/Trip.vue";
+import Profile from "../views/Profile.vue";
 
 Vue.use(VueRouter);
 
@@ -19,6 +20,11 @@ const routes = [
     component: Login
   },
   {
+    path: "/profile",
+    name: "profile",
+    component: Profile
+  },
+  {
     path: "/dashboard",
     name: "dashboard",
     component: Dashboard
@@ -28,16 +34,6 @@ const routes = [
     name: "trip",
     component: Trip
   }
-  // {
-  //   path: '/about',
-  //   name: 'about',
-  //   // route level code-splitting
-  //   // this generates a separate chunk (about.[hash].js) for this route
-  //   // which is lazy-loaded when the route is visited.
-  //   component: function () {
-  //     return import(/* webpackChunkName: "about" */ '../views/About.vue')
-  //   }
-  // }
 ];
 
 const router = new VueRouter({

@@ -2,8 +2,12 @@
   <div class="card-container top-card">
     <div class="w-100" @click="dropdown=!dropdown">
       <br />
-      <!-- FIXME  getting error in console-->
-      <h4 class="mb-0">{{tripData.destinations[0].location}}</h4>
+      <!-- FIXME  old destination flashes on new trip view-->
+      <h4
+        v-if="trip.destinations && trip.destinations.length"
+        class="mb-0"
+      >{{trip.destinations[0].location}}</h4>
+      <h4 v-else class="mb-0">Destination</h4>
       <br />
       <div class="arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
@@ -53,7 +57,11 @@ export default {
       };
     }
   },
-  computed: {}
+  computed: {
+    trip() {
+      return this.$store.state.activeTrip;
+    }
+  }
 };
 </script>
 
