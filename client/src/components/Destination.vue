@@ -1,7 +1,7 @@
 <template>
   <div class="card-container top-card" @click="dropdownBool = !dropdownBool">
     <br />
-    <h4 class="mb-0">{{ tripData.title }}</h4>
+    <h4 class="mb-0">Destination</h4>
     <br />
     <div class="arrow" v-if="!dropdownBool">
       <i class="fas fa-angle-double-down"></i>
