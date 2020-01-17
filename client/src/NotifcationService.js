@@ -6,7 +6,7 @@ export default class NotificationService {
       const { value: formValues } = await Swal.fire({
         title,
         html:
-          '<form class="needs-validation" novalidation>' +
+          '<form class="needs-validation" novalidate @change="checkStuff()">' +
           '<label for="name">Full name</label>' +
           '<input id="name" class="swal2-input" placeholder="Enter your name">' +
           '<div class="valid-feedback">Looks good!</div>' +
@@ -15,11 +15,19 @@ export default class NotificationService {
           '<div class="valid-feedback">Looks good!</div>' +
           '<label for="email">Email</label>' +
           '<input id="email" type="email" class="swal2-input" placeholder="Public email address">' +
-          '<button type="submit">Validate</button>' +
           "</form>",
         // NOTE for email validation look into validitystate=true, @change
         focusConfirm: false,
         preConfirm: () => {
+          let name = document.getElementById("name").value;
+          let username = document.getElementById("username").value;
+          let email = document.getElementById("email");
+          if (!name || !username || !email.value) {
+            Swal.showValidationMessage("Please fill out all fields");
+          }
+          if (email.validity.typeMismatch == true) {
+            Swal.showValidationMessage("Invalid Email Address");
+          }
           return [
             document.getElementById("name").value,
             document.getElementById("username").value,

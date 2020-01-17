@@ -15,7 +15,7 @@
     </div>
     <div class="row">
       <div class="col-12 pt-4">
-        <h3>First Last</h3>
+        <h3>{{ profile.name }}</h3>
         <p>"Live, Laugh, Love"</p>
       </div>
     </div>
@@ -49,14 +49,22 @@ import NotificationService from "../NotifcationService.js";
 
 export default {
   name: "Profile",
+  mounted() {},
   components: { Navbar },
   methods: {
     async createProfile() {
       let profileData = await NotificationService.inputData("Profile");
       if (profileData) {
+        console.log(profileData);
+
         this.$store.dispatch("createProfile", profileData);
         // reset data fields to blank
       }
+    }
+  },
+  computed: {
+    profile() {
+      return this.$store.state.profile;
     }
   }
 };

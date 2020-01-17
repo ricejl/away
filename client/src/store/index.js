@@ -20,12 +20,16 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     user: {},
+    profile: {},
     trips: [],
     activeTrip: {}
   },
   mutations: {
     setUser(state, user) {
       state.user = user;
+    },
+    setProfile(state, profile) {
+      state.profile = profile;
     },
     setAllTrips(state, trips) {
       state.trips = trips;
@@ -97,7 +101,15 @@ export default new Vuex.Store({
       );
       console.log("res.data in store add destination" + res.data);
       commit("setActiveTrip", res.data);
+    },
+    // #endregion
+
+    // #region -- PROFILES --
+    async createProfile({ commit, dispatch }, profile) {
+      let res = await api.post("profiles", profile);
+      commit("setProfile", res.data);
     }
+
     // #endregion
   },
   modules: {}
