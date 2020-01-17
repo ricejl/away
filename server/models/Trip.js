@@ -20,7 +20,8 @@ const Trip = new Schema(
     title: { type: String, required: true },
     authorId: { type: ObjectId, ref: "User", required: true },
     destinations: [Destination],
-    carpools: [Carpool]
+    carpools: [Carpool],
+    collabs: [{ type: ObjectId, ref: "User" }]
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
