@@ -7,8 +7,9 @@
     </div>
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
-        <!-- FIXME pickup here -->
-        <button id="profile-btn" @click="editProfile">Complete Profile</button>
+        <button id="profile-btn" @click="createProfile">
+          Complete Profile
+        </button>
         <i class="fas fa-user fa-8x"></i>
       </div>
     </div>
@@ -22,12 +23,20 @@
     <div class="row pb-3">
       <div class="col-6">
         <h5>My Trips</h5>
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem provident unde nam aspernatur illo!</p>
+        <p>
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
+          provident unde nam aspernatur illo!
+        </p>
       </div>
 
       <div class="col-6 vertical-line">
         <h5>Interests</h5>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quas quam provident ullam, aut sed velit facere molestias voluptate corrupti deleniti ex? Ipsam, aperiam cum! Praesentium quaerat quos ab vel!</p>
+        <p>
+          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quas
+          quam provident ullam, aut sed velit facere molestias voluptate
+          corrupti deleniti ex? Ipsam, aperiam cum! Praesentium quaerat quos ab
+          vel!
+        </p>
       </div>
     </div>
   </div>
@@ -35,9 +44,21 @@
 
 <script>
 import Navbar from "../components/Navbar";
+import NotifcationService from "../NotifcationService.js";
+import NotificationService from "../NotifcationService.js";
+
 export default {
   name: "Profile",
-  components: { Navbar }
+  components: { Navbar },
+  methods: {
+    async createProfile() {
+      let profileData = await NotificationService.inputData("Profile");
+      if (profileData) {
+        this.$store.dispatch("createProfile", profileData);
+        // reset data fields to blank
+      }
+    }
+  }
 };
 </script>
 
