@@ -7,21 +7,27 @@
     </div>
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
+        <!-- FIXME pickup here -->
+        <button id="profile-btn" @click="editProfile">Complete Profile</button>
         <i class="fas fa-user fa-8x"></i>
       </div>
     </div>
     <div class="row">
       <div class="col-12 pt-4">
         <h3>First Last</h3>
+        <p>"Live, Laugh, Love"</p>
       </div>
     </div>
     <hr />
-    <div class="row">
+    <div class="row pb-3">
       <div class="col-6">
         <h5>My Trips</h5>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem provident unde nam aspernatur illo!</p>
       </div>
-      <div class="col-6">
+
+      <div class="col-6 vertical-line">
         <h5>Interests</h5>
+        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quas quam provident ullam, aut sed velit facere molestias voluptate corrupti deleniti ex? Ipsam, aperiam cum! Praesentium quaerat quos ab vel!</p>
       </div>
     </div>
   </div>
@@ -42,5 +48,19 @@ export default {
 
 .bg-green {
   background: rgba(40, 46, 36, 0.2);
+}
+
+.vertical-line {
+  border-left: 1.5px solid rgba(255, 162, 75, 0.5);
+}
+
+hr {
+  border-color: rgba(255, 162, 75, 0.6);
+}
+
+#profile-btn {
+  position: absolute;
+  top: 5%;
+  right: 2%;
 }
 </style>
