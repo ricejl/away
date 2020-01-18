@@ -7,7 +7,12 @@
     </div>
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
-        <button id="profile-btn" v-if="!profile._id" @click="createProfile">Complete Profile</button>
+        <button
+          id="profile-btn"
+          v-if="!profile._id"
+          @click="createProfile"
+          class="btn btn-secondary"
+        >Complete Profile</button>
         <img
           class="profile-img"
           :src="profile.imgURL || 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'"
@@ -59,7 +64,7 @@ export default {
     async createProfile() {
       let profileData = await NotificationService.inputData("Profile");
       if (profileData) {
-        console.log(profileData);
+        console.log("Sweetalert data:", profileData);
 
         this.$store.dispatch("createProfile", profileData);
         // reset data fields to blank

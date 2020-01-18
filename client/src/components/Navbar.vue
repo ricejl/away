@@ -29,7 +29,7 @@
           </li>
         </router-link>
         <li class="nav-item">
-          <button class="btn btn-logout" @click="logout">Log Out</button>
+          <button class="btn btn-logout ml-1 p-1" @click="logout">Log Out</button>
         </li>
         <br />
       </ul>
