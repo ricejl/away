@@ -131,7 +131,7 @@ class TripService {
   }
 
   async editCarpool(payload, carpoolId) {
-    console.log(carpoolId);
+    console.log(payload);
     let data = await _repository.findOneAndUpdate(
       {
         _id: payload.tripId,
@@ -143,11 +143,6 @@ class TripService {
           "carpools.$.name": payload.name,
           "carpools.$.totalSeats": payload.totalSeats,
           "carpools.$.description": payload.description
-          // {
-          //   name: payload.name,
-          //   totalSeats: payload.totalSeats,
-          //   description: payload.description
-          // }
         }
       },
       { new: true }
@@ -193,7 +188,7 @@ class TripService {
 
   async removeCarpool(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId },
+      { _id: payload.tripId, collabs: { $all: [payload.userId] } },
       // TODO fix me
       { $pull: { carpools: { _id: payload.carpoolId } } },
       { new: true }
