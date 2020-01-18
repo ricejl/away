@@ -53,7 +53,6 @@
 
 <script>
 import Navbar from "../components/Navbar";
-import NotifcationService from "../NotifcationService.js";
 import NotificationService from "../NotifcationService.js";
 
 export default {

@@ -63,4 +63,16 @@ export default class NotificationService {
       return false;
     }
   }
+
+  static async errorMessage(text = "Oops") {
+    try {
+      await Swal.fire({
+        icon: "error",
+        text
+      });
+
+    } catch (error) {
+      return false
+    }
+  }
 }

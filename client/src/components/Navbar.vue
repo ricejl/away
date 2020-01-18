@@ -1,6 +1,8 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark negativeMargin">
-    <a class="navbar-brand" href="#">away</a>
+    <router-link :to="{name: 'home'}">
+      <a class="navbar-brand">away</a>
+    </router-link>
     <button
       class="navbar-toggler"
       type="button"
@@ -68,6 +70,7 @@ export default {
 }
 
 a {
+  color: white;
   text-decoration: none;
 }
 
