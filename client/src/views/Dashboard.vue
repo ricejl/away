@@ -21,6 +21,7 @@
               v-model="newTrip.title"
               class="form-control mx-auto"
               placeholder="New Trip Name"
+              required
             />
             <button class="mb-0">
               <i class="fas fa-plus"></i>
@@ -34,6 +35,7 @@
 
 <script>
 import Navbar from "@/components/Navbar";
+import NotificationService from "../NotifcationService.js";
 export default {
   name: "Dashboard",
   mounted() {
@@ -55,9 +57,16 @@ export default {
     Navbar
   },
   methods: {
-    createTrip() {
-      this.$store.dispatch("createTrip", this.newTrip);
-      this.newTrip = { title: "" };
+    async createTrip() {
+      await this.$store.dispatch("getProfileByUserId");
+      if (this.$store.state.profile._id) {
+        this.$store.dispatch("createTrip", this.newTrip);
+        this.newTrip = { title: "" };
+      } else {
+        await NotificationService.errorMessage(
+          "You must have a profile to create a trip"
+        );
+      }
     }
   }
 };
@@ -88,7 +97,8 @@ form input {
   max-width: 90%;
 }
 form button {
-  background: rgba(4, 0, 198, 0.5);
+  /* background: rgba(4, 0, 198, 0.5); */
+  background: inherit;
   border: none;
   font-size: 1.4em;
   margin-top: 1em;

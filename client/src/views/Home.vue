@@ -17,7 +17,12 @@
     <div class="row">
       <div class="col-12">
         <div class="btn-container">
-          <router-link :to="{ name: 'login' }">
+          <router-link v-if="user._id" :to="{ name: 'dashboard' }">
+            <button class="login-btn mx-auto">
+              <p class="mb-0">LOGIN</p>
+            </button>
+          </router-link>
+          <router-link v-else :to="{ name: 'login' }">
             <button class="login-btn mx-auto">
               <p class="mb-0">LOGIN</p>
             </button>
@@ -37,6 +42,11 @@
 
 export default {
   name: "home",
+  computed: {
+    user() {
+      return this.$store.state.user;
+    }
+  },
   components: {
     // HelloWorld
   }
