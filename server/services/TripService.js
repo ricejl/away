@@ -129,7 +129,7 @@ class TripService {
     }
     return data;
   }
-
+  //NOTE This always edits the first element carpools array, why???
   async editCarpool(payload, carpoolId) {
     console.log(payload);
     let data = await _repository.findOneAndUpdate(
@@ -160,7 +160,7 @@ class TripService {
       { _id: payload.tripId, "carpools._id": payload.carpoolId },
       { $push: { "carpools.$.occupants": payload.occupants } },
       { new: true }
-    ); //.populate("carpools","occupants")
+    );
 
     if (!data) {
       throw new ApiError(
@@ -189,7 +189,6 @@ class TripService {
   async removeCarpool(payload) {
     let data = await _repository.findOneAndUpdate(
       { _id: payload.tripId, collabs: { $all: [payload.userId] } },
-      // TODO fix me
       { $pull: { carpools: { _id: payload.carpoolId } } },
       { new: true }
     );
