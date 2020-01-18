@@ -97,7 +97,8 @@ form input {
   max-width: 90%;
 }
 form button {
-  background: rgba(4, 0, 198, 0.5);
+  /* background: rgba(4, 0, 198, 0.5); */
+  background: inherit;
   border: none;
   font-size: 1.4em;
   margin-top: 1em;
