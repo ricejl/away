@@ -8,7 +8,11 @@
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
         <button id="profile-btn" v-if="!profile._id" @click="createProfile">Complete Profile</button>
-        <img class="profile-img" :src="profile.imgURL" alt />
+        <img
+          class="profile-img"
+          :src="profile.imgURL || 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'"
+          alt
+        />
       </div>
     </div>
     <div class="row">

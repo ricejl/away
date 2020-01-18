@@ -18,7 +18,7 @@ class ProfileService {
     if (!data) {
       //NOTE  check if this is safe
       // throw new ApiError("You do not own this profile or profile doesn't exist", 400)
-      return { name: 'First Last', imgURL: 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png' }
+      return { name: 'First Last' }
     }
     return data;
   }
