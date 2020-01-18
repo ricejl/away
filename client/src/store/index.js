@@ -107,6 +107,8 @@ export default new Vuex.Store({
     // #region -- PROFILES --
     async createProfile({ commit, dispatch }, profile) {
       let res = await api.post("profiles", profile);
+      console.log("store create pofile res.data: ", res.data);
+
       commit("setProfile", res.data);
     },
 

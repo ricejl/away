@@ -24,8 +24,14 @@ class ProfileService {
   }
 
   async create(rawData) {
-    let data = await _repository.create(rawData);
-    return data;
+    //check if profile with user id exists
+    let profile = await _repository.findOne({ authorId: rawData.authorId });
+    if (!profile) { //if profile doesn't exist, create the profile
+      let data = await _repository.create(rawData);
+      return data;
+    } else {
+      throw new ApiError("Profile already exists", 400);
+    }
   }
 
   async edit(id, userId, update) {
