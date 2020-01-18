@@ -76,6 +76,9 @@ export default class TripController {
   async create(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
+      req.body.collabs = [];
+      req.body.collabs.push(req.session.uid);
+      console.log(req.body);
       let data = await tripService.create(req.body);
       return res.status(201).send(data);
     } catch (error) {
@@ -131,12 +134,15 @@ export default class TripController {
 
   async editDestination(req, res, next) {
     try {
-      let data = await tripService.editDestination({
-        tripId: req.params.id,
-        userId: req.session.uid,
-        destinationId: req.body._id,
-        location: req.body.location
-      });
+      let data = await tripService.editDestination(
+        {
+          tripId: req.params.id,
+          userId: req.session.uid,
+          destinationId: req.body._id,
+          location: req.body.location
+        },
+        req.body._id
+      );
       return res.send(data);
     } catch (error) {
       next(error);
@@ -196,12 +202,15 @@ export default class TripController {
 
   async editCarpool(req, res, next) {
     try {
-      let data = await tripService.editCarpool({
-        tripId: req.params.id,
-        userId: req.session.uid,
-        carpoolId: req.body.carpoolId,
-        ...req.body
-      });
+      let data = await tripService.editCarpool(
+        {
+          tripId: req.params.id,
+          userId: req.session.uid,
+          carpoolId: req.body.carpoolId,
+          ...req.body
+        },
+        req.body.carpoolId
+      );
       console.log("Controller:" + data);
       return res.send(data);
     } catch (error) {

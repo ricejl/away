@@ -44,6 +44,9 @@ export default class ListController {
   async createList(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
+      req.body.collabs = [];
+      req.body.collabs.push(req.session.uid);
+      // console.log(req.body);
       let data = await listService.createList(req.body);
       return res.status(201).send(data);
     } catch (error) {

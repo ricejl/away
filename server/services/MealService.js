@@ -7,7 +7,7 @@ const _repository = mongoose.model("Meal", Meal);
 class MealService {
   async getMealsByTripId(id, uid) {
     let data = await _repository
-      .find({ tripId: id, authorId: uid })
+      .find({ tripId: id, collabs: { $all: [uid] } })
       .populate("foodItems.profileId");
     if (!data) {
       throw new ApiError(
@@ -24,7 +24,7 @@ class MealService {
   }
   async addFoodItem(mealId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: mealId },
+      { _id: mealId, collabs: { $all: [rawData.authorId] } },
       { $push: { foodItems: rawData } },
       { new: true }
     );
@@ -39,7 +39,7 @@ class MealService {
 
   async editMeal(id, userId, update) {
     let data = await _repository.findOneAndUpdate(
-      { _id: id, authorId: userId },
+      { _id: id, collabs: { $all: [userId] } },
       update,
       { new: true }
     );
@@ -55,7 +55,7 @@ class MealService {
   async deleteMeal(id, userId) {
     let data = await _repository.findOneAndRemove({
       _id: id,
-      authorId: userId
+      collabs: { $all: [userId] }
     });
     if (!data) {
       throw new ApiError(
@@ -67,7 +67,7 @@ class MealService {
 
   async removeFoodItem(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.mealId },
+      { _id: payload.mealId, collabs: { $all: [payload.userId] } },
       { $pull: { foodItems: { _id: payload.foodItemId } } },
       { new: true }
     );

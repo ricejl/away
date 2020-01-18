@@ -14,7 +14,8 @@ const Meal = new Schema(
     foodItems: [FoodItem],
     details: { type: String },
     tripId: { type: ObjectId, ref: "Trip", required: true },
-    authorId: { type: ObjectId, ref: "User", required: true }
+    authorId: { type: ObjectId, ref: "User", required: true },
+    collabs: [{ type: ObjectId, ref: "User" }]
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );

@@ -10,8 +10,8 @@ export default class ProfileController {
       .get("", this.getProfileByUserId)
       .get("/:id", this.getByProfileId)
       .post("", this.create)
-      .put("/:id", this.edit)
-      .delete("/:id", this.delete);
+      .put("/:id", this.edit);
+    // .delete("/:id", this.delete);
   }
 
   defaultRoute(req, res, next) {
@@ -61,12 +61,13 @@ export default class ProfileController {
     }
   }
 
-  async delete(req, res, next) {
-    try {
-      let data = await profileService.delete(req.params.id, req.session.uid);
-      return res.send("Deletion successful");
-    } catch (error) {
-      next(error);
-    }
-  }
+  // NOTE Users should not be able to delete their profile
+  //   async delete(req, res, next) {
+  //     try {
+  //       let data = await profileService.delete(req.params.id, req.session.uid);
+  //       return res.send("Deletion successful");
+  //     } catch (error) {
+  //       next(error);
+  //     }
+  //   }
 }

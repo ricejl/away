@@ -7,7 +7,7 @@ const _repository = mongoose.model("List", List);
 class ListService {
   async getListsByTripId(id, uid) {
     let data = await _repository
-      .find({ tripId: id, authorId: uid })
+      .find({ tripId: id, collabs: { $all: [uid] } })
       .populate("items.profileId");
     if (!data) {
       throw new ApiError(
@@ -23,7 +23,7 @@ class ListService {
   }
   async addItem(listId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: listId },
+      { _id: listId, collabs: { $all: [rawData.authorId] } },
       { $push: { items: rawData } },
       { new: true }
     );
@@ -38,7 +38,7 @@ class ListService {
 
   async editList(id, userId, update) {
     let data = await _repository.findOneAndUpdate(
-      { _id: id, authorId: userId },
+      { _id: id, collabs: { $all: [userId] } },
       update,
       { new: true }
     );
@@ -54,7 +54,7 @@ class ListService {
   async deleteList(id, userId) {
     let data = await _repository.findOneAndRemove({
       _id: id,
-      authorId: userId
+      collabs: { $all: [userId] }
     });
     if (!data) {
       throw new ApiError(
@@ -66,7 +66,7 @@ class ListService {
 
   async removeItem(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.listId },
+      { _id: payload.listId, collabs: { $all: [payload.userId] } },
       { $pull: { items: { _id: payload.itemId } } },
       { new: true }
     );

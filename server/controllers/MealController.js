@@ -44,6 +44,8 @@ export default class MealController {
   async createMeal(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
+      req.body.collabs = [];
+      req.body.collabs.push(req.session.uid);
       let data = await mealService.createMeal(req.body);
       return res.status(201).send(data);
     } catch (error) {

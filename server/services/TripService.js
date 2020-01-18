@@ -7,11 +7,14 @@ const _repository = mongoose.model("Trip", Trip);
 class TripService {
   // #region -- SECTION TRIPS --
   async getAll(userId) {
-    return await _repository.find({ authorId: userId });
+    return await _repository.find({ collabs: { $all: [userId] } });
   }
 
   async getByTripId(id, userId) {
-    let data = await _repository.findOne({ _id: id, authorId: userId });
+    let data = await _repository.findOne({
+      _id: id,
+      collabs: { $all: [userId] }
+    });
     if (!data) {
       throw new ApiError("Invalid Id or you do not own this trip", 400);
     }
@@ -22,10 +25,10 @@ class TripService {
     let data = await _repository.create(rawData);
     return data;
   }
-
+  //NOTE Below Function Works
   async edit(id, userId, update) {
     let data = await _repository.findOneAndUpdate(
-      { _id: id, authorId: userId },
+      { _id: id, collabs: { $all: [userId] } },
       update,
       { new: true }
     );
@@ -47,8 +50,9 @@ class TripService {
   // #endregion
 
   // #region -- SECTION DESTINATIONS --
+  //Below function is not being used, thin about removing later
   async getDestinationsByTripId(tripId, userId) {
-    let data = await _repository.find({ tripId: tripId, authorId: userId });
+    let data = await _repository.find({ _id: tripId, authorId: userId });
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
@@ -57,7 +61,7 @@ class TripService {
 
   async addDestination(tripId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: tripId },
+      { _id: tripId, collabs: { $all: [rawData.authorId] } },
       { $push: { destinations: rawData } },
       { new: true }
     );
@@ -67,15 +71,16 @@ class TripService {
     return data;
   }
 
-  async editDestination(payload) {
+  async editDestination(payload, destinationId) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "destinations._id": destinationId
+      },
       {
         $set: {
-          destinations: {
-            _id: payload.destinationId,
-            location: payload.location
-          }
+          "destinations.$.location": payload.location
         }
       },
       { new: true }
@@ -88,7 +93,7 @@ class TripService {
 
   async removeDestination(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId },
+      { _id: payload.tripId, collabs: { $all: [payload.userId] } },
       { $pull: { destinations: { _id: payload.destinationId } } },
       { new: true }
     );
@@ -101,7 +106,7 @@ class TripService {
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(tripId, userId) {
     let data = await _repository
-      .find({ _id: tripId, authorId: userId })
+      .find({ _id: tripId, collabs: { $all: [userId] } })
       .populate({
         path: "carpools.occupants",
         populate: { path: "Profile" }
@@ -115,7 +120,7 @@ class TripService {
 
   async addCarpool(tripId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: tripId },
+      { _id: tripId, collabs: { $all: [rawData.authorId] } },
       { $push: { carpools: rawData } },
       { new: true }
     );
@@ -124,22 +129,25 @@ class TripService {
     }
     return data;
   }
-
-  async editCarpool(payload) {
+  //NOTE This always edits the first element carpools array, why???
+  async editCarpool(payload, carpoolId) {
+    console.log(payload);
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "carpools._id": carpoolId
+      },
       {
         $set: {
-          carpools: {
-            _id: payload.carpoolId,
-            name: payload.name,
-            totalSeats: payload.totalSeats,
-            description: payload.description
-          }
+          "carpools.$.name": payload.name,
+          "carpools.$.totalSeats": payload.totalSeats,
+          "carpools.$.description": payload.description
         }
       },
       { new: true }
     );
+    console.log(data);
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
@@ -149,10 +157,14 @@ class TripService {
   //NOTE Below function works
   async addOccupant(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "carpools._id": payload.carpoolId
+      },
       { $push: { "carpools.$.occupants": payload.occupants } },
       { new: true }
-    ); //.populate("carpools","occupants")
+    );
 
     if (!data) {
       throw new ApiError(
@@ -165,7 +177,11 @@ class TripService {
   //NOTE This one also works
   async removeOccupant(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "carpools._id": payload.carpoolId
+      },
       { $pull: { "carpools.$.occupants": { $in: payload.occupants } } },
       { new: true }
     );
@@ -180,8 +196,7 @@ class TripService {
 
   async removeCarpool(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId },
-      // TODO fix me
+      { _id: payload.tripId, collabs: { $all: [payload.userId] } },
       { $pull: { carpools: { _id: payload.carpoolId } } },
       { new: true }
     );
