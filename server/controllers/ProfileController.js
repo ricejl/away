@@ -7,6 +7,7 @@ export default class ProfileController {
     this.router = express
       .Router()
       .use(Authorize.authenticated)
+      .get("", this.getProfileByUserId)
       .get("/:id", this.getByProfileId)
       .post("", this.create)
       .put("/:id", this.edit)
@@ -24,6 +25,14 @@ export default class ProfileController {
         req.session.uid
       );
       return res.send(data);
+    } catch (error) {
+      next(error);
+    }
+  }
+  async getProfileByUserId(req, res, next) {
+    try {
+      let data = await profileService.getProfileByUserId(req.session.uid);
+      res.send(data)
     } catch (error) {
       next(error);
     }

@@ -13,6 +13,16 @@ class ProfileService {
     return data;
   }
 
+  async getProfileByUserId(userId) {
+    let data = await _repository.findOne({ authorId: userId });
+    if (!data) {
+      //NOTE  check if this is safe
+      // throw new ApiError("You do not own this profile or profile doesn't exist", 400)
+      return { name: 'First Last' }
+    }
+    return data;
+  }
+
   async create(rawData) {
     let data = await _repository.create(rawData);
     return data;
