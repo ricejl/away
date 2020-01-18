@@ -8,7 +8,7 @@
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
         <button id="profile-btn" v-if="!profile._id" @click="createProfile">Complete Profile</button>
-        <i class="fas fa-user fa-8x"></i>
+        <img class="profile-img" :src="profile.imgURL" alt />
       </div>
     </div>
     <div class="row">
@@ -21,20 +21,20 @@
     <div class="row pb-3">
       <div class="col-6">
         <h5>My Trips</h5>
-        <p>
-          Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem
-          provident unde nam aspernatur illo!
-        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item list-group-item-action">Trip One</li>
+          <li class="list-group-item list-group-item-action">Trip Two</li>
+          <li class="list-group-item list-group-item-action">Trip Three</li>
+        </ul>
       </div>
 
       <div class="col-6 vertical-line">
         <h5>Interests</h5>
-        <p>
-          Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ratione quas
-          quam provident ullam, aut sed velit facere molestias voluptate
-          corrupti deleniti ex? Ipsam, aperiam cum! Praesentium quaerat quos ab
-          vel!
-        </p>
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Interest One</li>
+          <li class="list-group-item">Interest Two</li>
+          <li class="list-group-item">Interest Three</li>
+        </ul>
       </div>
     </div>
   </div>
@@ -99,5 +99,9 @@ hr {
   position: absolute;
   top: 5%;
   right: 2%;
+}
+
+.profile-img {
+  max-width: 12em;
 }
 </style>
