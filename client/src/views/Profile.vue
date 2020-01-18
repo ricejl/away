@@ -31,9 +31,11 @@
       <div class="col-6">
         <h5>My Trips</h5>
         <ul class="list-group list-group-flush">
-          <li class="list-group-item list-group-item-action">Trip One</li>
-          <li class="list-group-item list-group-item-action">Trip Two</li>
-          <li class="list-group-item list-group-item-action">Trip Three</li>
+          <li
+            v-for="trip in trips"
+            :key="trip.id"
+            class="list-group-item list-group-item-action"
+          >{{trip.title}}</li>
         </ul>
       </div>
 
@@ -58,6 +60,7 @@ export default {
   name: "Profile",
   mounted() {
     this.$store.dispatch("getProfileByUserId");
+    this.$store.dispatch("getAllTrips");
   },
   components: { Navbar },
   methods: {
@@ -69,19 +72,14 @@ export default {
         this.$store.dispatch("createProfile", profileData);
         // reset data fields to blank
       }
-    },
-    profileExists() {
-      if (profile._id) {
-        return true;
-      } else {
-        return false;
-      }
     }
   },
   computed: {
     profile() {
-      // FIXME profile disappears from page and store on refresh
       return this.$store.state.profile;
+    },
+    trips() {
+      return this.$store.state.trips;
     }
   }
 };
