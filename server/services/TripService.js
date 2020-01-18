@@ -157,7 +157,11 @@ class TripService {
   //NOTE Below function works
   async addOccupant(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "carpools._id": payload.carpoolId
+      },
       { $push: { "carpools.$.occupants": payload.occupants } },
       { new: true }
     );
@@ -173,7 +177,11 @@ class TripService {
   //NOTE This one also works
   async removeOccupant(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId, "carpools._id": payload.carpoolId },
+      {
+        _id: payload.tripId,
+        collabs: { $all: [payload.userId] },
+        "carpools._id": payload.carpoolId
+      },
       { $pull: { "carpools.$.occupants": { $in: payload.occupants } } },
       { new: true }
     );
