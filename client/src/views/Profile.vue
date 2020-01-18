@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
-        <button id="profile-btn" @click="createProfile">
+        <button id="profile-btn" v-if="!profileExists" @click="createProfile">
           Complete Profile
         </button>
         <i class="fas fa-user fa-8x"></i>
@@ -49,7 +49,9 @@ import NotificationService from "../NotifcationService.js";
 
 export default {
   name: "Profile",
-  mounted() {},
+  mounted() {
+    this.$store.dispatch("getProfile", profile);
+  },
   components: { Navbar },
   methods: {
     async createProfile() {
@@ -60,10 +62,17 @@ export default {
         this.$store.dispatch("createProfile", profileData);
         // reset data fields to blank
       }
+    },
+    profileExists() {
+      if (profile._id) {
+        return true;
+        // FIXME keep working
+      }
     }
   },
   computed: {
     profile() {
+      // FIXME profile disappears from page and store on refresh
       return this.$store.state.profile;
     }
   }
