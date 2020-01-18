@@ -16,7 +16,9 @@ class ProfileService {
   async getProfileByUserId(userId) {
     let data = await _repository.findOne({ authorId: userId });
     if (!data) {
-      throw new ApiError("Invalid ID or you do not own this profile or profile doesn't exist", 400)
+      //NOTE  check if this is safe
+      // throw new ApiError("You do not own this profile or profile doesn't exist", 400)
+      return { name: 'First Last' }
     }
     return data;
   }
