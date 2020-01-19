@@ -12,10 +12,15 @@
           v-if="!profile._id"
           @click="createProfile"
           class="btn btn-secondary"
-        >Complete Profile</button>
+        >
+          Complete Profile
+        </button>
         <img
           class="profile-img"
-          :src="profile.imgURL || 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'"
+          :src="
+            profile.imgURL ||
+              'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'
+          "
           alt
         />
       </div>
@@ -35,7 +40,9 @@
             v-for="trip in trips"
             :key="trip.id"
             class="list-group-item list-group-item-action"
-          >{{trip.title}}</li>
+          >
+            {{ trip.title }}
+          </li>
         </ul>
       </div>
 
@@ -84,7 +91,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 .img-row-ht {
   min-height: 35vh;
 }
