@@ -6,22 +6,8 @@
       </div>
     </div>
     <div class="row pt-2">
-      <div class="col-12">
-        <img
-          class="profile-img"
-          :src="profile.imgURL || 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'"
-          alt
-        />
-        <button class="btn change-img-btn ml-2">Change Picture</button>
-      </div>
-    </div>
-    <div class="row pt-2">
       <div class="col-12 col-md-6 mx-auto">
         <form class="account-form text-left mb-1">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="name" class="form-control" placeholder="Email" />
-          </div>
           <div class="form-group">
             <label>Email</label>
             <input type="email" class="form-control" placeholder="Password" />
