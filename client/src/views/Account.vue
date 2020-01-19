@@ -17,7 +17,7 @@
     </div>
     <div class="row pt-2">
       <div class="col-12 col-md-6 mx-auto">
-        <form class="account-form text-left">
+        <form class="account-form text-left mb-1">
           <div class="form-group">
             <label>Name</label>
             <input type="name" class="form-control" placeholder="Email" />
@@ -38,6 +38,15 @@
             <button>Submit</button>
           </div>
         </form>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <img
+          class="compass-img animated rotateIn"
+          src="http://www.pngall.com/wp-content/uploads/2017/03/Compass-Transparent.png"
+          alt
+        />
       </div>
     </div>
   </div>
@@ -78,7 +87,7 @@ export default {
   font-family: "Montserrat", sans-serif;
 }
 .profile-img {
-  width: 5em;
+  max-width: 5em;
 }
 
 .change-img-btn {
@@ -103,5 +112,10 @@ label {
   color: white;
   font-size: 1em;
   padding: 0.45em 1em;
+}
+
+.compass-img {
+  max-width: 10em;
+  animation-iteration-count: 3;
 }
 </style>
