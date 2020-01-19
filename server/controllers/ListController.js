@@ -34,7 +34,6 @@ export default class ListController {
         listId: req.params.listId,
         userId: req.session.uid,
         itemId: req.params.id
-        // NOTE make sure to send ItemId from front end
       });
       return res.send("Deletion Successful");
     } catch (error) {
