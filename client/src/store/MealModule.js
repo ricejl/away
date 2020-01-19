@@ -29,7 +29,7 @@ export default {
       commit("setResource", { resource: "meals", data: res.data });
     },
     async addFoodItem({ commit, dispatch }, { mealId, foodItem }) {
-      let res = await api.post("meals/" + mealId + "/foodItems");
+      let res = await api.post("meals/" + mealId + "/foodItems", foodItem);
       commit("setResource", { resource: "meals", data: res.data });
     },
     async removeFoodItem({ commit, dispatch }, { mealId, foodItemId }) {

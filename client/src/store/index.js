@@ -39,7 +39,8 @@ export default new Vuex.Store({
     profile: {},
     trips: [],
     activeTrip: {},
-    meals: []
+    meals: [],
+    lists: []
   },
   mutations: {
     setUser(state, user) {
