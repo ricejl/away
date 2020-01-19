@@ -24,7 +24,7 @@
     <div class="row">
       <div class="col-12 pt-4">
         <h3>{{ profile.name }}</h3>
-        <p>"Live, Laugh, Love Suckaaaaaas"</p>
+        <p>"Live, Laugh, Love"</p>
       </div>
     </div>
     <hr />
