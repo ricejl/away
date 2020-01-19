@@ -22,14 +22,18 @@ export default {
     },
     async removeDestination({ commit, dispatch }, { tripId, destinationId }) {
       let res = await api.delete(
-        "trips/" + tripId + "/destinations",
-        destinationId
+        "trips/" + tripId + "/destinations/" + destinationId
       );
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
-    //NOTE Be sure update contains destinationId as _id
-    async editDestination({ commit, dispatch }, { tripId, update }) {
-      let res = await api.put("trips/" + tripId + "/destinations", update);
+    async editDestination(
+      { commit, dispatch },
+      { tripId, destinationId, update }
+    ) {
+      let res = await api.put(
+        "trips/" + tripId + "/destinations/" + destinationId,
+        update
+      );
       commit("setResource", { resource: "activeTrip", data: res.data });
     }
   }

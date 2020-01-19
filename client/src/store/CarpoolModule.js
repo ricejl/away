@@ -11,5 +11,37 @@ let api = Axios.create({
 });
 
 export default {
-  actions: {}
+  actions: {
+    async addCarpool({ commit, dispatch }, { tripId, carpool }) {
+      let res = await api.post("trips/" + tripId + "/carpools", carpool);
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    },
+    async editCarpool({ commit, dispatch }, { tripId, update }) {
+      let res = await api.put("trips/" + tripId + "/carpools", update);
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    },
+    async removeCarpool({ commit, dispatch }, { tripId, carpoolId }) {
+      let res = await api.delete("trips/" + tripId + "/carpools/" + carpoolId);
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    },
+
+    async addOccupant({ commit, dispatch }, { tripId, carpoolId, occupant }) {
+      let res = await api.post(
+        "trips/" + tripId + "/carpools/" + carpoolId + "/occupants",
+        occupant
+      );
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    },
+
+    async removeOccupant(
+      { commit, dispatch },
+      { tripId, carpoolId, occupantToRemove }
+    ) {
+      let res = await api.put(
+        "trips/" + tripId + "/carpools/" + carpoolId,
+        occupantToRemove
+      );
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    }
+  }
 };
