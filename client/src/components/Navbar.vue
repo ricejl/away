@@ -17,17 +17,19 @@
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ml-auto">
-        <router-link :to="{name: 'profile'}">
-          <li v-if="this.$route.name != 'profile'" class="nav-item">
-            <a class="nav-link" href="#">
-              Profile
-              <span class="sr-only">(current)</span>
-            </a>
+        <router-link :to="{name: 'dashboard'}">
+          <li :class="{active: this.$route.name == 'dashboard'}" class="nav-item">
+            <a class="nav-link">My Trips</a>
           </li>
         </router-link>
-        <router-link :to="{name: 'dashboard'}">
-          <li v-if="this.$route.name != 'dashboard'" class="nav-item">
-            <a class="nav-link">My Trips</a>
+        <router-link :to="{name: 'profile'}">
+          <li :class="{active: this.$route.name == 'profile'}" class="nav-item">
+            <a class="nav-link" href="#">Profile</a>
+          </li>
+        </router-link>
+        <router-link :to="{name: 'account'}">
+          <li :class="{active: this.$route.name == 'account'}" class="nav-item">
+            <a class="nav-link">Account</a>
           </li>
         </router-link>
         <li class="nav-item">

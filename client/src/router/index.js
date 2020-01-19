@@ -5,6 +5,7 @@ import Login from "../views/Login.vue";
 import Dashboard from "../views/Dashboard.vue";
 import Trip from "../views/Trip.vue";
 import Profile from "../views/Profile.vue";
+import Account from "../views/Account.vue";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/profile",
     name: "profile",
     component: Profile
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: Account
   },
   {
     path: "/dashboard",
