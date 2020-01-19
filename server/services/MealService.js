@@ -24,7 +24,7 @@ class MealService {
   }
   async addFoodItem(mealId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: mealId, collabs: { $all: [rawData.authorId] } },
+      { _id: mealId, collabs: { $all: [rawData.userId] } },
       { $push: { foodItems: rawData } },
       { new: true }
     );

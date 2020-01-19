@@ -15,13 +15,16 @@ export default {
     async createProfile({ commit, dispatch }, profile) {
       let res = await api.post("profiles", profile);
       console.log("store create pofile res.data: ", res.data);
-
-      commit("setProfile", res.data);
+      commit("setResource", { resource: "profile", data: res.data });
     },
 
     async getProfileByUserId({ commit, dispatch }) {
       let res = await api.get("profiles");
-      commit("setProfile", res.data);
+      commit("setResource", { resource: "profile", data: res.data });
+    },
+    async editProfile({ commit, dispatch }, { profileId, update }) {
+      let res = await api.put("profiles/" + profileId, update);
+      commit("setResource", { resource: "profile", data: res.data });
     }
   }
 };

@@ -20,12 +20,12 @@ export default class TripController {
       .post("/:id/carpools", this.addCarpool)
       .post("/:tripId/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
-      .put("/:id/destinations", this.editDestination)
+      .put("/:tripId/destinations/:id", this.editDestination)
       .put("/:id/carpools", this.editCarpool)
       .put("/:tripId/carpools/:id", this.removeOccupant)
       .delete("/:id", this.delete)
-      .delete("/:id/destinations", this.removeDestination)
-      .delete("/:id/carpools", this.removeCarpool);
+      .delete("/:tripId/destinations/:id", this.removeDestination)
+      .delete("/:tripId/carpools/:id", this.removeCarpool);
   }
 
   defaultRoute(req, res, next) {
@@ -136,12 +136,12 @@ export default class TripController {
     try {
       let data = await tripService.editDestination(
         {
-          tripId: req.params.id,
+          tripId: req.params.tripId,
           userId: req.session.uid,
-          destinationId: req.body._id,
+          destinationId: req.params.id,
           location: req.body.location
         },
-        req.body._id
+        req.params.id
       );
       return res.send(data);
     } catch (error) {
@@ -152,10 +152,9 @@ export default class TripController {
   async removeDestination(req, res, next) {
     try {
       let data = await tripService.removeDestination({
-        tripId: req.params.id,
+        tripId: req.params.tripId,
         userId: req.session.uid,
-        destinationId: req.body._id
-        //NOTE Be Sure Destination Id is sent with Front End Reqs
+        destinationId: req.params.id
       });
       return res.send("Deletion Successful");
     } catch (error) {
@@ -234,10 +233,9 @@ export default class TripController {
   async removeCarpool(req, res, next) {
     try {
       let data = await tripService.removeCarpool({
-        tripId: req.params.id,
+        tripId: req.params.tripId,
         userId: req.session.uid,
-        carpoolId: req.body.carpoolId
-        //NOTE Be Sure Carpool Id is sent with Front End Reqs
+        carpoolId: req.params.id
       });
       return res.send("Deletion Successful");
     } catch (error) {
