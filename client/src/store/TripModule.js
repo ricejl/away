@@ -14,16 +14,16 @@ export default {
   actions: {
     async getAllTrips({ commit, dispatch }) {
       let res = await api.get("trips");
-      commit("setAllTrips", res.data);
+      commit("setResource", { resource: "trips", data: res.data });
     },
     async createTrip({ commit, dispatch }, trip) {
       let res = await api.post("trips", trip);
-      commit("addTrip", res.data);
+      dispatch("getAllTrips");
     },
 
     async getTripById({ commit, dispatch }, tripId) {
       let res = await api.get("trips/" + tripId);
-      commit("setActiveTrip", res.data);
+      commit("setResource", { resource: "activeTrip", data: res.data });
     }
   }
 };

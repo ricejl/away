@@ -18,7 +18,15 @@ export default {
         destination
       );
       console.log("res.data in store add destination" + res.data);
-      commit("setActiveTrip", res.data);
+      commit("setResource", { resource: "activeTrips", data: res.data });
+    },
+    //NOTE With delete dispatch, send array with tripId at [0] and destinationId at [1]
+    async removeDestination({ commit, dispatch }, idArray) {
+      let res = await api.delete(
+        "trips/" + idArray[0] + "/destinations",
+        idArray[1]
+      );
+      commit("setResource", { resource: "activeTrips", data: res.data });
     }
   }
 };

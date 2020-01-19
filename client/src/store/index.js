@@ -44,18 +44,21 @@ export default new Vuex.Store({
     setUser(state, user) {
       state.user = user;
     },
-    setProfile(state, profile) {
-      state.profile = profile;
+    setResource(state, payload) {
+      state[payload.resource] = payload.data;
     },
-    setAllTrips(state, trips) {
-      state.trips = trips;
-    },
-    addTrip(state, trip) {
-      state.trips.push(trip);
-    },
-    setActiveTrip(state, trip) {
-      state.activeTrip = trip;
-    },
+    // setProfile(state, profile) {
+    //   state.profile = profile;
+    // },
+    // setAllTrips(state, trips) {
+    //   state.trips = trips;
+    // },
+    // addTrip(state, trip) {
+    //   state.trips.push(trip);
+    // },
+    // setActiveTrip(state, trip) {
+    //   state.activeTrip = trip;
+    // },
     resetState(state) {
       (state.user = {}), (state.trips = []);
     }
