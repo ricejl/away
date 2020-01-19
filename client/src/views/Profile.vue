@@ -8,11 +8,12 @@
     <div class="row">
       <div class="col-12 img-row-ht p-5 bg-green">
         <button
-          id="profile-btn"
+          id="create-profile-btn"
           v-if="!profile._id"
           @click="createProfile"
-          class="btn btn-secondary"
-        >Complete Profile</button>
+          class="btn"
+        >Create Profile</button>
+        <button v-else id="edit-profile-btn" class="btn">Edit Profile</button>
         <img
           class="profile-img"
           :src="profile.imgURL || 'https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png'"
@@ -23,7 +24,7 @@
     <div class="row">
       <div class="col-12 pt-4">
         <h3>{{ profile.name }}</h3>
-        <p>"Live, Laugh, Love"</p>
+        <p>"Live, Laugh, Love Suckaaaaaas"</p>
       </div>
     </div>
     <hr />
@@ -101,7 +102,12 @@ hr {
   border-color: rgba(255, 162, 75, 0.6);
 }
 
-#profile-btn {
+#create-profile-btn,
+#edit-profile-btn {
+  background-color: rgba(4, 4, 4, 0.5);
+  border: 1px solid #ffa24b;
+  color: white;
+  letter-spacing: 2px;
   position: absolute;
   top: 5%;
   right: 2%;

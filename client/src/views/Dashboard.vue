@@ -64,7 +64,7 @@ export default {
         this.newTrip = { title: "" };
       } else {
         await NotificationService.errorMessage(
-          "You must have a profile to create a trip"
+          "You must create a profile to create a trip"
         );
       }
     }
