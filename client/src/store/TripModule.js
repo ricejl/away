@@ -17,7 +17,7 @@ export default {
       commit("setResource", { resource: "trips", data: res.data });
     },
     async createTrip({ commit, dispatch }, trip) {
-      let res = await api.post("trips", trip);
+      await api.post("trips", trip);
       dispatch("getAllTrips");
     },
 

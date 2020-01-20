@@ -13,7 +13,7 @@
           @click="createProfile"
           class="btn"
         >Create Profile</button>
-        <button v-else id="edit-profile-btn" class="btn">Edit Profile</button>
+        <button v-else id="edit-profile-btn" @click="editProfile(profile)" class="btn">Edit Profile</button>
         <img
           class="profile-img"
           :src="
@@ -39,9 +39,7 @@
             v-for="trip in trips"
             :key="trip.id"
             class="list-group-item list-group-item-action"
-          >
-            {{ trip.title }}
-          </li>
+          >{{ trip.title }}</li>
         </ul>
       </div>
 
@@ -70,12 +68,19 @@ export default {
   components: { Navbar },
   methods: {
     async createProfile() {
-      let profileData = await NotificationService.inputData("Profile");
+      let profileData = await NotificationService.inputData("Profile", {});
       if (profileData) {
-        console.log("Sweetalert data:", profileData);
-
         this.$store.dispatch("createProfile", profileData);
-        // reset data fields to blank
+      }
+    },
+    async editProfile(profile) {
+      let profileData = await NotificationService.inputData("Profile", profile);
+      if (profileData) {
+        console.log("sweetalert edit profile:", profileData);
+        this.$store.dispatch("editProfile", {
+          profileId: profile._id,
+          update: profileData
+        });
       }
     }
   },
