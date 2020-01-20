@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-12 pt-4">
         <h3>{{ profile.name }}</h3>
-        <p>"Live, Laugh, Love"</p>
+        <p>"{{profile.description || "Live, Laugh, Love"}}"</p>
       </div>
     </div>
     <hr />
@@ -105,19 +105,15 @@ a {
 .img-row-ht {
   min-height: 35vh;
 }
-
 .bg-green {
   background: rgba(40, 46, 36, 0.2);
 }
-
 .vertical-line {
   border-left: 1.5px solid rgba(255, 162, 75, 0.5);
 }
-
 hr {
   border-color: rgba(255, 162, 75, 0.6);
 }
-
 #create-profile-btn,
 #edit-profile-btn {
   background-color: rgba(4, 4, 4, 0.5);
@@ -128,7 +124,6 @@ hr {
   top: 5%;
   right: 2%;
 }
-
 .profile-img {
   max-width: 12em;
 }

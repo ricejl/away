@@ -7,6 +7,7 @@ const Profile = new Schema(
     name: { type: String, required: true },
     username: { type: String, required: true },
     email: { type: String, required: true },
+    description: { type: String },
     imgURL: { type: String },
     authorId: { type: ObjectId, ref: "User", required: true }
   },

@@ -1,3 +1,8 @@
 body::-webkit-scrollbar {
   display: none;
 }
+
+.profile-form .swal2-input {
+  height: 2em;
+  margin: 0.7em auto 0.9em;
+}
