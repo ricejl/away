@@ -37,4 +37,3 @@ init();
 // console.log("currentRoute from main.js:", router.currentRoute);
 
 store.dispatch("initalizeSocket");
-
