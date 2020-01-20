@@ -4,6 +4,17 @@ import App from "./App.vue";
 import "./registerServiceWorker";
 import router from "./router";
 import store from "./store";
+import * as VueGoogleMaps from "vue2-google-maps";
+require("dotenv").config();
+
+// console.log("api key from main.js ", process.env.VUE_APP_GOOGLE_MAPS_API_KEY);
+
+Vue.use(VueGoogleMaps, {
+  load: {
+    key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+    libraries: "places" // necessary for places input
+  }
+});
 
 import AuthService from "./AuthService";
 
