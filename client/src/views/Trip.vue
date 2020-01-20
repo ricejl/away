@@ -7,7 +7,7 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-10 mx-auto pt-3">
-        <h3 class="text-white">{{trip.title}}</h3>
+        <h3 class="text-white">{{ trip.title }}</h3>
       </div>
       <div class="col-12 col-lg-10 mx-auto">
         <Destination :tripData="trip"></Destination>

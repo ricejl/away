@@ -1,30 +1,41 @@
 <template>
   <div class="card-container top-card">
-    <div class="w-100" @click="dropdown=!dropdown">
+    <div class="w-100" @click="dropdown = !dropdown">
       <br />
       <!-- FIXME  old destination flashes on new trip view-->
-      <h4
-        v-if="trip.destinations && trip.destinations.length"
-        class="mb-0"
-      >{{trip.destinations[0].location}}</h4>
+      <div v-if="trip.destinations && trip.destinations.length" class="mb-0">
+        <h4>{{ trip.destinations[0].location }}</h4>
+      </div>
       <h4 v-else class="mb-0">Destination</h4>
       <br />
       <div class="arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
       </div>
       <div v-else class="arrow">
-        <i class="fas fa-angle-double-up"></i>
+        <i class="fas fa-angle-double-up" @click="dropdown = !dropdown"></i>
       </div>
     </div>
     <!-- <transition name="slide"> -->
     <div v-if="dropdown" class="dropdown w-100">
-      <div
-        @click="dropdown=!dropdown"
-        v-for="destination in tripData.destinations"
-        :key="destination._id"
-      >{{destination.location}}</div>
+      <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
+        <gmap-marker
+          :key="index"
+          v-for="(m, index) in markers"
+          :position="m.position"
+          @click="center = m.position"
+        ></gmap-marker>
+      </gmap-map>
+      <div v-for="destination in tripData.destinations" :key="destination._id">
+        <br />
+        <h5>{{ destination.location }}</h5>
+        <!-- <google-map /> -->
+      </div>
       <form @submit.prevent="addDestination(tripData._id)" class="p-3">
-        <input type="text" v-model="newDestination.location" placeholder="Enter location..." />
+        <input
+          type="text"
+          v-model="newDestination.location"
+          placeholder="Enter location..."
+        />
         <button type="submit">Add</button>
       </form>
     </div>
@@ -33,6 +44,11 @@
 </template>
 
 <script>
+import GoogleMap from "./GoogleMap";
+import mongoose from "mongoose";
+
+//" /components/GoogleMap";
+
 export default {
   name: "Destination",
   mounted() {
@@ -44,7 +60,11 @@ export default {
       newDestination: {
         location: ""
       },
-      dropdown: false
+      dropdown: false,
+      center: { lat: 45.508, lng: -73.587 },
+      markers: [],
+      places: [],
+      currentPlace: null
     };
   },
   methods: {
@@ -61,6 +81,9 @@ export default {
     trip() {
       return this.$store.state.activeTrip;
     }
+  },
+  components: {
+    GoogleMap
   }
 };
 </script>
