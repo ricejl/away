@@ -5,7 +5,7 @@ import router from "../router/index";
 import Axios from "axios";
 import tripModule from "./TripModule";
 import listModule from "./ListModule";
-//import socketModule from "./SocketModule";
+import socketModule from "./SocketModule";
 import carpoolModule from "./CarpoolModule";
 import mealModule from "./MealModule";
 import destinationModule from "./DestinationModule";
@@ -28,7 +28,7 @@ export default new Vuex.Store({
   modules: {
     tripModule,
     listModule,
-    //socketModule,
+    socketModule,
     carpoolModule,
     mealModule,
     destinationModule,

@@ -2,7 +2,6 @@
   <div class="card-container top-card">
     <div class="w-100" @click="dropdown=!dropdown">
       <br />
-      <!-- FIXME  old destination flashes on new trip view-->
       <h4
         v-if="trip.destinations && trip.destinations.length"
         class="mb-0"
@@ -16,7 +15,6 @@
         <i class="fas fa-angle-double-up"></i>
       </div>
     </div>
-    <!-- <transition name="slide"> -->
     <div v-if="dropdown" class="dropdown w-100">
       <div
         @click="dropdown=!dropdown"
@@ -28,7 +26,6 @@
         <button type="submit">Add</button>
       </form>
     </div>
-    <!-- </transition> -->
   </div>
 </template>
 
@@ -49,7 +46,6 @@ export default {
   },
   methods: {
     addDestination(tripId) {
-      console.log(tripId);
       let destination = { ...this.newDestination };
       this.$store.dispatch("addDestination", { tripId, destination });
       this.newDestination = {
@@ -66,14 +62,7 @@ export default {
 </script>
 
 <style scoped>
-/* .slide-enter-active {
-  transition: all 0.5s ease;
-}
-.slide-leave-active {
-  transition: all 0.5s ease;
-} */
 .dropdown {
-  /* transform: translateX(-100%); */
   transition: transform 1s ease-in-out;
 }
 .dropdown > div {

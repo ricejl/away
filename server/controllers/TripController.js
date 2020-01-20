@@ -3,6 +3,8 @@ import { Authorize } from "../middleware/authorize";
 import tripService from "../services/TripService";
 import mealService from "../services/MealService";
 import listService from "../services/ListService";
+import socket from '../socket/SocketService'
+
 
 export default class TripController {
   constructor() {
@@ -126,6 +128,8 @@ export default class TripController {
     try {
       req.body.authorId = req.session.uid;
       let data = await tripService.addDestination(req.params.id, req.body);
+      console.log("TRIPCONTROLLER ADDDESTINATION DATA: ", data);
+      socket.notifyaddDestination(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
