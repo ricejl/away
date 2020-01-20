@@ -18,23 +18,24 @@ export default {
     },
     async addList({ commit, dispatch }, list) {
       let res = await api.post("lists", list);
-      commit("setResource", { resource: "lists", data: res.data });
+      dispatch("getListsByTripId", list.tripId);
     },
+    //NOTE Double check update contains tripId
     async editList({ commit, dispatch }, { listId, update }) {
       let res = await api.put("lists/" + listId, update);
-      commit("setResource", { resource: "lists", data: res.data });
+      dispatch("getListsByTripId", update.tripId);
     },
-    async removeList({ commit, dispatch }, listId) {
+    async removeList({ commit, dispatch }, { listId, tripId }) {
       let res = await api.delete("lists/" + listId);
-      commit("setResource", { resource: "lists", data: res.data });
+      dispatch("getListsByTripId", tripId);
     },
-    async addListItem({ commit, dispatch }, { listId, listItem }) {
+    async addListItem({ commit, dispatch }, { listId, listItem, tripId }) {
       let res = await api.post("lists/" + listId + "/items", listItem);
-      commit("setResource", { resource: "lists", data: res.data });
+      dispatch("getListsByTripId", tripId);
     },
-    async removeListItem({ commit, dispatch }, { listId, listItemId }) {
+    async removeListItem({ commit, dispatch }, { listId, listItemId, tripId }) {
       let res = await api.delete("lists/" + listId + "/items/" + listItemId);
-      commit("setResource", { resource: "lists", data: res.data });
+      dispatch("getListsByTripId", tripId);
     }
   }
 };

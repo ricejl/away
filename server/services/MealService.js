@@ -16,7 +16,6 @@ class MealService {
       );
     }
     return data;
-    //NOTE  Left AuthoerId off req do facilitate collaboraters?
   }
   async createMeal(rawData) {
     let data = await _repository.create(rawData);

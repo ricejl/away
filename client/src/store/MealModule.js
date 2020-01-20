@@ -18,25 +18,25 @@ export default {
     },
     async addMeal({ commit, dispatch }, meal) {
       let res = await api.post("meals/", meal);
-      commit("setResource", { resource: "meals", data: res.data });
+      dispatch("getMealsByTripId", meal.tripId);
     },
     async editMeal({ commit, dispatch }, { mealId, update }) {
       let res = await api.put("meals/" + mealId, update);
-      commit("setResource", { resource: "meals", data: res.data });
+      dispatch("getMealsByTripId", update.tripId);
     },
-    async removeMeal({ commit, dispatch }, mealId) {
+    async removeMeal({ commit, dispatch }, { mealId, tripId }) {
       let res = await api.delete("meals/" + mealId);
-      commit("setResource", { resource: "meals", data: res.data });
+      dispatch("getMealsByTripId", tripId);
     },
-    async addFoodItem({ commit, dispatch }, { mealId, foodItem }) {
+    async addFoodItem({ commit, dispatch }, { mealId, foodItem, tripId }) {
       let res = await api.post("meals/" + mealId + "/foodItems", foodItem);
-      commit("setResource", { resource: "meals", data: res.data });
+      dispatch("getMealsByTripId", tripId);
     },
-    async removeFoodItem({ commit, dispatch }, { mealId, foodItemId }) {
+    async removeFoodItem({ commit, dispatch }, { mealId, foodItemId, tripId }) {
       let res = await api.delete(
         "meals/" + mealId + "/foodItems/" + foodItemId
       );
-      commit("setResource", { resource: "meals", data: res.data });
+      dispatch("getMealsByTripId", tripId);
     }
   }
 };

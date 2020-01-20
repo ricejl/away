@@ -28,8 +28,7 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <img class="compass-img" src="..\assets\compass.png" />
-        <!-- <img src="http://www.pngall.com/wp-content/uploads/2017/03/Compass-Transparent.png"> -->
+        <img class="compass-img" src />
       </div>
     </div>
   </div>
