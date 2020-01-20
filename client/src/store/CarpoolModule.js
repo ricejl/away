@@ -12,6 +12,10 @@ let api = Axios.create({
 
 export default {
   actions: {
+    async getCarpoolsByTripId({ commit, dispatch }, tripId) {
+      let res = await api.get("trips/" + tripId + "/carpools");
+      commit("setResource", { resource: "activeTrip", data: res.data });
+    },
     async addCarpool({ commit, dispatch }, { tripId, carpool }) {
       let res = await api.post("trips/" + tripId + "/carpools", carpool);
       commit("setResource", { resource: "activeTrip", data: res.data });
