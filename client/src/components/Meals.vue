@@ -8,17 +8,27 @@
         <i class="fas fa-angle-double-down"></i>
       </div>
       <div v-else class="arrow">
-        <i class="fas fa-angle-double-up"></i>
+        <i @click="dropdown = !dropdown" class="fas fa-angle-double-up"></i>
       </div>
     </div>
-    <div v-if="dropdown" class="dropdown w-100">
-      <div @click="dropdown=!dropdown" v-for="meal in meals" :key="meal._id">{{meal.title}}</div>
+    <ul v-if="dropdown" class="text-left dropdown w-100">
+      <li v-for="meal in meals" :key="meal._id">
+        <h3>{{meal.title}}</h3>
+        <ul>
+          <li v-for="foodItem in meal.foodItems" :key="foodItem._id">{{foodItem.foodName}}</li>
+        </ul>
+        <form type="text" @submit.prevent="addFoodItem(meal._id)">
+          <input type="text" v-model="newFoodItem.foodName" />
+          <input type="text" v-model="newFoodItem.detalis" />
+          <button type="submit">Add Item</button>
+        </form>
+      </li>
       <form @submit.prevent="addMeal" class="p-3">
         <input type="text" v-model="newMeal.title" placeholder="Enter Meal Title..." />
         <input type="text" v-model="newMeal.details" placeholder="Any details for your meal?" />
         <button type="submit">Add Meal</button>
       </form>
-    </div>
+    </ul>
   </div>
 </template>
 
@@ -27,7 +37,8 @@ export default {
   name: "Meals",
   props: ["tripData"],
   mounted() {
-    console.log(this.$route.params.tripId);
+    this.$store.dispatch("getProfileByUserId");
+    console.log(this.$store.state.profile);
     this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
   },
 
@@ -39,18 +50,34 @@ export default {
         details: "",
         foodItems: [],
         tripId: this.$route.params.tripId
+      },
+      newFoodItem: {
+        profileId: this.$store.state.profile._id,
+        foodName: "",
+        details: ""
       }
     };
   },
   methods: {
     addMeal() {
       let meal = { ...this.newMeal };
+      console.log(this.$store.state.profile);
       this.$store.dispatch("addMeal", meal);
       this.newMeal = {
         title: "",
         details: "",
         foodItems: [],
         tripId: this.$route.params.tripId
+      };
+    },
+    addFoodItem(mealId) {
+      let foodItem = { ...this.newFoodItem };
+      let tripId = this.$route.params.tripId;
+      this.$store.dispatch("addFoodItem", { mealId, foodItem, tripId });
+      this.newFoodItem = {
+        profileId: this.$store.state.profile._id,
+        foodName: "",
+        details: ""
       };
     }
   },
