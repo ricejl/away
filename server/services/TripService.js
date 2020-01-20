@@ -106,7 +106,7 @@ class TripService {
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(tripId, userId) {
     let data = await _repository
-      .find({ _id: tripId, collabs: { $all: [userId] } })
+      .findOne({ _id: tripId, collabs: { $all: [userId] } })
       .populate({
         path: "carpools.occupants",
         populate: { path: "Profile" }
