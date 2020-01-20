@@ -28,11 +28,8 @@
     </div>
     <div class="row">
       <div class="col-12">
-        <img
-          class="compass-img animated rotateIn"
-          src="http://www.pngall.com/wp-content/uploads/2017/03/Compass-Transparent.png"
-          alt
-        />
+        <img class="compass-img" src="..\assets\compass.png" />
+        <!-- <img src="http://www.pngall.com/wp-content/uploads/2017/03/Compass-Transparent.png"> -->
       </div>
     </div>
   </div>
@@ -102,6 +99,26 @@ label {
 
 .compass-img {
   max-width: 10em;
-  animation-iteration-count: 3;
+  -webkit-animation: spin 2s linear;
+  -moz-animation: spin 2s linear;
+  animation: spin 2s linear;
+  animation-delay: 0.3s;
+  animation-iteration-count: 2;
+}
+@-moz-keyframes spin {
+  100% {
+    -moz-transform: rotate(360deg);
+  }
+}
+@-webkit-keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
 }
 </style>
