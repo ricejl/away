@@ -13,7 +13,7 @@
           @click="createProfile"
           class="btn"
         >Create Profile</button>
-        <button v-else id="edit-profile-btn" class="btn">Edit Profile</button>
+        <button v-else id="edit-profile-btn" @click="editProfile(profile)" class="btn">Edit Profile</button>
         <img
           class="profile-img"
           :src="
@@ -27,7 +27,7 @@
     <div class="row">
       <div class="col-12 pt-4">
         <h3>{{ profile.name }}</h3>
-        <p>"Live, Laugh, Love"</p>
+        <p>"{{profile.description || "Live, Laugh, Love"}}"</p>
       </div>
     </div>
     <hr />
@@ -35,13 +35,13 @@
       <div class="col-6">
         <h5>My Trips</h5>
         <ul class="list-group list-group-flush">
-          <li
+          <router-link
             v-for="trip in trips"
             :key="trip.id"
-            class="list-group-item list-group-item-action"
+            :to="{name: 'trip', params: {tripId: trip._id}}"
           >
-            {{ trip.title }}
-          </li>
+            <li class="list-group-item list-group-item-action">{{ trip.title }}</li>
+          </router-link>
         </ul>
       </div>
 
@@ -64,18 +64,26 @@ import NotificationService from "../NotifcationService.js";
 export default {
   name: "Profile",
   mounted() {
+    this.$store.dispatch("resetActiveTrip");
     this.$store.dispatch("getProfileByUserId");
     this.$store.dispatch("getAllTrips");
   },
   components: { Navbar },
   methods: {
     async createProfile() {
-      let profileData = await NotificationService.inputData("Profile");
+      let profileData = await NotificationService.inputData("Profile", {});
       if (profileData) {
-        console.log("Sweetalert data:", profileData);
-
         this.$store.dispatch("createProfile", profileData);
-        // reset data fields to blank
+      }
+    },
+    async editProfile(profile) {
+      let profileData = await NotificationService.inputData("Profile", profile);
+      if (profileData) {
+        console.log("sweetalert edit profile:", profileData);
+        this.$store.dispatch("editProfile", {
+          profileId: profile._id,
+          update: profileData
+        });
       }
     }
   },
@@ -91,22 +99,21 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 .img-row-ht {
   min-height: 35vh;
 }
-
 .bg-green {
   background: rgba(40, 46, 36, 0.2);
 }
-
 .vertical-line {
   border-left: 1.5px solid rgba(255, 162, 75, 0.5);
 }
-
 hr {
   border-color: rgba(255, 162, 75, 0.6);
 }
-
 #create-profile-btn,
 #edit-profile-btn {
   background-color: rgba(4, 4, 4, 0.5);
@@ -117,7 +124,6 @@ hr {
   top: 5%;
   right: 2%;
 }
-
 .profile-img {
   max-width: 12em;
 }
