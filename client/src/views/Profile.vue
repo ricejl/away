@@ -35,11 +35,13 @@
       <div class="col-6">
         <h5>My Trips</h5>
         <ul class="list-group list-group-flush">
-          <li
+          <router-link
             v-for="trip in trips"
             :key="trip.id"
-            class="list-group-item list-group-item-action"
-          >{{ trip.title }}</li>
+            :to="{name: 'trip', params: {tripId: trip._id}}"
+          >
+            <li class="list-group-item list-group-item-action">{{ trip.title }}</li>
+          </router-link>
         </ul>
       </div>
 
@@ -62,6 +64,7 @@ import NotificationService from "../NotifcationService.js";
 export default {
   name: "Profile",
   mounted() {
+    this.$store.dispatch("resetActiveTrip");
     this.$store.dispatch("getProfileByUserId");
     this.$store.dispatch("getAllTrips");
   },
@@ -96,6 +99,9 @@ export default {
 </script>
 
 <style scoped>
+a {
+  text-decoration: none;
+}
 .img-row-ht {
   min-height: 35vh;
 }

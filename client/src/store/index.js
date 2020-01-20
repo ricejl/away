@@ -61,6 +61,9 @@ export default new Vuex.Store({
     // setActiveTrip(state, trip) {
     //   state.activeTrip = trip;
     // },
+    resetActiveTrip(state) {
+      state.activeTrip = {};
+    },
     resetState(state) {
       (state.user = {}), (state.trips = []);
     }

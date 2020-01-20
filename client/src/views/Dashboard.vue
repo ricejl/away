@@ -39,6 +39,7 @@ import NotificationService from "../NotifcationService.js";
 export default {
   name: "Dashboard",
   mounted() {
+    this.$store.dispatch("resetActiveTrip");
     this.$store.dispatch("getAllTrips");
   },
   data() {

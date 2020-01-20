@@ -20,10 +20,12 @@ export default {
       await api.post("trips", trip);
       dispatch("getAllTrips");
     },
-
     async getTripById({ commit, dispatch }, tripId) {
       let res = await api.get("trips/" + tripId);
       commit("setResource", { resource: "activeTrip", data: res.data });
+    },
+    async resetActiveTrip({ commit }) {
+      commit("resetActiveTrip")
     }
   }
 };
