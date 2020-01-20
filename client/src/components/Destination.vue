@@ -2,10 +2,14 @@
   <div class="card-container top-card">
     <div class="w-100" @click="dropdown = !dropdown">
       <br />
-      <!-- FIXME  old destination flashes on new trip view-->
-      <div v-if="trip.destinations && trip.destinations.length" class="mb-0">
-        <h4>{{ trip.destinations[0].location }}</h4>
-      </div>
+
+
+
+      <h4
+        v-if="trip.destinations && trip.destinations.length"
+        class="mb-0"
+      >{{trip.destinations[0].location}}</h4>
+
       <h4 v-else class="mb-0">Destination</h4>
       <br />
       <div class="arrow" v-if="!dropdown">
@@ -15,7 +19,6 @@
         <i class="fas fa-angle-double-up" @click="dropdown = !dropdown"></i>
       </div>
     </div>
-    <!-- <transition name="slide"> -->
     <div v-if="dropdown" class="dropdown w-100">
       <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
         <gmap-marker
@@ -39,7 +42,6 @@
         <button type="submit">Add</button>
       </form>
     </div>
-    <!-- </transition> -->
   </div>
 </template>
 
@@ -69,7 +71,6 @@ export default {
   },
   methods: {
     addDestination(tripId) {
-      console.log(tripId);
       let destination = { ...this.newDestination };
       this.$store.dispatch("addDestination", { tripId, destination });
       this.newDestination = {
@@ -89,14 +90,7 @@ export default {
 </script>
 
 <style scoped>
-/* .slide-enter-active {
-  transition: all 0.5s ease;
-}
-.slide-leave-active {
-  transition: all 0.5s ease;
-} */
 .dropdown {
-  /* transform: translateX(-100%); */
   transition: transform 1s ease-in-out;
 }
 .dropdown > div {

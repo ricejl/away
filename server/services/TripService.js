@@ -50,7 +50,7 @@ class TripService {
   // #endregion
 
   // #region -- SECTION DESTINATIONS --
-  //Below function is not being used, thin about removing later
+  //Below function is not being used, think about removing later
   async getDestinationsByTripId(tripId, userId) {
     let data = await _repository.find({ _id: tripId, authorId: userId });
     if (!data) {
@@ -106,12 +106,11 @@ class TripService {
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(tripId, userId) {
     let data = await _repository
-      .find({ _id: tripId, collabs: { $all: [userId] } })
+      .findOne({ _id: tripId, collabs: { $all: [userId] } })
       .populate({
         path: "carpools.occupants",
         populate: { path: "Profile" }
       });
-    console.log(data);
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
@@ -129,9 +128,8 @@ class TripService {
     }
     return data;
   }
-  //NOTE This always edits the first element carpools array, why???
+  //NOTE This always edits the first element in carpools array, why???
   async editCarpool(payload, carpoolId) {
-    console.log(payload);
     let data = await _repository.findOneAndUpdate(
       {
         _id: payload.tripId,
@@ -156,10 +154,11 @@ class TripService {
 
   //NOTE Below function works
   async addOccupant(payload) {
+    console.log(payload);
     let data = await _repository.findOneAndUpdate(
       {
         _id: payload.tripId,
-        collabs: { $all: [payload.userId] },
+        collabs: { $all: [payload.authorId] },
         "carpools._id": payload.carpoolId
       },
       { $push: { "carpools.$.occupants": payload.occupants } },

@@ -1,16 +1,23 @@
 <template>
-  <div class="card-container" @click="dropdown = !dropdown">
-    <br />
-    <h4 class="mb-0">Meals</h4>
-    <br />
-    <div class="arrow" v-if="!dropdown">
-      <i class="fas fa-angle-double-down"></i>
+  <div class="card-container">
+    <div class="w-100" @click="dropdown = !dropdown">
+      <br />
+      <h4 class="mb-0">Meals</h4>
+      <br />
+      <div class="arrow" v-if="!dropdown">
+        <i class="fas fa-angle-double-down"></i>
+      </div>
+      <div v-else class="arrow">
+        <i class="fas fa-angle-double-up"></i>
+      </div>
     </div>
-    <div v-else class="arrow">
-      <i class="fas fa-angle-double-up"></i>
-    </div>
-    <div v-if="dropdown" class="dropdown">
-      <div>Your meals info here</div>
+    <div v-if="dropdown" class="dropdown w-100">
+      <div @click="dropdown=!dropdown" v-for="meal in meals" :key="meal._id">{{meal.title}}</div>
+      <form @submit.prevent="addMeal" class="p-3">
+        <input type="text" v-model="newMeal.title" placeholder="Enter Meal Title..." />
+        <input type="text" v-model="newMeal.details" placeholder="Any details for your meal?" />
+        <button type="submit">Add Meal</button>
+      </form>
     </div>
   </div>
 </template>
@@ -19,12 +26,39 @@
 export default {
   name: "Meals",
   props: ["tripData"],
+  mounted() {
+    console.log(this.$route.params.tripId);
+    this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
+  },
+
   data() {
     return {
-      dropdown: false
+      dropdown: false,
+      newMeal: {
+        title: "",
+        details: "",
+        foodItems: [],
+        tripId: this.$route.params.tripId
+      }
     };
   },
-  methods: {}
+  methods: {
+    addMeal() {
+      let meal = { ...this.newMeal };
+      this.$store.dispatch("addMeal", meal);
+      this.newMeal = {
+        title: "",
+        details: "",
+        foodItems: [],
+        tripId: this.$route.params.tripId
+      };
+    }
+  },
+  computed: {
+    meals() {
+      return this.$store.state.meals;
+    }
+  }
 };
 </script>
 

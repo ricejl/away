@@ -16,7 +16,6 @@ class MealService {
       );
     }
     return data;
-    //NOTE  Left AuthoerId off req do facilitate collaboraters?
   }
   async createMeal(rawData) {
     let data = await _repository.create(rawData);
@@ -24,7 +23,7 @@ class MealService {
   }
   async addFoodItem(mealId, rawData) {
     let data = await _repository.findOneAndUpdate(
-      { _id: mealId, collabs: { $all: [rawData.authorId] } },
+      { _id: mealId, collabs: { $all: [rawData.userId] } },
       { $push: { foodItems: rawData } },
       { new: true }
     );

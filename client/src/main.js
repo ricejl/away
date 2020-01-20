@@ -35,4 +35,6 @@ async function init() {
 }
 init();
 // console.log("currentRoute from main.js:", router.currentRoute);
-// store.dispatch("initalizeSocket");
+
+store.dispatch("initalizeSocket");
+

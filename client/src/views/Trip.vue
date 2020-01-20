@@ -7,7 +7,11 @@
     </div>
     <div class="row">
       <div class="col-12 col-lg-10 mx-auto pt-3">
-        <h3 class="text-white">{{ trip.title }}</h3>
+
+        <h3 v-if="trip.title" class="text-white">{{trip.title}}</h3>
+        <div v-else class="spinner-border text-light" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       </div>
       <div class="col-12 col-lg-10 mx-auto">
         <Destination :tripData="trip"></Destination>
@@ -43,20 +47,10 @@ export default {
   params: ["tripId"],
   mounted() {
     this.$store.dispatch("getTripById", this.$route.params.tripId);
-    // console.log("tripId from params:", this.$route.params.tripId);
   },
   computed: {
     trip() {
-      return (
-        this.$store.state.activeTrip || {
-          title: "Loading..."
-        }
-        // this.$store.state.trips.find(
-        //   t => t._id == this.$route.params.tripId
-        // ) || {
-        //   title: "Loading..."
-        // }
-      );
+      return this.$store.state.activeTrip;
     }
   },
   components: {

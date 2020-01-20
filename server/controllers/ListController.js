@@ -11,7 +11,7 @@ export default class ListController {
       .post("/:id/items", this.addItem)
       .put("/:id", this.editList)
       .delete("/:id", this.deleteList)
-      .delete("/:id/items", this.removeItem);
+      .delete("/:listId/items/:id", this.removeItem);
   }
 
   defaultRoute(req, res, next) {
@@ -31,10 +31,9 @@ export default class ListController {
   async removeItem(req, res, next) {
     try {
       let data = await listService.removeItem({
-        listId: req.params.id,
+        listId: req.params.listId,
         userId: req.session.uid,
-        itemId: req.body.itemId
-        // NOTE make sure to send ItemId from front end
+        itemId: req.params.id
       });
       return res.send("Deletion Successful");
     } catch (error) {

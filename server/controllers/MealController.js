@@ -11,7 +11,7 @@ export default class MealController {
       .post("/:id/foodItems", this.addFoodItem)
       .put("/:id", this.editMeal)
       .delete("/:id", this.deleteMeal)
-      .delete("/:id/foodItems", this.removeFoodItem);
+      .delete("/:mealId/foodItems/:id", this.removeFoodItem);
   }
 
   defaultRoute(req, res, next) {
@@ -31,10 +31,9 @@ export default class MealController {
   async removeFoodItem(req, res, next) {
     try {
       let data = await mealService.removeFoodItem({
-        mealId: req.params.id,
+        mealId: req.params.mealId,
         userId: req.session.uid,
-        foodItemId: req.body.foodItemId
-        // NOTE make sure to send foodItemId from front end
+        foodItemId: req.params.id
       });
       return res.send("Deletion Successful");
     } catch (error) {
