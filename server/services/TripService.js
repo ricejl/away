@@ -156,13 +156,16 @@ class TripService {
   //NOTE Below function works
   async addOccupant(payload) {
     console.log(payload);
+    let carpoolId = payload.carpoolId;
     let data = await _repository.findOneAndUpdate(
       {
         _id: payload.tripId,
         collabs: { $all: [payload.authorId] },
-        "carpools._id": payload.carpoolId
+        "carpools._id": carpoolId
       },
-      { $push: { "carpools.$.occupants": payload.occupants } },
+      {
+        $push: { "carpools.$[].occupants.$$": payload.occupantId }
+      },
       { new: true }
     );
 
