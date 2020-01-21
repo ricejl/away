@@ -40,8 +40,8 @@ export default class AuthService {
   static async Authenticate() {
     try {
       let res = await auth.get('authenticate')
-      let data = await api.get('profiles')
-      return ({ user: res.data, profile: data.data })
+      let profile = await api.get('profiles')
+      return ({ user: res.data, profile: profile.data })
       // return res.data
     } catch (e) {
       console.warn(`[Authentication failed] : ${!e.response ? 'No response from server' : e.response.data.error}`)

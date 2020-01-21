@@ -83,8 +83,9 @@ export default new Vuex.Store({
       try {
         let user = await AuthService.Login(creds);
         commit("setUser", user);
-        let res = await api.get("profiles");
-        if (res.data._id) {
+        let profile = await api.get("profiles");
+        if (profile.data._id) {
+          commit("setResource", { resource: "profile", data: profile.data });
           router.push({ name: "dashboard" });
         } else {
           router.push({ name: "profile" });
