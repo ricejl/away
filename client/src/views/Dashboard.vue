@@ -6,10 +6,14 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
-        <router-link :to="{name: 'trip', params: {tripId: trip._id}}">
+      <div
+        class="col-12 col-md-6 col-lg-3"
+        v-for="trip in trips"
+        :key="trip._id"
+      >
+        <router-link :to="{ name: 'trip', params: { tripId: trip._id } }">
           <div class="card-container">
-            <h1 class="mb-0">{{trip.title}}</h1>
+            <h1 class="mb-0">{{ trip.title }}</h1>
           </div>
         </router-link>
       </div>
@@ -41,6 +45,7 @@ export default {
   mounted() {
     this.$store.dispatch("resetActiveTrip");
     this.$store.dispatch("getAllTrips");
+    this.$store.dispatch("getProfileByUserId");
   },
   data() {
     return {

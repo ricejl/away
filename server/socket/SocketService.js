@@ -8,15 +8,23 @@ class Socket {
   }
   newConnection(socket) {
     //Handshake / Confirmation of Connection
+    console.log("connected from server SocketService");
     socket.emit("CONNECTED", {
       socket: socket.id,
       message: "Successfully Connected"
     });
   }
 
-  // notifyAction(product) {
-  //   this.io.emit("action", product);
-  // }
+  //DESTINATIONS
+  notifyaddDestination(destinationData) {
+    this.io.emit("addDestination", destinationData);
+  }
+
+  notifyremoveDestination(destinationData) {
+    this.io.emit("addDestination", destinationData);
+  }
+
+
 }
 
 const socket = new Socket();

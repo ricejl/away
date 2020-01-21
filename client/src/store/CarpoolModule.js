@@ -12,36 +12,38 @@ let api = Axios.create({
 
 export default {
   actions: {
-    async addCarpool({ commit, dispatch }, { tripId, carpool }) {
-      let res = await api.post("trips/" + tripId + "/carpools", carpool);
-      commit("setResource", { resource: "activeTrip", data: res.data });
+    async getCarpoolsByTripId({ commit, dispatch }, tripId) {
+      let res = await api.get("trips/" + tripId + "/carpools");
+      commit("setResource", { resource: "carpools", data: res.data });
     },
-    async editCarpool({ commit, dispatch }, { tripId, update }) {
-      let res = await api.put("trips/" + tripId + "/carpools", update);
-      commit("setResource", { resource: "activeTrip", data: res.data });
+    async addCarpool({ commit, dispatch }, { tripId, carpool }) {
+      let res = await api.post("carpools", carpool);
+      dispatch("getCarpoolsByTripId", tripId);
+    },
+    async editCarpool({ commit, dispatch }, { tripId, carpoolId, update }) {
+      let res = await api.put("carpools/" + carpoolId, update);
+      dispatch("getCarpoolsByTripId", tripId);
     },
     async removeCarpool({ commit, dispatch }, { tripId, carpoolId }) {
-      let res = await api.delete("trips/" + tripId + "/carpools/" + carpoolId);
-      commit("setResource", { resource: "activeTrip", data: res.data });
+      let res = await api.delete("carpools/" + carpoolId);
+      dispatch("getCarpoolsByTripId", tripId);
     },
-
     async addOccupant({ commit, dispatch }, { tripId, carpoolId, occupant }) {
       let res = await api.post(
-        "trips/" + tripId + "/carpools/" + carpoolId + "/occupants",
+        "carpools/" + carpoolId + "/occupants",
         occupant
       );
-      commit("setResource", { resource: "activeTrip", data: res.data });
+      dispatch("getCarpoolsByTripId", tripId);
     },
 
     async removeOccupant(
       { commit, dispatch },
-      { tripId, carpoolId, occupantToRemove }
+      { tripId, carpoolId, occupantId }
     ) {
-      let res = await api.put(
-        "trips/" + tripId + "/carpools/" + carpoolId,
-        occupantToRemove
+      let res = await api.delete(
+        "carpools/" + carpoolId + "/occupants/" + occupantId
       );
-      commit("setResource", { resource: "activeTrip", data: res.data });
+      dispatch("getCarpoolsByTripId", tripId);
     }
   }
 };

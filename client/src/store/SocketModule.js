@@ -9,13 +9,17 @@ export default {
       socket = io("//localhost:3000");
       //Handle any on connection events
       socket.on("CONNECTED", data => {
-        console.log("Connected to socket, villany may commence");
+        console.log("Connected to socket");
       });
 
-      // register all listeners
-      // socket.on("actionName", data => {
-      //   commit("mutationaName", data);
-      // });
+      //register all listeners
+
+      socket.on("addDestination", data => {
+        commit("setResource", { resource: "activeTrip", data: data });
+      })
+      socket.on("removeDestination", data => {
+        commit("setResource", { resource: "activeTrip", data: data });
+      })
     }
   }
-};
+}

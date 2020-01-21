@@ -2,10 +2,14 @@ import express from "express";
 import cors from "cors";
 import bp from "body-parser";
 import DbContext from "./db/dbconfig";
+import Socket from "./socket/SocketService";
 const server = express();
+const socketServer = require("http").createServer(server);
+const io = require("socket.io")(socketServer);
 
 //Fire up database connection
 DbContext.connect();
+Socket.setIO(io);
 
 //Sets the port to Heroku's, and the files to the built project
 var port = process.env.PORT || 3000;
@@ -40,11 +44,13 @@ import TripController from "./controllers/TripController";
 import ProfileController from "./controllers/ProfileController";
 import MealController from "./controllers/MealController";
 import ListController from "./controllers/ListController";
+import CarpoolController from "./controllers/CarpoolController";
 
 server.use("/api/trips", new TripController().router);
 server.use("/api/profiles", new ProfileController().router);
 server.use("/api/meals", new MealController().router);
 server.use("/api/lists", new ListController().router);
+server.use("/api/carpools", new CarpoolController().router);
 
 //NOTE Default error handler, catches all routes with an error attached
 server.use((error, req, res, next) => {
@@ -58,6 +64,11 @@ server.use("*", (req, res, next) => {
   });
 });
 
-server.listen(port, () => {
-  console.log("server running on port", port);
+// server.listen(port, () => {
+//   console.log("server running on port", port);
+// });
+
+//Start Server
+socketServer.listen(port, () => {
+  console.log("socketServer running on port:", port);
 });
