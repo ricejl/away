@@ -128,7 +128,6 @@ export default class TripController {
     try {
       req.body.authorId = req.session.uid;
       let data = await tripService.addDestination(req.params.id, req.body);
-      console.log("TRIPCONTROLLER ADDDESTINATION DATA: ", data);
       socket.notifyaddDestination(data);
       return res.status(201).send(data);
     } catch (error) {
@@ -160,7 +159,8 @@ export default class TripController {
         userId: req.session.uid,
         destinationId: req.params.id
       });
-      return res.send("Deletion Successful");
+      socket.notifyaddDestination(data);
+      return res.send(data);
     } catch (error) {
       next(error);
     }
