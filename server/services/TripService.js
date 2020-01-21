@@ -5,6 +5,22 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Trip", Trip);
 
 class TripService {
+  async addCollab(tripId, authorId, payload) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: tripId, authorId: authorId },
+      {
+        $addToSet: {
+          collabs: payload.collabId
+        }
+      },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid Id or you do not own this trip", 400);
+    }
+    return data;
+  }
+
   // #region -- SECTION TRIPS --
   async getAll(userId) {
     return await _repository.find({ collabs: { $all: [userId] } });
