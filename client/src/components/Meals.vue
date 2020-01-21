@@ -12,24 +12,25 @@
       </div>
     </div>
     <ul v-if="dropdown" class="text-left dropdown w-100">
-      <li v-for="meal in meals" :key="meal._id">
+      <li v-for="(meal, index) in meals" :key="meal._id">
         <h3>{{meal.title}}</h3>
         <ul>
           <li v-for="foodItem in meal.foodItems" :key="foodItem._id">
             {{foodItem.foodName}}
-            <p class="food-item-author">Added by: {{foodItem.profileId.name}}</p>
+            <p class="food-item-author">Added by: {{profile.name}}</p>
           </li>
         </ul>
-        <form type="text" @submit.prevent="addFoodItem(meal._id)">
-          <input type="text" v-model="newFoodItem.foodName" />
-          <input type="text" v-model="newFoodItem.detalis" />
+        <!-- STUB  -->
+        <form type="text" @submit.prevent="addFoodItem(meal._id, index)">
+          <input type="text" v-model="newFoodItems[index].foodName" />
+          <input type="text" v-model="newFoodItems[index].details" />
           <button type="submit">Add Item</button>
         </form>
       </li>
       <form @submit.prevent="addMeal" class="p-3">
         <input type="text" v-model="newMeal.title" placeholder="Enter Meal Title..." />
         <input type="text" v-model="newMeal.details" placeholder="Any details for your meal?" />
-        <button type="submit">Add Meal</button>
+        <button @click="addFoodItemForm()" type="submit">Add Meal</button>
       </form>
     </ul>
   </div>
@@ -41,8 +42,12 @@ export default {
   props: ["tripData"],
   mounted() {
     // this.$store.dispatch("getProfileByUserId");
-    console.log("mounted", this.$store.state.profile);
-    this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
+    console.log("Meals view mounted profile:", this.$store.state.profile);
+    this.$store
+      .dispatch("getMealsByTripId", this.$route.params.tripId)
+      .then(res => {
+        this.getFoodItemForms();
+      });
   },
 
   data() {
@@ -54,17 +59,12 @@ export default {
         foodItems: [],
         tripId: this.$route.params.tripId
       },
-      newFoodItem: {
-        profileId: this.$store.state.profile._id,
-        foodName: "",
-        details: ""
-      }
+      newFoodItems: []
     };
   },
   methods: {
     addMeal() {
       let meal = { ...this.newMeal };
-      console.log(this.$store.state.profile);
       this.$store.dispatch("addMeal", meal);
       this.newMeal = {
         title: "",
@@ -73,20 +73,40 @@ export default {
         tripId: this.$route.params.tripId
       };
     },
-    addFoodItem(mealId) {
-      let foodItem = { ...this.newFoodItem };
+    addFoodItem(mealId, index) {
+      let foodItem = { ...this.newFoodItems[index] };
       let tripId = this.$route.params.tripId;
       this.$store.dispatch("addFoodItem", { mealId, foodItem, tripId });
-      this.newFoodItem = {
-        profileId: this.$store.state.profile._id,
+      this.newFoodItems[index] = {
+        profileId: this.profile._id,
         foodName: "",
         details: ""
       };
+    },
+    addFoodItemForm() {
+      this.newFoodItems.push({
+        profileId: this.profile._id,
+        foodName: "",
+        details: ""
+      });
+      console.log(this.newFoodItems);
+    },
+    getFoodItemForms() {
+      this.meals.forEach(m => {
+        this.newFoodItems.push({
+          profileId: this.profile._id,
+          foodName: "",
+          details: ""
+        });
+      });
     }
   },
   computed: {
     meals() {
       return this.$store.state.meals;
+    },
+    profile() {
+      return this.$store.state.profile;
     }
   }
 };

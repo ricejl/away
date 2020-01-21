@@ -41,6 +41,7 @@ export default class AuthService {
     try {
       let res = await auth.get('authenticate')
       let profile = await api.get('profiles')
+      console.log("AuthService profile:", profile.data);
       return ({ user: res.data, profile: profile.data })
       // return res.data
     } catch (e) {
