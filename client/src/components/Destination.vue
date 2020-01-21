@@ -52,6 +52,11 @@
 </template>
 
 <script>
+import GoogleMap from "./GoogleMap";
+import mongoose from "mongoose";
+
+//" /components/GoogleMap";
+
 export default {
   name: "Destination",
   mounted() {
@@ -63,7 +68,11 @@ export default {
       newDestination: {
         location: ""
       },
-      dropdown: false
+      dropdown: false,
+      center: { lat: 45.508, lng: -73.587 },
+      markers: [],
+      places: [],
+      currentPlace: null
     };
   },
   methods: {
@@ -85,6 +94,9 @@ export default {
     trip() {
       return this.$store.state.activeTrip;
     }
+  },
+  components: {
+    GoogleMap
   }
 };
 </script>

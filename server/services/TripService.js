@@ -107,12 +107,11 @@ class TripService {
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(tripId, userId) {
     let data = await _repository
-      .find({ _id: tripId, collabs: { $all: [userId] } })
+      .findOne({ _id: tripId, collabs: { $all: [userId] } })
       .populate({
         path: "carpools.occupants",
         populate: { path: "Profile" }
       });
-    console.log(data);
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
@@ -132,7 +131,6 @@ class TripService {
   }
   //NOTE This always edits the first element in carpools array, why???
   async editCarpool(payload, carpoolId) {
-    console.log(payload);
     let data = await _repository.findOneAndUpdate(
       {
         _id: payload.tripId,

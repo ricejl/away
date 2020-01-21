@@ -18,7 +18,7 @@ class ProfileService {
     if (!data) {
       //NOTE  check if this is safe
       // throw new ApiError("You do not own this profile or profile doesn't exist", 400)
-      return { name: 'First Last' }
+      return { name: "First Last" };
     }
     return data;
   }
@@ -26,7 +26,8 @@ class ProfileService {
   async create(rawData) {
     //check if profile with user id exists
     let profile = await _repository.findOne({ authorId: rawData.authorId });
-    if (!profile) { //if profile doesn't exist, create the profile
+    if (!profile) {
+      //if profile doesn't exist, create the profile
       let data = await _repository.create(rawData);
       return data;
     } else {
