@@ -15,7 +15,10 @@
       <li v-for="meal in meals" :key="meal._id">
         <h3>{{meal.title}}</h3>
         <ul>
-          <li v-for="foodItem in meal.foodItems" :key="foodItem._id">{{foodItem.foodName}}</li>
+          <li v-for="foodItem in meal.foodItems" :key="foodItem._id">
+            {{foodItem.foodName}}
+            <p class="food-item-author">Added by: {{foodItem.profileId.name}}</p>
+          </li>
         </ul>
         <form type="text" @submit.prevent="addFoodItem(meal._id)">
           <input type="text" v-model="newFoodItem.foodName" />
@@ -37,8 +40,8 @@ export default {
   name: "Meals",
   props: ["tripData"],
   mounted() {
-    this.$store.dispatch("getProfileByUserId");
-    console.log(this.$store.state.profile);
+    // this.$store.dispatch("getProfileByUserId");
+    console.log("mounted", this.$store.state.profile);
     this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
   },
 
@@ -114,5 +117,8 @@ export default {
   position: absolute;
   right: 5%;
   bottom: 1%;
+}
+.food-item-author {
+  font-size: 0.8em;
 }
 </style>
