@@ -1,13 +1,12 @@
 <template>
   <div class="card-container top-card">
-    <div id="title-container" class="w-100" @click="dropdown=!dropdown">
+    <div id="title-container" class="w-100" @click="dropdown = !dropdown">
       <!-- <br /> -->
       <div class="row">
         <div class="col-12">
-          <h4
-            v-if="trip.destinations && trip.destinations.length"
-            class="mb-0"
-          >{{trip.destinations[0].location}}</h4>
+          <h4 v-if="trip.destinations && trip.destinations.length" class="mb-0">
+            {{ trip.destinations[0].location }}
+          </h4>
           <h4 v-else class="mb-0">Destination</h4>
           <!-- <br /> -->
           <div class="arrow" v-if="!dropdown">
@@ -31,7 +30,7 @@
                   :key="destination._id"
                   class="list-group-item list-group-item-action"
                 >
-                  {{destination.location}}
+                  {{ destination.location }}
                   <i
                     class="far fa-times-circle"
                     @click="deleteDestination(destination._id)"
@@ -42,7 +41,11 @@
           </div>
           <!-- </div> -->
           <form @submit.prevent="addDestination(tripData._id)" class="p-3">
-            <input type="text" v-model="newDestination.location" placeholder="Enter location..." />
+            <input
+              type="text"
+              v-model="newDestination.location"
+              placeholder="Enter location..."
+            />
             <button type="submit">Add</button>
           </form>
         </div>
@@ -53,7 +56,6 @@
 
 <script>
 import GoogleMap from "./GoogleMap";
-import mongoose from "mongoose";
 
 //" /components/GoogleMap";
 
