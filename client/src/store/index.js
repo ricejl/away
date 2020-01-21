@@ -44,6 +44,7 @@ export default new Vuex.Store({
     profile: {},
     trips: [],
     activeTrip: {},
+    carpools: [],
     meals: [],
     lists: [],
     coords: {}

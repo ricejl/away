@@ -17,6 +17,9 @@ export default {
       socket.on("addDestination", data => {
         commit("setResource", { resource: "activeTrip", data: data });
       })
+      socket.on("removeDestination", data => {
+        commit("setResource", { resource: "activeTrip", data: data });
+      })
     }
   }
 }
