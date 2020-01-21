@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
 import Trip from "../models/Trip";
 import ApiError from "../utils/ApiError";
-import e from "express";
 
 const _repository = mongoose.model("Trip", Trip);
 
@@ -23,15 +22,18 @@ class TripService {
   }
 
   async create(rawData) {
-    _repository
-      .create(rawData)
-      .then(res => {
-        return res;
-      })
-      .catch(e => {
-        console.error(e);
-        throw e;
-      });
+    try {
+      return await _repository.create(rawData);
+    } catch (e) {
+      console.error(e);
+    }
+    // .then(res => {
+    //   return res;
+    // })
+    // .catch(e => {
+    //   console.error(e);
+    //   return e;
+    // });
   }
   //NOTE Below Function Works
   async edit(id, userId, update) {
