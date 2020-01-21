@@ -24,6 +24,8 @@ export default {
       let res = await api.delete(
         "trips/" + tripId + "/destinations/" + destinationId
       );
+      console.log(res.data);
+
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
     async editDestination(
