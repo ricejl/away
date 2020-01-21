@@ -3,8 +3,7 @@ import { Authorize } from "../middleware/authorize";
 import tripService from "../services/TripService";
 import mealService from "../services/MealService";
 import listService from "../services/ListService";
-import socket from '../socket/SocketService'
-
+import socket from "../socket/SocketService";
 
 export default class TripController {
   constructor() {
@@ -78,8 +77,8 @@ export default class TripController {
   async create(req, res, next) {
     try {
       req.body.authorId = req.session.uid;
-      req.body.collabs = [];
-      req.body.collabs.push(req.session.uid);
+      req.body.collabs = [req.session.uid];
+      // req.body.collabs.push(req.session.uid);
       console.log(req.body);
       let data = await tripService.create(req.body);
       return res.status(201).send(data);
