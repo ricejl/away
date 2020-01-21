@@ -24,24 +24,32 @@
             {{ carpool.name }}
           </h6>
           <div
-            v-for="occupant in carpool.occupants"
-            :key="occupant._id"
-            class="car d-flex justify-content-center bg-light text-light p-1"
+            class="car d-flex justify-content-center bg-lightest-grey text-light p-1"
           >
-            <div class="bg-dark shadow-dark seat m-1">
-              {{ occupant.name[0] }}
-            </div>
-            <!-- <div class="bg-dark shadow-dark seat m-1"></div>
+            <div
+              v-for="occupant in carpool.occupants"
+              :key="occupant._id"
+              class="bg-dark shadow-dark seat m-1 d-flex align-items-center justify-content-center"
+              title="occupant.name"
+              FIXME
+            >
+              {{ occupant.name }}
+
+              <!-- <div v-else class="bg-dark shadow-dark seat m-1"></div> -->
+
+              <!-- <div class="bg-dark shadow-dark seat m-1"></div>
             <div class="bg-dark shadow-dark seat m-1"></div>
             <div class="bg-dark shadow-dark seat m-1"></div>
             <div class="bg-dark shadow-dark seat m-1"></div> -->
+            </div>
             <div
+              v-for="(freeSeats, i) in carpool.totalSeats -
+                carpool.occupants.length"
+              :key="i"
               @click="addOccupant(tripData._id, carpool._id)"
               class="bg-light-grey seat m-1 d-flex justify-content-center align-items-center"
             >
-              <span>
-                <i class="fas fa-plus color-light-grey"></i>
-              </span>
+              <i class="fas fa-plus color-light-grey"></i>
             </div>
           </div>
         </div>
@@ -52,17 +60,6 @@
         carpool.description is optional - may wanna display on click to keep it looking clean if added to form
         Stretch goal - use drag and drop library -->
 
-      <div class="d-inline-block p-3">
-        <h6 class="car-name bg-lightest-grey mb-0 pt-2">car</h6>
-        <div class="car d-flex justify-content-center bg-light p-1">
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-        </div>
-      </div>
       <div class="d-inline-block p-3">
         <h6 class="car-name bg-lightest-grey mb-0 pt-2">car</h6>
         <div class="car d-flex justify-content-center bg-light p-1">
@@ -108,6 +105,7 @@ export default {
   name: "Carpool",
   props: ["tripData"],
   mounted() {
+    this.$store.dispatch("getProfileByUserId");
     this.$store.dispatch("getCarpoolsByTripId", this.$route.params.tripId);
   },
   data() {
@@ -129,6 +127,7 @@ export default {
       };
     },
     addOccupant(tripId, carpoolId) {
+      console.log("carpool id from add occupant", carpoolId);
       let occupant = { occupants: this.$store.state.profile._id };
       this.$store.dispatch("addOccupant", { tripId, carpoolId, occupant });
     }
