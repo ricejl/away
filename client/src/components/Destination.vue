@@ -55,9 +55,13 @@
 </template>
 
 <script>
-import GoogleMap from "./GoogleMap";
 
-//" /components/GoogleMap";
+
+//       console.log("latitude: ", latitude);
+//       // initialize(latitude,longitude);
+//     }
+//   });
+// });
 
 export default {
   name: "Destination",
@@ -74,7 +78,8 @@ export default {
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
-      currentPlace: null
+      currentPlace: null,
+      showMap: false
     };
   },
   methods: {
@@ -84,6 +89,11 @@ export default {
       this.newDestination = {
         location: ""
       };
+    },
+    async getCoords(location) {
+      await this.$store.dispatch("getCoords", location);
+      this.showMap = true;
+      this.center = this.$store.state.coords;
     },
     deleteDestination(id) {
       this.$store.dispatch("removeDestination", {
@@ -96,9 +106,10 @@ export default {
     trip() {
       return this.$store.state.activeTrip;
     }
+    // google: gmapApi
   },
   components: {
-    GoogleMap
+    //GoogleMap
   }
 };
 </script>

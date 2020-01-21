@@ -24,6 +24,11 @@ let api = Axios.create({
   withCredentials: true
 });
 
+let googleApi = Axios.create({
+  baseURL: "https://maps.googleapis.com/maps/api/geocode/",
+  timeout: 3000
+});
+
 export default new Vuex.Store({
   modules: {
     tripModule,
@@ -41,7 +46,8 @@ export default new Vuex.Store({
     activeTrip: {},
     carpools: [],
     meals: [],
-    lists: []
+    lists: [],
+    coords: {}
   },
   mutations: {
     setUser(state, user) {
@@ -67,6 +73,9 @@ export default new Vuex.Store({
     },
     resetState(state) {
       (state.user = {}), (state.trips = []);
+    },
+    setCoords(state, payload) {
+      state.coords = payload;
     }
   },
   actions: {
@@ -104,7 +113,21 @@ export default new Vuex.Store({
       } catch (e) {
         console.warn(e.message);
       }
-    }
+    },
     //#endregion
+    async getCoords({ commit, dispatch }, payload) {
+      try {
+        let results = await googleApi.get(
+          `json?address=${payload}&key=AIzaSyAAYXjnMSg4R7_uURpraaqY2ljK5F7M08k`
+        );
+        console.log(
+          "maps api results: ",
+          results.data.results[0].geometry.location
+        );
+        commit("setCoords", results.data.results[0].geometry.location);
+      } catch (error) {
+        console.warn(error.message);
+      }
+    }
   }
 });

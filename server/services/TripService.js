@@ -22,8 +22,18 @@ class TripService {
   }
 
   async create(rawData) {
-    let data = await _repository.create(rawData);
-    return data;
+    try {
+      return await _repository.create(rawData);
+    } catch (e) {
+      console.error(e);
+    }
+    // .then(res => {
+    //   return res;
+    // })
+    // .catch(e => {
+    //   console.error(e);
+    //   return e;
+    // });
   }
   //NOTE Below Function Works
   async edit(id, userId, update) {
