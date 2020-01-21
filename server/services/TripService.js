@@ -118,92 +118,95 @@ class TripService {
     return data;
   }
 
-  async addCarpool(tripId, rawData) {
-    let data = await _repository.findOneAndUpdate(
-      { _id: tripId, collabs: { $all: [rawData.authorId] } },
-      { $push: { carpools: rawData } },
-      { new: true }
-    );
-    if (!data) {
-      throw new ApiError("Invalid ID or you do not own this trip", 400);
-    }
-    return data;
-  }
-  //NOTE This always edits the first element in carpools array, why???
-  async editCarpool(payload, carpoolId) {
-    let data = await _repository.findOneAndUpdate(
-      {
-        _id: payload.tripId,
-        collabs: { $all: [payload.userId] },
-        "carpools._id": carpoolId
-      },
-      {
-        $set: {
-          "carpools.$.name": payload.name,
-          "carpools.$.totalSeats": payload.totalSeats,
-          "carpools.$.description": payload.description
-        }
-      },
-      { new: true }
-    );
-    console.log(data);
-    if (!data) {
-      throw new ApiError("Invalid ID or you do not own this trip", 400);
-    }
-    return data;
-  }
+  // async addCarpool(tripId, rawData) {
+  //   let data = await _repository.findOneAndUpdate(
+  //     { _id: tripId, collabs: { $all: [rawData.authorId] } },
+  //     { $push: { carpools: rawData } },
+  //     { new: true }
+  //   );
+  //   if (!data) {
+  //     throw new ApiError("Invalid ID or you do not own this trip", 400);
+  //   }
+  //   return data;
+  // }
+  // //NOTE This always edits the first element in carpools array, why???
+  // async editCarpool(payload, carpoolId) {
+  //   let data = await _repository.findOneAndUpdate(
+  //     {
+  //       _id: payload.tripId,
+  //       collabs: { $all: [payload.userId] },
+  //       "carpools._id": carpoolId
+  //     },
+  //     {
+  //       $set: {
+  //         "carpools.$.name": payload.name,
+  //         "carpools.$.totalSeats": payload.totalSeats,
+  //         "carpools.$.description": payload.description
+  //       }
+  //     },
+  //     { new: true }
+  //   );
+  //   console.log(data);
+  //   if (!data) {
+  //     throw new ApiError("Invalid ID or you do not own this trip", 400);
+  //   }
+  //   return data;
+  // }
 
-  //NOTE Below function works
-  async addOccupant(payload) {
-    console.log(payload);
-    let data = await _repository.findOneAndUpdate(
-      {
-        _id: payload.tripId,
-        collabs: { $all: [payload.authorId] },
-        "carpools._id": payload.carpoolId
-      },
-      { $push: { "carpools.$.occupants": payload.occupants } },
-      { new: true }
-    );
+  // //NOTE Below function works
+  // async addOccupant(payload) {
+  //   console.log(payload);
+  //   let carpoolId = payload.carpoolId;
+  //   let data = await _repository.findOneAndUpdate(
+  //     {
+  //       _id: payload.tripId,
+  //       collabs: { $all: [payload.authorId] },
+  //       "carpools._id": carpoolId
+  //     },
+  //     {
+  //       $push: { "carpools.$[].occupants.$$": payload.occupantId }
+  //     },
+  //     { new: true }
+  //   );
 
-    if (!data) {
-      throw new ApiError(
-        "Invalid ID or you do not have access to this carpool",
-        400
-      );
-    }
-    return data;
-  }
-  //NOTE This one also works
-  async removeOccupant(payload) {
-    let data = await _repository.findOneAndUpdate(
-      {
-        _id: payload.tripId,
-        collabs: { $all: [payload.userId] },
-        "carpools._id": payload.carpoolId
-      },
-      { $pull: { "carpools.$.occupants": { $in: payload.occupants } } },
-      { new: true }
-    );
-    if (!data) {
-      throw new ApiError(
-        "Invalid ID or you do not have access to this trip",
-        400
-      );
-    }
-    return data;
-  }
+  //   if (!data) {
+  //     throw new ApiError(
+  //       "Invalid ID or you do not have access to this carpool",
+  //       400
+  //     );
+  //   }
+  //   return data;
+  // }
+  // //NOTE This one also works
+  // async removeOccupant(payload) {
+  //   let data = await _repository.findOneAndUpdate(
+  //     {
+  //       _id: payload.tripId,
+  //       collabs: { $all: [payload.userId] },
+  //       "carpools._id": payload.carpoolId
+  //     },
+  //     { $pull: { "carpools.$.occupants": { $in: payload.occupants } } },
+  //     { new: true }
+  //   );
+  //   if (!data) {
+  //     throw new ApiError(
+  //       "Invalid ID or you do not have access to this trip",
+  //       400
+  //     );
+  //   }
+  //   return data;
+  // }
 
-  async removeCarpool(payload) {
-    let data = await _repository.findOneAndUpdate(
-      { _id: payload.tripId, collabs: { $all: [payload.userId] } },
-      { $pull: { carpools: { _id: payload.carpoolId } } },
-      { new: true }
-    );
-    if (!data) {
-      throw new ApiError("Invalid ID or you do not own this trip", 400);
-    }
-  }
+  // async removeCarpool(payload) {
+  //   let data = await _repository.findOneAndUpdate(
+  //     { _id: payload.tripId, collabs: { $all: [payload.userId] } },
+  //     { $pull: { carpools: { _id: payload.carpoolId } } },
+  //     { new: true }
+  //   );
+  //   if (!data) {
+  //     throw new ApiError("Invalid ID or you do not own this trip", 400);
+  //   }
+  // }
 }
 
 const tripService = new TripService();

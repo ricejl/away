@@ -3,8 +3,8 @@ import { Authorize } from "../middleware/authorize";
 import tripService from "../services/TripService";
 import mealService from "../services/MealService";
 import listService from "../services/ListService";
-import socket from '../socket/SocketService'
-
+import socket from "../socket/SocketService";
+import carpoolService from "../services/CarpoolService";
 
 export default class TripController {
   constructor() {
@@ -19,15 +19,15 @@ export default class TripController {
       .get("/:id/lists", this.getListsByTripId)
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
-      .post("/:id/carpools", this.addCarpool)
-      .post("/:tripId/carpools/:id/occupants", this.addOccupant)
+      // .post("/:id/carpools", this.addCarpool)
+      // .post("/:tripId/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
       .put("/:tripId/destinations/:id", this.editDestination)
-      .put("/:id/carpools", this.editCarpool)
-      .put("/:tripId/carpools/:id", this.removeOccupant)
+      // .put("/:id/carpools", this.editCarpool)
+      // .put("/:tripId/carpools/:id", this.removeOccupant)
       .delete("/:id", this.delete)
-      .delete("/:tripId/destinations/:id", this.removeDestination)
-      .delete("/:tripId/carpools/:id", this.removeCarpool);
+      .delete("/:tripId/destinations/:id", this.removeDestination);
+    // .delete("/:tripId/carpools/:id", this.removeCarpool);
   }
 
   defaultRoute(req, res, next) {
@@ -170,7 +170,7 @@ export default class TripController {
   // #region -- SECTION CARPOOLS --
   async getCarpoolsByTripId(req, res, next) {
     try {
-      let data = await tripService.getCarpoolsByTripId(
+      let data = await carpoolService.getCarpoolsByTripId(
         req.params.id,
         req.session.uid
       );
@@ -180,71 +180,72 @@ export default class TripController {
     }
   }
 
-  async addCarpool(req, res, next) {
-    try {
-      req.body.authorId = req.session.uid;
-      let data = await tripService.addCarpool(req.params.id, req.body);
-      return res.status(201).send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async addOccupant(req, res, next) {
-    try {
-      req.body.authorId = req.session.uid;
-      let data = await tripService.addOccupant({
-        tripId: req.params.tripId,
-        carpoolId: req.params.id,
-        ...req.body
-      });
-      return res.status(201).send(data);
-    } catch (error) {
-      next;
-    }
-  }
+  // async addCarpool(req, res, next) {
+  //   try {
+  //     req.body.authorId = req.session.uid;
+  //     let data = await tripService.addCarpool(req.params.id, req.body);
+  //     return res.status(201).send(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+  // async addOccupant(req, res, next) {
+  //   try {
+  //     req.body.authorId = req.session.uid;
+  //     let data = await tripService.addOccupant({
+  //       tripId: req.params.tripId,
+  //       carpoolId: req.params.id,
+  //       occupantId: req.body.occupantId,
+  //       authorId: req.body.authorId
+  //     });
+  //     return res.status(201).send(data);
+  //   } catch (error) {
+  //     next;
+  //   }
+  // }
 
-  async editCarpool(req, res, next) {
-    try {
-      let data = await tripService.editCarpool(
-        {
-          tripId: req.params.id,
-          userId: req.session.uid,
-          carpoolId: req.body.carpoolId,
-          ...req.body
-        },
-        req.body.carpoolId
-      );
-      console.log("Controller:" + data);
-      return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
-  async removeOccupant(req, res, next) {
-    try {
-      let data = await tripService.removeOccupant({
-        tripId: req.params.tripId,
-        carpoolId: req.params.id,
-        userId: req.session.uid,
-        ...req.body
-      });
-      return res.send(data);
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async editCarpool(req, res, next) {
+  //   try {
+  //     let data = await tripService.editCarpool(
+  //       {
+  //         tripId: req.params.id,
+  //         userId: req.session.uid,
+  //         carpoolId: req.body.carpoolId,
+  //         ...req.body
+  //       },
+  //       req.body.carpoolId
+  //     );
+  //     console.log("Controller:" + data);
+  //     return res.send(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
+  // async removeOccupant(req, res, next) {
+  //   try {
+  //     let data = await tripService.removeOccupant({
+  //       tripId: req.params.tripId,
+  //       carpoolId: req.params.id,
+  //       userId: req.session.uid,
+  //       ...req.body
+  //     });
+  //     return res.send(data);
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
 
-  async removeCarpool(req, res, next) {
-    try {
-      let data = await tripService.removeCarpool({
-        tripId: req.params.tripId,
-        userId: req.session.uid,
-        carpoolId: req.params.id
-      });
-      return res.send("Deletion Successful");
-    } catch (error) {
-      next(error);
-    }
-  }
+  // async removeCarpool(req, res, next) {
+  //   try {
+  //     let data = await tripService.removeCarpool({
+  //       tripId: req.params.tripId,
+  //       userId: req.session.uid,
+  //       carpoolId: req.params.id
+  //     });
+  //     return res.send("Deletion Successful");
+  //   } catch (error) {
+  //     next(error);
+  //   }
+  // }
   // #endregion
 }
