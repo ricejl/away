@@ -19,6 +19,7 @@ export default class TripController {
       .get("/:id/lists", this.getListsByTripId)
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
+      .post("/:id/collabs", this.addCollab)
       // .post("/:id/carpools", this.addCarpool)
       // .post("/:tripId/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
@@ -32,6 +33,18 @@ export default class TripController {
 
   defaultRoute(req, res, next) {
     next({ status: 404, message: "No Such Route" });
+  }
+  async addCollab(req, res, next) {
+    try {
+      let data = await tripService.addCollab(
+        req.params.id,
+        req.session.uid,
+        req.body
+      );
+      return res.send(data);
+    } catch (error) {
+      next(error);
+    }
   }
   async getMealsByTripId(req, res, next) {
     try {
