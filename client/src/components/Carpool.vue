@@ -15,7 +15,7 @@
     <!-- <transition name="slide"> -->
     <div v-if="dropdown" class="dropdown pb-3">
       <div
-        v-for="carpool in trip.carpools"
+        v-for="carpool in carpools"
         :key="carpool._id"
         class="d-inline-block"
       >
@@ -28,12 +28,16 @@
           >
             <div
               v-for="occupant in carpool.occupants"
-              :key="occupant._id"
+              :key="occupant.profileId._id"
               class="bg-dark shadow-dark seat m-1 d-flex align-items-center justify-content-center"
               title="occupant.name"
               FIXME
             >
-              {{ occupant.name }}
+              <i
+                @click="removeOccupant(carpool._id, occupant._id)"
+                class="fas fa-times"
+              ></i>
+              {{ occupant.profileId.name }}
 
               <!-- <div v-else class="bg-dark shadow-dark seat m-1"></div> -->
 
@@ -60,21 +64,21 @@
         carpool.description is optional - may wanna display on click to keep it looking clean if added to form
         Stretch goal - use drag and drop library -->
 
-      <div class="d-inline-block p-3">
+      <!-- <div class="d-inline-block p-3">
         <h6 class="car-name bg-lightest-grey mb-0 pt-2">car</h6>
-        <div class="car d-flex justify-content-center bg-light p-1">
+         <div class="car d-flex justify-content-center bg-light p-1">
           <div class="bg-dark shadow-dark seat m-1"></div>
           <div class="bg-dark shadow-dark seat m-1"></div>
           <div class="bg-dark shadow-dark seat m-1"></div>
           <div class="bg-dark shadow-dark seat m-1"></div>
           <div class="bg-dark shadow-dark seat m-1"></div>
           <div class="bg-dark shadow-dark seat m-1"></div>
-        </div>
-      </div>
+        </div> -->
+
       <hr />
       <h5 class="pb-2">New carpool</h5>
       <form
-        @submit.prevent="createCarpool(tripData._id)"
+        @submit.prevent="createCarpool()"
         class="carpool-form d-flex direction-column"
       >
         <label for="carpool-name" class="pr-1">Carpool name</label>
@@ -83,21 +87,23 @@
           id="carpool-name"
           v-model="newCarpool.name"
           placeholder="Enter name"
+          required
         />
         <label for="carpool-total-seats" class="pl-2 pr-1"
           >Number of seats</label
         >
         <input
           type="number"
-          min="0"
+          min="1"
           v-model="newCarpool.totalSeats"
           placeholder="Total number of seats"
+          required
         />
         <button type="submit">Add</button>
       </form>
     </div>
-    <!-- </transition> -->
   </div>
+  <!-- </transition> -->
 </template>
 
 <script>
@@ -112,29 +118,37 @@ export default {
     return {
       newCarpool: {
         name: "",
-        totalSeats: 0
+        totalSeats: 0,
+        tripId: this.$route.params.tripId
       },
       dropdown: false
     };
   },
   methods: {
-    createCarpool(tripId) {
+    createCarpool() {
       let carpool = { ...this.newCarpool };
+      let tripId = this.$route.params.tripId;
       this.$store.dispatch("addCarpool", { tripId, carpool });
       this.newCarpool = {
         name: "",
-        totalSeats: 0
+        totalSeats: 0,
+        tripId: this.$route.params.tripId
       };
     },
     addOccupant(tripId, carpoolId) {
       console.log("carpool id from add occupant", carpoolId);
-      let occupant = { occupants: this.$store.state.profile._id };
+      let occupant = { profileId: this.$store.state.profile._id };
       this.$store.dispatch("addOccupant", { tripId, carpoolId, occupant });
+    },
+    removeOccupant(carpoolId, occupantId) {
+      let tripId = this.$route.params.tripId;
+
+      this.$store.dispatch("removeOccupant", { tripId, carpoolId, occupantId });
     }
   },
   computed: {
-    trip() {
-      return this.$store.state.activeTrip;
+    carpools() {
+      return this.$store.state.carpools;
     }
   }
 };
@@ -173,35 +187,34 @@ export default {
   right: 5%;
   bottom: 1%;
 }
-
 .car-name {
   max-width: 10em;
 }
-
 .bg-lightest-grey {
   background-color: #f3f3f3;
 }
-
 .bg-light-grey {
   background-color: #ebe6e6;
   box-shadow: 1px 1px 2px #d8d4d4;
 }
-
 .color-light-grey {
   color: #d8d4d4;
 }
-
 .shadow-dark {
   box-shadow: 1px 1px 2px var(--secondary);
 }
-
 .car {
   max-width: 10em;
   flex-wrap: wrap;
 }
-
 .seat {
   height: 4em;
   width: 4em;
 }
+/* .fa-times {
+  display: none;
+}
+.fa-times:hover {
+  display: block;
+} */
 </style>

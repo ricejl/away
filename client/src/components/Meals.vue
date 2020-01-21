@@ -12,10 +12,20 @@
       </div>
     </div>
     <div v-if="dropdown" class="dropdown w-100">
-      <div @click="dropdown=!dropdown" v-for="meal in meals" :key="meal._id">{{meal.title}}</div>
+      <div @click="dropdown = !dropdown" v-for="meal in meals" :key="meal._id">
+        {{ meal.title }}
+      </div>
       <form @submit.prevent="addMeal" class="p-3">
-        <input type="text" v-model="newMeal.title" placeholder="Enter Meal Title..." />
-        <input type="text" v-model="newMeal.details" placeholder="Any details for your meal?" />
+        <input
+          type="text"
+          v-model="newMeal.title"
+          placeholder="Enter Meal Title..."
+        />
+        <input
+          type="text"
+          v-model="newMeal.details"
+          placeholder="Any details for your meal?"
+        />
         <button type="submit">Add Meal</button>
       </form>
     </div>
@@ -27,7 +37,7 @@ export default {
   name: "Meals",
   props: ["tripData"],
   mounted() {
-    console.log(this.$route.params.tripId);
+    //console.log(this.$route.params.tripId);
     this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
   },
 
