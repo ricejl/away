@@ -17,15 +17,12 @@ export default {
         "trips/" + tripId + "/destinations",
         destination
       );
-      console.log("res.data in store add destination" + res.data);
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
     async removeDestination({ commit, dispatch }, { tripId, destinationId }) {
       let res = await api.delete(
         "trips/" + tripId + "/destinations/" + destinationId
       );
-      console.log(res.data);
-
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
     async editDestination(

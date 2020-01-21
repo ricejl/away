@@ -159,6 +159,7 @@ export default class TripController {
         userId: req.session.uid,
         destinationId: req.params.id
       });
+      socket.notifyaddDestination(data);
       return res.send(data);
     } catch (error) {
       next(error);

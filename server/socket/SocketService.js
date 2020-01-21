@@ -20,6 +20,11 @@ class Socket {
     this.io.emit("addDestination", destinationData);
   }
 
+  notifyremoveDestination(destinationData) {
+    this.io.emit("addDestination", destinationData);
+  }
+
+
 }
 
 const socket = new Socket();
