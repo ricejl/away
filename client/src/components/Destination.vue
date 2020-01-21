@@ -24,6 +24,30 @@
           <!-- <div @click="dropdown=!dropdown"> -->
           <div class="row">
             <div class="col-12 col-md-6 mx-auto">
+              <button
+                class="mb-3"
+                @click="getCoords(trip.destinations[0].location)"
+                v-if="!showMap"
+              >
+                Show map
+              </button>
+              <button class="mb-3" @click="showMap = !showMap" v-if="showMap">
+                Hide map
+              </button>
+              <div v-if="showMap">
+                <gmap-map
+                  :center="center"
+                  :zoom="12"
+                  style="width:100%;  height: 400px;"
+                >
+                  <gmap-marker
+                    :key="index"
+                    v-for="(m, index) in markers"
+                    :position="m.position"
+                    @click="center = m.position"
+                  ></gmap-marker>
+                </gmap-map>
+              </div>
               <ul class="list-group list-group-flush">
                 <li
                   v-for="destination in tripData.destinations"
@@ -55,9 +79,11 @@
 </template>
 
 <script>
-import GoogleMap from "./GoogleMap";
-
-//" /components/GoogleMap";
+//       console.log("latitude: ", latitude);
+//       // initialize(latitude,longitude);
+//     }
+//   });
+// });
 
 export default {
   name: "Destination",
@@ -74,7 +100,8 @@ export default {
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
       places: [],
-      currentPlace: null
+      currentPlace: null,
+      showMap: false
     };
   },
   methods: {
@@ -84,6 +111,11 @@ export default {
       this.newDestination = {
         location: ""
       };
+    },
+    async getCoords(location) {
+      await this.$store.dispatch("getCoords", location);
+      this.showMap = true;
+      this.center = this.$store.state.coords;
     },
     deleteDestination(id) {
       this.$store.dispatch("removeDestination", {
@@ -96,9 +128,10 @@ export default {
     trip() {
       return this.$store.state.activeTrip;
     }
+    // google: gmapApi
   },
   components: {
-    GoogleMap
+    //GoogleMap
   }
 };
 </script>

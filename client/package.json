@@ -7,6 +7,7 @@
     "build": "vue-cli-service build"
   },
   "dependencies": {
+    "@pderas/vue2-geocoder": "^1.1.0",
     "axios": "^0.19.1",
     "dotenv": "^8.2.0",
     "register-service-worker": "^1.6.2",
