@@ -21,11 +21,12 @@ class CarpoolService {
     let data = await _repository.create(rawData);
     return data;
   }
+  //NOTE Need a check that keeps users from adding themselves to multiple cars: check occupant arrays from all carpool before adding, etc
   async addOccupant(carpoolId, rawData) {
     let data = await _repository.findOneAndUpdate(
       { _id: carpoolId, collabs: { $all: [rawData.authorId] } },
-      { $push: { occupants: rawData.occupantId } },
-      { new: true }
+      { $addToSet: { occupants: rawData } },
+      { new: true, upsert: true }
     );
     if (!data) {
       throw new ApiError(
@@ -66,8 +67,11 @@ class CarpoolService {
 
   async removeOccupant(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.carpoolId, collabs: { $all: [payload.userId] } },
-      { $pull: { occupants: payload.occupantId } },
+      {
+        _id: payload.carpoolId,
+        collabs: { $all: [payload.userId] }
+      },
+      { $pull: { occupants: { _id: payload.occupantId } } },
       { new: true }
     );
     if (!data) {
