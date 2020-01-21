@@ -118,7 +118,7 @@ export default new Vuex.Store({
     async getCoords({ commit, dispatch }, payload) {
       try {
         let results = await googleApi.get(
-          `json?address=${payload}&key=AIzaSyAAYXjnMSg4R7_uURpraaqY2ljK5F7M08k`
+          `json?address=${payload}&key=${process.env.VUE_APP_GOOGLE_MAPS_API_KEY}`
         );
         console.log(
           "maps api results: ",
