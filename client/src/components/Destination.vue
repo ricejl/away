@@ -34,19 +34,13 @@
               <div v-if="trip.destinations && trip.destinations.length">
                 <button
                   class="mb-3 btn-dark text-light-grey"
-                  @click="
-                    getCoords(trip.destinations[0].location);
-                    launchWeather();
-                  "
+                  @click="launchWeather()"
                 >
                   Open weather
                 </button>
                 <button
                   class="mb-3 btn-dark text-light-grey"
-                  @click="
-                    getCoords(trip.destinations[0].location);
-                    showMap = !showMap;
-                  "
+                  @click="showMap = !showMap"
                   v-if="!showMap"
                 >
                   Show map
