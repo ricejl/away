@@ -105,7 +105,12 @@
             placeholder="Total number of seats"
             required
           />
-          <button class="col-12 col-md-1" type="submit">Add</button>
+          <button
+            class="col-12 col-md-1 btn-dark text-light-grey"
+            type="submit"
+          >
+            Add
+          </button>
         </form>
       </div>
     </div>
