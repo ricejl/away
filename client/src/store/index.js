@@ -84,7 +84,7 @@ export default new Vuex.Store({
       try {
         let user = await AuthService.Register(creds);
         commit("setUser", user);
-        router.push({ name: "dashboard" });
+        router.push({ name: "profile" });
       } catch (e) {
         console.warn(e.message);
       }
