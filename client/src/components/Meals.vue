@@ -18,10 +18,35 @@
       <div class="col-12 col-md-10 mx-auto">
         <ul class="list-group list-group-flush">
           <li class="list-group-item" v-for="(meal, index) in meals" :key="meal._id">
-            <h3>{{meal.title}}</h3>
+            <div class="d-flex justify-content-start align-items-center">
+              <div class="btn-group dropright">
+                <button type="button" class="btn" data-toggle="dropdown">
+                  <i class="fas fa-ellipsis-v"></i>
+                </button>
+                <div class="dropdown-menu">
+                  <button class="dropdown-item">Edit</button>
+                  <button @click="deleteMeal(meal._id)" class="dropdown-item">Delete</button>
+                </div>
+              </div>
+              <h3 class="mb-0">{{meal.title}}</h3>
+            </div>
             <ul>
               <li v-for="foodItem in meal.foodItems" :key="foodItem._id">
-                {{foodItem.foodName}}
+                <div class="d-flex justify-content-start align-items-center">
+                  <div class="btn-group dropright">
+                    <button type="button" class="btn btn-sm" data-toggle="dropdown">
+                      <i class="fas fa-ellipsis-v food-item-menu"></i>
+                    </button>
+                    <div class="dropdown-menu">
+                      <button class="dropdown-item">Edit</button>
+                      <button
+                        @click="deleteFoodItem(meal._id, foodItem._id)"
+                        class="dropdown-item"
+                      >Delete</button>
+                    </div>
+                  </div>
+                  <span>{{foodItem.foodName}}</span>
+                </div>
                 <p class="food-item-author">Added by: {{profile.name}}</p>
               </li>
             </ul>
@@ -42,7 +67,7 @@
                   placeholder="Food Item Details..."
                 />
               </div>
-              <button type="submit" class="btn btn-info">Add Item</button>
+              <button type="submit" class="btn food-item-btn btn-block text-white">Add Item</button>
             </form>
           </li>
         </ul>
@@ -65,7 +90,11 @@
                   placeholder="Any details for your meal?"
                 />
               </div>
-              <button @click="addFoodItemForm()" type="submit" class="btn btn-success">Add Meal</button>
+              <button
+                @click="addFoodItemForm()"
+                type="submit"
+                class="btn meal-btn btn-block text-white"
+              >Add Meal</button>
             </form>
           </div>
         </div>
@@ -118,6 +147,12 @@ export default {
         tripId: this.$route.params.tripId
       };
     },
+    deleteMeal(mealId) {
+      this.$store.dispatch("removeMeal", {
+        mealId: mealId,
+        tripId: this.$route.params.tripId
+      });
+    },
     addFoodItem(mealId, index) {
       let foodItem = { ...this.newFoodItems[index] };
       let tripId = this.$route.params.tripId;
@@ -143,6 +178,13 @@ export default {
           foodName: "",
           details: ""
         });
+      });
+    },
+    deleteFoodItem(mealId, foodItemId) {
+      this.$store.dispatch("removeFoodItem", {
+        mealId,
+        foodItemId,
+        tripId: this.$route.params.tripId
       });
     }
   },
@@ -202,5 +244,37 @@ export default {
   border: 1px solid rgb(128, 128, 128);
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
+}
+input,
+.btn,
+.badge-primary {
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+}
+input:focus {
+  border: 1px solid rgba(255, 162, 75);
+  box-shadow: 0 0 10px rgba(255, 162, 75);
+}
+.food-item-btn {
+  background: -webkit-linear-gradient(right, #d64eff, #8400ac);
+}
+.meal-btn {
+  background: -webkit-linear-gradient(right, #ffa24b, #ca6200);
+}
+.dropdown-menu {
+  background-color: rgba(4, 4, 4, 0.75);
+  border: 1px solid #ffa24b;
+}
+.dropdown-item {
+  color: white;
+}
+.dropdown-item:hover {
+  background-color: rgba(65, 65, 65, 0.75);
+}
+.food-item-menu {
+  font-size: 0.9em;
 }
 </style>
