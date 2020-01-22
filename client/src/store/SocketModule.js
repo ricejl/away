@@ -6,9 +6,9 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //Establish connection with socket:
-      //socket = io(); 
+      socket = io();
       //Offline testing:
-      socket = io("//localhost:3000")
+      // socket = io("//localhost:3000")
 
       //Handle any on connection events
       socket.on("CONNECTED", data => {
@@ -24,6 +24,12 @@ export default {
         commit("setResource", { resource: "activeTrip", data: data });
       })
       socket.on("addCarpool", data => {
+        dispatch("getCarpoolsByTripId", data.tripId);
+      })
+      socket.on("addOccupant", data => {
+        dispatch("getCarpoolsByTripId", data.tripId);
+      })
+      socket.on("removeOccupant", data => {
         dispatch("getCarpoolsByTripId", data.tripId);
       })
     }

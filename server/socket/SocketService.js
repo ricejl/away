@@ -25,6 +25,12 @@ class Socket {
   notifyAddCarpool(carpoolData) {
     this.io.emit("addCarpool", carpoolData);
   }
+  notifyAddOccupant(occupantData) {
+    this.io.emit("addOccupant", occupantData);
+  }
+  notifyRemoveOccupant(occupantData) {
+    this.io.emit("removeOccupant", occupantData);
+  }
 
 
 }
