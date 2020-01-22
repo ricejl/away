@@ -50,7 +50,7 @@
                   ></gmap-marker>
                 </gmap-map>
               </div>
-              <ul class="list-group list-group-flush mt-3">
+              <ul class="list-group list-group-flush mt-4">
                 <li
                   v-for="(destination, i) in tripData.destinations"
                   :key="destination._id"
