@@ -24,7 +24,7 @@ export default {
       let res = await api.put("meals/" + mealId, update);
       dispatch("getMealsByTripId", update.tripId);
     },
-    async removeMeal({ commit, dispatch }, { mealId, tripId }) {
+    async removeMeal({ dispatch }, { mealId, tripId }) {
       let res = await api.delete("meals/" + mealId);
       dispatch("getMealsByTripId", tripId);
     },
