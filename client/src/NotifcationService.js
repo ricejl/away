@@ -7,16 +7,22 @@ export default class NotificationService {
         title,
         html:
           `<form class="needs-validation profile-form" novalidate @change="checkStuff()">` +
-          `<label class="mb-0">Full name</label>` +
-          `<input id="name" class="swal2-input" value="${profileData.name || ''}" placeholder="Enter your name">` +
-          `<label class="mb-0">Username</label>` +
-          `<input id="username" class="swal2-input" value="${profileData.username || ''}" placeholder="Enter a display name">` +
-          `<label class="mb-0">Description</label>` +
-          `<input id="description" class="swal2-input" value="${profileData.description || ''}" placeholder="Enter description">` +
-          `<label class="mb-0">Email</label>` +
-          `<input id="email" type="email" class="swal2-input" value="${profileData.email || ''}" placeholder="Public email address">` +
+          `<label class="mb-0">Full name <span style="color: red">*</span></label>` +
+          `<input id="name" class="swal2-input" value="${profileData.name ||
+            ""}" placeholder="Enter your name">` +
+          `<label class="mb-0">Username <span style="color: red">*</span></label>` +
+          `<input id="username" class="swal2-input" value="${profileData.username ||
+            ""}" placeholder="Enter a display name">` +
+          `<label class="mb-0">Favorite quote</label>` +
+          `<input id="description" class="swal2-input" value="${profileData.description ||
+            ""}" placeholder="Enter favorite quote">` +
+          `<label class="mb-0">Email <span style="color: red">*</span></label>` +
+          `<input id="email" type="email" class="swal2-input" value="${profileData.email ||
+            ""}" placeholder="Enter public email address">` +
           `<label class="mb-0">Image URL</label>` +
-          `<input id="img-url" type="text" class="swal2-input" value="${profileData.imgURL || ''}" placeholder="Enter image URL">` +
+          `<input id="img-url" type="text" class="swal2-input" value="${profileData.imgURL ||
+            ""}" placeholder="Enter image URL">` +
+          `<span style="color: red">*</span> indicates required field` +
           `</form>`,
         // NOTE for email validation look into validitystate=true, @change
         focusConfirm: false,
@@ -27,18 +33,12 @@ export default class NotificationService {
           let email = document.getElementById("email");
           let imgURL = document.getElementById("img-url").value;
           if (!name || !username || !email.value) {
-            Swal.showValidationMessage("Please fill out all fields");
+            Swal.showValidationMessage("Please fill out required fields");
           }
           if (email.validity.typeMismatch == true) {
             Swal.showValidationMessage("Invalid Email Address");
           }
-          return [
-            name,
-            username,
-            description,
-            email.value,
-            imgURL
-          ];
+          return [name, username, description, email.value, imgURL];
         }
       });
       if (formValues) {
@@ -79,9 +79,8 @@ export default class NotificationService {
         icon: "error",
         text
       });
-
     } catch (error) {
-      return false
+      return false;
     }
   }
 }
