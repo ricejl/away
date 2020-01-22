@@ -2,7 +2,10 @@
   <div class="card-container">
     <div class="title-container w-100" @click="dropdown = !dropdown">
       <br />
-      <h4 class="mb-0">Meals</h4>
+      <div class="d-flex justify-content-center align-items-center">
+        <h4 class="mb-0 mr-1">Meals</h4>
+        <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
+      </div>
       <br />
       <div v-if="!dropdown" class="arrow down-arrow">
         <i class="fas fa-angle-double-down"></i>
@@ -13,8 +16,8 @@
     </div>
     <div v-if="dropdown" class="row text-left dropdown w-100">
       <div class="col-12 col-md-10 mx-auto">
-        <ul>
-          <li v-for="(meal, index) in meals" :key="meal._id">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item" v-for="(meal, index) in meals" :key="meal._id">
             <h3>{{meal.title}}</h3>
             <ul>
               <li v-for="foodItem in meal.foodItems" :key="foodItem._id">
@@ -190,5 +193,14 @@ export default {
 }
 .form-control {
   height: 2em;
+}
+.list-group-item {
+  background-color: transparent;
+  color: black;
+}
+.badge-primary {
+  border: 1px solid rgb(128, 128, 128);
+  color: #fff;
+  background-color: rgba(4, 0, 198, 0.5);
 }
 </style>
