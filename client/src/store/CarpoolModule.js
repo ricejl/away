@@ -35,7 +35,6 @@ export default {
       );
       dispatch("getCarpoolsByTripId", tripId);
     },
-
     async removeOccupant(
       { commit, dispatch },
       { tripId, carpoolId, occupantId }

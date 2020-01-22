@@ -25,7 +25,7 @@ export default {
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
     async resetActiveTrip({ commit }) {
-      commit("resetActiveTrip")
+      commit("resetActiveTrip");
     }
   }
 };
