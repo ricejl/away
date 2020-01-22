@@ -46,7 +46,7 @@
                     :position="center"
                     :clickable="true"
                     :draggable="false"
-                    @click="center = center"
+                    @click="launchURL()"
                   ></gmap-marker>
                 </gmap-map>
               </div>
@@ -70,7 +70,7 @@
             <input
               type="text"
               v-model="newDestination.location"
-              placeholder="Enter location..."
+              placeholder="Enter Address or Lat,Long"
             />
             <button type="submit">Add</button>
           </form>
@@ -101,6 +101,7 @@ export default {
       dropdown: false,
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
+      //{ position: { lat: 44.21585, lng: -114.933588 } }
       places: [],
       currentPlace: null,
       showMap: false
@@ -118,12 +119,20 @@ export default {
       await this.$store.dispatch("getCoords", location);
       this.showMap = true;
       this.center = this.$store.state.coords;
+      this.markers.push(this.$store.state.coords);
     },
     deleteDestination(id) {
       this.$store.dispatch("removeDestination", {
         tripId: this.$route.params.tripId,
         destinationId: id
       });
+    },
+    launchURL() {
+      window.open(
+        // `https://www.google.com/maps/search/?api=1&${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
+        `https://maps.google.com/maps?q=${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
+        "_blank"
+      );
     }
   },
   computed: {
