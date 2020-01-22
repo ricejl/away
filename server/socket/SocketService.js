@@ -16,12 +16,12 @@ class Socket {
   }
 
   //DESTINATIONS
-  notifyaddDestination(destinationData) {
+  notifyAddDestination(destinationData) {
     this.io.emit("addDestination", destinationData);
   }
 
-  notifyremoveDestination(destinationData) {
-    this.io.emit("addDestination", destinationData);
+  notifyRemoveDestination(destinationData) {
+    this.io.emit("removeDestination", destinationData);
   }
 
 
