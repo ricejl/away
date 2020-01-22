@@ -5,6 +5,7 @@ import mealService from "../services/MealService";
 import listService from "../services/ListService";
 import socket from "../socket/SocketService";
 import carpoolService from "../services/CarpoolService";
+import profileService from "../services/ProfileService";
 
 export default class TripController {
   constructor() {
@@ -90,9 +91,12 @@ export default class TripController {
 
   async create(req, res, next) {
     try {
+      let collabProfile = await profileService.getProfileByUserId(
+        req.session.uid
+      );
+      req.body.collabsProfiles = [collabProfile];
       req.body.authorId = req.session.uid;
       req.body.collabs = [req.session.uid];
-      // req.body.collabs.push(req.session.uid);
       console.log(req.body);
       let data = await tripService.create(req.body);
       return res.status(201).send(data);

@@ -6,20 +6,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-6 mx-auto">
-        <form @submit.prevent="addCollab">
-          <label class="text-white" for="email"
-            >Add a friend to this trip...</label
-          >
-          <input
-            type="text"
-            name="email"
-            v-model="newCollab.email"
-            placeholder="Enter an email..."
-          />
-          <button>Add</button>
-        </form>
-      </div>
+      <div class="col-6 mx-auto"></div>
       <div class="col-12 col-lg-10 mx-auto pt-3">
         <h3 v-if="trip.title" class="text-white">{{ trip.title }}</h3>
         <div v-else class="spinner-border text-light" role="status">
@@ -29,6 +16,10 @@
       <div class="col-12 col-lg-10 mx-auto">
         <Destination :tripData="trip"></Destination>
       </div>
+      <div class="col-12 col-lg-10 mx-auto">
+        <Members :tripData="trip" />
+      </div>
+
       <div class="col-12 col-lg-10 mx-auto">
         <Carpool :tripData="trip"></Carpool>
       </div>
@@ -54,16 +45,12 @@ import Navbar from "@/components/Navbar";
 import Destination from "@/components/Destination";
 import Carpool from "@/components/Carpool";
 import Meals from "@/components/Meals";
+import Members from "@/components/Members";
 
 export default {
   name: "Trip",
   data() {
-    return {
-      newCollab: {
-        email: "",
-        tripId: this.$route.params.tripId
-      }
-    };
+    return {};
   },
   params: ["tripId"],
   mounted() {
@@ -78,16 +65,10 @@ export default {
     Navbar,
     Destination,
     Carpool,
-    Meals
+    Meals,
+    Members
   },
-  methods: {
-    addCollab() {
-      let tripId = this.$route.params.tripId;
-      let collab = { ...this.newCollab };
-      this.$store.dispatch("authenticateCollab", collab);
-      this.newCollab = { email: "", tripId: this.$route.params.tripId };
-    }
-  }
+  methods: {}
 };
 </script>
 
