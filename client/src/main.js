@@ -42,9 +42,10 @@ import AuthService from "./AuthService";
 //Vue.config.productionTip = false
 
 async function init() {
-  let user = await AuthService.Authenticate();
-  if (user) {
-    store.commit("setUser", user);
+  let userData = await AuthService.Authenticate();
+  if (userData) {
+    store.commit("setUser", userData.user);
+    store.commit("setResource", { resource: "profile", data: userData.profile });
   } else {
     router.push({ name: "home" });
   }

@@ -11,6 +11,7 @@ export default class UserController {
       .post("/login", this.login)
       .use(Authorize.authenticated)
       .get("/authenticate", this.authenticate)
+      .get("/authenticate/:id", this.authenticateCollab)
       .delete("/logout", this.logout)
       .use(this.defaultRoute);
   }
@@ -47,6 +48,12 @@ export default class UserController {
     } catch (err) {
       next(err);
     }
+  }
+  async authenticateCollab(req, res, next) {
+    try {
+      let user = await _userService.authenticateCollab(req.params.id);
+      res.send(user);
+    } catch (error) {}
   }
 
   async logout(req, res, next) {

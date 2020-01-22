@@ -6,7 +6,11 @@ let auth = Axios.create({
   timeout: 3000,
   withCredentials: true
 })
-
+let api = Axios.create({
+  baseURL: baseUrl + "api/",
+  timeout: 3000,
+  withCredentials: true
+})
 export default class AuthService {
   static async Login(creds) {
     try {
@@ -32,12 +36,17 @@ export default class AuthService {
       throw new Error(`[logout failed] : ${!e.response ? 'No response from server' : e.response.data.error}`)
     }
   }
+
   static async Authenticate() {
     try {
       let res = await auth.get('authenticate')
-      return res.data
+      let profile = await api.get('profiles')
+      console.log("AuthService profile:", profile.data);
+      return ({ user: res.data, profile: profile.data })
+      // return res.data
     } catch (e) {
       console.warn(`[Authentication failed] : ${!e.response ? 'No response from server' : e.response.data.error}`)
     }
   }
 }
+

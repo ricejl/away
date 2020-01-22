@@ -93,8 +93,9 @@ export default new Vuex.Store({
       try {
         let user = await AuthService.Login(creds);
         commit("setUser", user);
-        let res = await api.get("profiles");
-        if (res.data._id) {
+        let profile = await api.get("profiles");
+        if (profile.data._id) {
+          commit("setResource", { resource: "profile", data: profile.data });
           router.push({ name: "dashboard" });
         } else {
           router.push({ name: "profile" });
@@ -118,7 +119,7 @@ export default new Vuex.Store({
     async getCoords({ commit, dispatch }, payload) {
       try {
         let results = await googleApi.get(
-          `json?address=${payload}&key=${process.env.VUE_APP_GOOGLE_MAPS_API_KEY}`
+          `json?address=${payload}&key=AIzaSyAa1YgIktAEVQGkyUCNgrDGkzLchDssUII`
         );
         console.log(
           "maps api results: ",
