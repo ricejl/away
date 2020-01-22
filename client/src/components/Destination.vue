@@ -1,6 +1,13 @@
 <template>
   <div class="card-container top-card">
-    <div id="title-container" class="w-100" @click="dropdown = !dropdown">
+    <div
+      id="title-container"
+      class="w-100"
+      @click="
+        dropdown = !dropdown;
+        getCoords(trip.destinations[0].location);
+      "
+    >
       <!-- <br /> -->
       <div class="row">
         <div class="col-12">
@@ -24,55 +31,72 @@
           <!-- <div @click="dropdown=!dropdown"> -->
           <div class="row">
             <div class="col-12 col-md-6 mx-auto">
-              <button
-                class="mb-3 btn-dark text-light-grey"
-                @click="getCoords(trip.destinations[0].location)"
-                v-if="!showMap"
-              >
-                Show map
-              </button>
-              <button
-                class="mb-3 btn-dark text-light-grey"
-                @click="showMap = !showMap"
-                v-if="showMap"
-              >
-                Hide map
-              </button>
-              <div v-if="showMap">
-                <gmap-map
-                  :center="center"
-                  :zoom="12"
-                  style="width:100%;  height: 400px;"
+              <div v-if="trip.destinations && trip.destinations.length">
+                <button
+                  class="mb-3 btn-dark text-light-grey"
+                  @click="
+                    getCoords(trip.destinations[0].location);
+                    launchWeather();
+                  "
                 >
-                  <gmap-marker
-                    :key="index"
-                    v-for="(m, index) in markers"
-                    :position="center"
-                    :clickable="true"
-                    :draggable="false"
-                    @click="launchURL()"
-                  ></gmap-marker>
-                </gmap-map>
+                  Open weather
+                </button>
+                <button
+                  class="mb-3 btn-dark text-light-grey"
+                  @click="
+                    getCoords(trip.destinations[0].location);
+                    showMap = !showMap;
+                  "
+                  v-if="!showMap"
+                >
+                  Show map
+                </button>
+                <button
+                  class="mb-3 btn-dark text-light-grey"
+                  @click="showMap = !showMap"
+                  v-if="showMap"
+                >
+                  Hide map
+                </button>
+                <div v-if="showMap">
+                  <div class="meteor mt-1">
+                    Click the pin to open Google Maps!
+                  </div>
+                  <gmap-map
+                    :center="center"
+                    :zoom="12"
+                    style="width:100%;  height: 400px;"
+                  >
+                    <gmap-marker
+                      :key="index"
+                      v-for="(m, index) in markers"
+                      :position="center"
+                      :clickable="true"
+                      :draggable="false"
+                      @click="launchURL()"
+                    ></gmap-marker>
+                  </gmap-map>
+                </div>
+                <ul class="list-group list-group-flush mt-4">
+                  <li
+                    v-for="(destination, i) in tripData.destinations"
+                    :key="destination._id"
+                    class="list-group-item list-group-item-action"
+                  >
+                    {{ destination.location }}
+                    <i
+                      title="delete"
+                      class="far fa-times-circle"
+                      @click="deleteDestination(destination._id)"
+                    ></i>
+                    <i v-if="i == 0" class="fas fa-meteor"></i>
+                  </li>
+                </ul>
+                <p class="meteor">
+                  <i class="fas fa-meteor pr-1 pt-3"></i>indicates final
+                  destination
+                </p>
               </div>
-              <ul class="list-group list-group-flush mt-4">
-                <li
-                  v-for="(destination, i) in tripData.destinations"
-                  :key="destination._id"
-                  class="list-group-item list-group-item-action"
-                >
-                  {{ destination.location }}
-                  <i
-                    title="delete"
-                    class="far fa-times-circle"
-                    @click="deleteDestination(destination._id)"
-                  ></i>
-                  <i v-if="i == 0" class="fas fa-meteor"></i>
-                </li>
-              </ul>
-              <p id="meteor">
-                <i class="fas fa-meteor pr-1 pt-3"></i>indicates final
-                destination
-              </p>
             </div>
           </div>
           <!-- </div> -->
@@ -113,18 +137,24 @@ export default {
     };
   },
   methods: {
-    addDestination(tripId) {
+    async addDestination(tripId) {
       let destination = { ...this.newDestination };
-      this.$store.dispatch("addDestination", { tripId, destination });
+      await this.$store.dispatch("addDestination", { tripId, destination });
       this.newDestination = {
         location: ""
       };
+      // console.log(
+      //   "addDestination says",
+      //   this.$store.state.activeTrip.destinations[0].location
+      // );
+      this.getCoords(this.$store.state.activeTrip.destinations[0].location);
     },
     async getCoords(location) {
       await this.$store.dispatch("getCoords", location);
-      this.showMap = true;
+      // this.showMap = true;
       this.center = this.$store.state.coords;
       this.markers.push(this.$store.state.coords);
+      // console.log(this.center);
     },
     deleteDestination(id) {
       this.$store.dispatch("removeDestination", {
@@ -137,6 +167,11 @@ export default {
         // `https://www.google.com/maps/search/?api=1&${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
         `https://maps.google.com/maps?q=${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
         "_blank"
+      );
+    },
+    launchWeather() {
+      window.open(
+        `https://weather.com/weather/today/l/${this.$store.state.coords.lat},${this.$store.state.coords.lng}?temp=f`
       );
     }
   },
@@ -210,7 +245,7 @@ export default {
 .fa-times-circle:hover {
   opacity: 0.5;
 }
-#meteor {
+.meteor {
   color: rgba(0, 0, 0, 0.7);
   font-size: 0.85em;
   font-weight: bold;
