@@ -1,6 +1,6 @@
 <template>
-  <div class="card-container">
-    <div class="w-100" @click="dropdown = !dropdown">
+  <div class="row card-container">
+    <div class="col-12 w-100" @click="dropdown = !dropdown">
       <br />
       <h4 class="mb-0">Carpool</h4>
       <br />
@@ -13,7 +13,7 @@
     </div>
 
     <!-- <transition name="slide"> -->
-    <div v-if="dropdown" class="dropdown pb-3">
+    <div v-if="dropdown" class="col-12 dropdown pb-3">
       <div
         v-for="carpool in carpools"
         :key="carpool._id"
@@ -77,30 +77,37 @@
 
       <hr />
       <h5 class="pb-2">New carpool</h5>
-      <form
-        @submit.prevent="createCarpool()"
-        class="carpool-form d-flex direction-column"
-      >
-        <label for="carpool-name" class="pr-1">Carpool name</label>
-        <input
-          type="text"
-          id="carpool-name"
-          v-model="newCarpool.name"
-          placeholder="Enter name"
-          required
-        />
-        <label for="carpool-total-seats" class="pl-2 pr-1"
-          >Number of seats</label
+      <div class="col-12">
+        <form
+          @submit.prevent="createCarpool()"
+          class="row carpool-form d-flex direction-column"
         >
-        <input
-          type="number"
-          min="1"
-          v-model="newCarpool.totalSeats"
-          placeholder="Total number of seats"
-          required
-        />
-        <button type="submit">Add</button>
-      </form>
+          <label for="carpool-name" class="col-6 col-md-2 pr-1"
+            >Carpool name</label
+          >
+          <input
+            type="text"
+            id="carpool-name"
+            class="col-6 col-md-3"
+            v-model="newCarpool.name"
+            placeholder="Enter name"
+            required
+          />
+
+          <label for="carpool-total-seats" class="col-6 col-md-2 pl-2 pr-1"
+            >Number of seats</label
+          >
+          <input
+            type="number"
+            min="1"
+            class="col-6 col-md-3 "
+            v-model="newCarpool.totalSeats"
+            placeholder="Total number of seats"
+            required
+          />
+          <button class="col-12 col-md-1" type="submit">Add</button>
+        </form>
+      </div>
     </div>
   </div>
   <!-- </transition> -->
@@ -177,6 +184,7 @@ export default {
   margin-top: 1em;
   min-height: 5em;
   cursor: pointer;
+  margin: 0px 0px;
 }
 .top-card {
   background: rgba(255, 162, 75, 0.75) !important;
