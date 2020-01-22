@@ -12,7 +12,7 @@ require("dotenv").config();
 
 Vue.use(VueGoogleMaps, {
   load: {
-    key: process.env.VUE_APP_GOOGLE_MAPS_API_KEY,
+    key: "AIzaSyAa1YgIktAEVQGkyUCNgrDGkzLchDssUII",
     libraries: "places" // necessary for places input
   }
 });
