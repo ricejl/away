@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import _userService from "../services/UserService";
+import tripService from "../services/TripService";
 
 //PUBLIC
 export default class UserController {
@@ -11,7 +12,7 @@ export default class UserController {
       .post("/login", this.login)
       .use(Authorize.authenticated)
       .get("/authenticate", this.authenticate)
-      .get("/authenticate/:id", this.authenticateCollab)
+      .post("/authenticateCollab", this.authenticateCollab)
       .delete("/logout", this.logout)
       .use(this.defaultRoute);
   }
@@ -51,9 +52,21 @@ export default class UserController {
   }
   async authenticateCollab(req, res, next) {
     try {
-      let user = await _userService.authenticateCollab(req.params.id);
-      res.send(user);
-    } catch (error) {}
+      let user = await _userService.authenticateCollab(
+        req.session.uid,
+        req.body
+      );
+
+      let tripCollab = await tripService.addCollab(
+        req.session.uid,
+        user.id,
+        req.body.tripId,
+        req.body
+      );
+      res.send(tripCollab);
+    } catch (error) {
+      next(error);
+    }
   }
 
   async logout(req, res, next) {
