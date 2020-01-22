@@ -6,9 +6,20 @@
       </div>
     </div>
     <div class="row">
+      <div class="col-6 mx-auto">
+        <form @submit.prevent="addCollab">
+          <label class="text-white" for="email">Add user to this trip...</label>
+          <input
+            type="text"
+            name="email"
+            v-model="newCollab.email"
+            placeholder="Enter an email..."
+          />
+          <button>Add</button>
+        </form>
+      </div>
       <div class="col-12 col-lg-10 mx-auto pt-3">
-
-        <h3 v-if="trip.title" class="text-white">{{trip.title}}</h3>
+        <h3 v-if="trip.title" class="text-white">{{ trip.title }}</h3>
         <div v-else class="spinner-border text-light" role="status">
           <span class="sr-only">Loading...</span>
         </div>
@@ -44,6 +55,14 @@ import Meals from "@/components/Meals";
 
 export default {
   name: "Trip",
+  data() {
+    return {
+      newCollab: {
+        email: "",
+        tripId: this.$route.params.tripId
+      }
+    };
+  },
   params: ["tripId"],
   mounted() {
     this.$store.dispatch("getTripById", this.$route.params.tripId);
@@ -59,7 +78,14 @@ export default {
     Carpool,
     Meals
   },
-  methods: {}
+  methods: {
+    addCollab() {
+      let tripId = this.$route.params.tripId;
+      let collab = { ...this.newCollab };
+      this.$store.dispatch("authenticateCollab", collab);
+      this.newCollab = { email: "", tripId: this.$route.params.tripId };
+    }
+  }
 };
 </script>
 

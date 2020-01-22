@@ -115,6 +115,15 @@ export default new Vuex.Store({
         console.warn(e.message);
       }
     },
+    async authenticateCollab({ commit, dispatch }, collab) {
+      try {
+        let trip = await AuthService.AuthenticateCollab(collab);
+        console.log(trip);
+        dispatch("getTripById", collab.tripId);
+      } catch (error) {
+        // console.warn(error.message);
+      }
+    },
     //#endregion
     async getCoords({ commit, dispatch }, payload) {
       try {

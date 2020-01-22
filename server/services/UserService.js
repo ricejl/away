@@ -49,13 +49,16 @@ class UserService {
     delete user._doc.hash;
     return user;
   }
-  async authenticateCollab(id) {
-    let user = await _repository.findOne({ _id: id });
+  async authenticateCollab(authorId, payload) {
+    let user = await _repository.findOne({
+      email: payload.email
+    });
     if (!user) {
       throw new ApiError("Please login to continue", 401);
     }
     // @ts-ignore
     delete user._doc.hash;
+    console.log(user);
     return user;
   }
   generateHash(password) {

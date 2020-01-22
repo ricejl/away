@@ -5,12 +5,12 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Trip", Trip);
 
 class TripService {
-  async addCollab(tripId, authorId, payload) {
+  async addCollab(authorId, collabId, tripId, payload) {
     let data = await _repository.findOneAndUpdate(
       { _id: tripId, authorId: authorId },
       {
         $addToSet: {
-          collabs: payload.collabId
+          collabs: collabId
         }
       },
       { new: true }
