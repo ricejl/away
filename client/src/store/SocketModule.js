@@ -6,7 +6,8 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //establish connection with socket
-      socket = io();
+      socket = io(); // Use socket=io("//localhost:3000") for testing offline
+
       //Handle any on connection events
       socket.on("CONNECTED", data => {
         console.log("Connected to socket");
