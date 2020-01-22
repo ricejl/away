@@ -12,20 +12,11 @@
       </div>
     </div>
 
-    <!-- <transition name="slide"> -->
     <div v-if="dropdown" class="col-12 dropdown pb-3">
-      <div
-        v-for="carpool in carpools"
-        :key="carpool._id"
-        class="d-inline-block"
-      >
+      <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block">
         <div class="p-3">
-          <h6 class="car-name bg-lightest-grey mb-0 pt-2">
-            {{ carpool.name }}
-          </h6>
-          <div
-            class="car d-flex justify-content-center bg-lightest-grey text-light p-1"
-          >
+          <h6 class="car-name bg-lightest-grey mb-0 pt-2">{{ carpool.name }}</h6>
+          <div class="car d-flex justify-content-center bg-lightest-grey text-light p-1">
             <div
               v-for="occupant in carpool.occupants"
               :key="occupant.profileId._id"
@@ -33,18 +24,8 @@
               title="occupant.name"
               FIXME
             >
-              <i
-                @click="removeOccupant(carpool._id, occupant._id)"
-                class="fas fa-times"
-              ></i>
-              {{ occupant.profileId.name }}
-
-              <!-- <div v-else class="bg-dark shadow-dark seat m-1"></div> -->
-
-              <!-- <div class="bg-dark shadow-dark seat m-1"></div>
-            <div class="bg-dark shadow-dark seat m-1"></div>
-            <div class="bg-dark shadow-dark seat m-1"></div>
-            <div class="bg-dark shadow-dark seat m-1"></div> -->
+              <i @click="removeOccupant(carpool._id, occupant._id)" class="fas fa-times"></i>
+              {{ occupant.profileId.firstName[0] }}{{ occupant.profileId.lastName[0] }}
             </div>
             <div
               v-for="(freeSeats, i) in carpool.totalSeats -
@@ -58,33 +39,12 @@
           </div>
         </div>
       </div>
-      <!-- {{ carpool.name }}
-        NOTE use carpool.totalSeats to determine number of seat divs
-        totalSeats - occupants.length = number of remaining seats
-        carpool.description is optional - may wanna display on click to keep it looking clean if added to form
-        Stretch goal - use drag and drop library -->
-
-      <!-- <div class="d-inline-block p-3">
-        <h6 class="car-name bg-lightest-grey mb-0 pt-2">car</h6>
-         <div class="car d-flex justify-content-center bg-light p-1">
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-          <div class="bg-dark shadow-dark seat m-1"></div>
-        </div> -->
 
       <hr />
       <h5 class="pb-2">New carpool</h5>
       <div class="col-12">
-        <form
-          @submit.prevent="createCarpool()"
-          class="row carpool-form d-flex direction-column"
-        >
-          <label for="carpool-name" class="col-6 col-md-2 pr-1"
-            >Carpool name</label
-          >
+        <form @submit.prevent="createCarpool()" class="row carpool-form d-flex direction-column">
+          <label for="carpool-name" class="col-6 col-md-2 pr-1">Carpool name</label>
           <input
             type="text"
             id="carpool-name"
@@ -94,28 +54,20 @@
             required
           />
 
-          <label for="carpool-total-seats" class="col-6 col-md-2 pl-2 pr-1"
-            >Number of seats</label
-          >
+          <label for="carpool-total-seats" class="col-6 col-md-2 pl-2 pr-1">Number of seats</label>
           <input
             type="number"
             min="1"
-            class="col-6 col-md-3 "
+            class="col-6 col-md-3"
             v-model="newCarpool.totalSeats"
             placeholder="Total number of seats"
             required
           />
-          <button
-            class="col-12 col-md-1 btn-dark text-light-grey"
-            type="submit"
-          >
-            Add
-          </button>
+          <button class="col-12 col-md-1 btn-dark text-light-grey" type="submit">Add</button>
         </form>
       </div>
     </div>
   </div>
-  <!-- </transition> -->
 </template>
 
 <script>
@@ -167,14 +119,7 @@ export default {
 </script>
 
 <style scoped>
-/* .slide-enter-active {
-  transition: all 0.5s ease;
-}
-.slide-leave-active {
-  transition: all 0.5s ease;
-} */
 .dropdown {
-  /* transform: translateX(-100%); */
   transition: transform 1s ease-in-out;
 }
 .dropdown > div {
@@ -224,10 +169,4 @@ export default {
   height: 4em;
   width: 4em;
 }
-/* .fa-times {
-  display: none;
-}
-.fa-times:hover {
-  display: block;
-} */
 </style>

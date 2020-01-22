@@ -11,9 +11,10 @@
       <!-- <br /> -->
       <div class="row">
         <div class="col-12">
-          <h4 v-if="trip.destinations && trip.destinations.length" class="mb-0">
-            {{ trip.destinations[0].location }}
-          </h4>
+          <h4
+            v-if="trip.destinations && trip.destinations.length"
+            class="mb-0"
+          >{{ trip.destinations[0].location }}</h4>
           <h4 v-else class="mb-0">Destination</h4>
           <!-- <br /> -->
           <div class="arrow" v-if="!dropdown">
@@ -28,39 +29,23 @@
     <div class="row w-100">
       <div class="col-12">
         <div v-if="dropdown" class="dropdown">
-          <!-- <div @click="dropdown=!dropdown"> -->
           <div class="row">
             <div class="col-12 col-md-6 mx-auto">
               <div v-if="trip.destinations && trip.destinations.length">
-                <button
-                  class="mb-3 btn-dark text-light-grey"
-                  @click="launchWeather()"
-                >
-                  Open weather
-                </button>
+                <button class="mb-3 btn-dark text-light-grey" @click="launchWeather()">Open weather</button>
                 <button
                   class="mb-3 btn-dark text-light-grey"
                   @click="showMap = !showMap"
                   v-if="!showMap"
-                >
-                  Show map
-                </button>
+                >Show map</button>
                 <button
                   class="mb-3 btn-dark text-light-grey"
                   @click="showMap = !showMap"
                   v-if="showMap"
-                >
-                  Hide map
-                </button>
+                >Hide map</button>
                 <div v-if="showMap">
-                  <div class="meteor mt-1">
-                    Click the pin to open Google Maps!
-                  </div>
-                  <gmap-map
-                    :center="center"
-                    :zoom="12"
-                    style="width:100%;  height: 400px;"
-                  >
+                  <div class="meteor mt-1">Click the pin to open Google Maps!</div>
+                  <gmap-map :center="center" :zoom="12" style="width:100%;  height: 400px;">
                     <gmap-marker
                       :key="index"
                       v-for="(m, index) in markers"
@@ -124,7 +109,6 @@ export default {
       dropdown: false,
       center: { lat: 45.508, lng: -73.587 },
       markers: [],
-      //{ position: { lat: 44.21585, lng: -114.933588 } }
       places: [],
       currentPlace: null,
       showMap: false
@@ -137,18 +121,13 @@ export default {
       this.newDestination = {
         location: ""
       };
-      // console.log(
-      //   "addDestination says",
-      //   this.$store.state.activeTrip.destinations[0].location
-      // );
+
       this.getCoords(this.$store.state.activeTrip.destinations[0].location);
     },
     async getCoords(location) {
       await this.$store.dispatch("getCoords", location);
-      // this.showMap = true;
       this.center = this.$store.state.coords;
       this.markers.push(this.$store.state.coords);
-      // console.log(this.center);
     },
     deleteDestination(id) {
       this.$store.dispatch("removeDestination", {
@@ -158,7 +137,6 @@ export default {
     },
     launchURL() {
       window.open(
-        // `https://www.google.com/maps/search/?api=1&${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
         `https://maps.google.com/maps?q=${this.$store.state.coords.lat},${this.$store.state.coords.lng}`,
         "_blank"
       );
@@ -173,11 +151,8 @@ export default {
     trip() {
       return this.$store.state.activeTrip;
     }
-    // google: gmapApi
   },
-  components: {
-    //GoogleMap
-  }
+  components: {}
 };
 </script>
 

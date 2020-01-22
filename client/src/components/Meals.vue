@@ -115,7 +115,6 @@ export default {
   name: "Meals",
   props: ["tripData"],
   mounted() {
-    // this.$store.dispatch("getProfileByUserId");
     console.log("Meals view mounted profile:", this.$store.state.profile);
     this.$store
       .dispatch("getMealsByTripId", this.$route.params.tripId)

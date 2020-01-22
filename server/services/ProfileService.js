@@ -44,18 +44,6 @@ class ProfileService {
     }
     return data;
   }
-
-  // NOTE Users should not be able to delete their profile
-
-  //   async delete(id, userId) {
-  //     let data = await _repository.findOneAndRemove({
-  //       _id: id,
-  //       authorId: userId
-  //     });
-  //     if (!data) {
-  //       throw new ApiError("Invalid Id or you do not own this profile", 400);
-  //     }
-  //   }
 }
 
 const profileService = new ProfileService();

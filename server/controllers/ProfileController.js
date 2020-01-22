@@ -32,7 +32,7 @@ export default class ProfileController {
   async getProfileByUserId(req, res, next) {
     try {
       let data = await profileService.getProfileByUserId(req.session.uid);
-      res.send(data)
+      res.send(data);
     } catch (error) {
       next(error);
     }
@@ -60,14 +60,4 @@ export default class ProfileController {
       next(error);
     }
   }
-
-  // NOTE Users should not be able to delete their profile
-  //   async delete(req, res, next) {
-  //     try {
-  //       let data = await profileService.delete(req.params.id, req.session.uid);
-  //       return res.send("Deletion successful");
-  //     } catch (error) {
-  //       next(error);
-  //     }
-  //   }
 }

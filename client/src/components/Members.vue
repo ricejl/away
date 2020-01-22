@@ -61,7 +61,6 @@ export default {
 
 <style scoped>
 .dropdown {
-  /* transform: translateX(-100%); */
   transition: transform 1s ease-in-out;
 }
 .dropdown > div {
