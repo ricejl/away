@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import carpoolService from "../services/CarpoolService";
+import tripService from "../services/TripService";
 
 export default class CarpoolController {
   constructor() {
@@ -42,9 +43,12 @@ export default class CarpoolController {
   }
   async createCarpool(req, res, next) {
     try {
+      let trip = await tripService.getByTripId(
+        req.body.tripId,
+        req.session.uid
+      );
       req.body.authorId = req.session.uid;
-      req.body.collabs = [];
-      req.body.collabs.push(req.session.uid);
+      req.body.collabs = [...trip.collabs];
       let data = await carpoolService.createCarpool(req.body);
       return res.status(201).send(data);
     } catch (error) {

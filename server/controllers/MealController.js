@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import mealService from "../services/MealService";
+import tripService from "../services/TripService";
 
 export default class MealController {
   constructor() {
@@ -42,9 +43,12 @@ export default class MealController {
   }
   async createMeal(req, res, next) {
     try {
+      let trip = await tripService.getByTripId(
+        req.body.tripId,
+        req.session.uid
+      );
       req.body.authorId = req.session.uid;
-      req.body.collabs = [];
-      req.body.collabs.push(req.session.uid);
+      req.body.collabs = [...trip.collabs];
       let data = await mealService.createMeal(req.body);
       return res.status(201).send(data);
     } catch (error) {
