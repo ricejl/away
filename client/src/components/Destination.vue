@@ -25,13 +25,17 @@
           <div class="row">
             <div class="col-12 col-md-6 mx-auto">
               <button
-                class="mb-3"
+                class="mb-3 btn-dark text-light-grey"
                 @click="getCoords(trip.destinations[0].location)"
                 v-if="!showMap"
               >
                 Show map
               </button>
-              <button class="mb-3" @click="showMap = !showMap" v-if="showMap">
+              <button
+                class="mb-3 btn-dark text-light-grey"
+                @click="showMap = !showMap"
+                v-if="showMap"
+              >
                 Hide map
               </button>
               <div v-if="showMap">
@@ -50,7 +54,7 @@
                   ></gmap-marker>
                 </gmap-map>
               </div>
-              <ul class="list-group list-group-flush">
+              <ul class="list-group list-group-flush mt-4">
                 <li
                   v-for="(destination, i) in tripData.destinations"
                   :key="destination._id"
@@ -65,19 +69,21 @@
                   <i v-if="i == 0" class="fas fa-meteor"></i>
                 </li>
               </ul>
-              <h6>
-                <i class="fas fa-meteor pr-1"></i>indicates final destination
-              </h6>
+              <p id="meteor">
+                <i class="fas fa-meteor pr-1 pt-3"></i>indicates final
+                destination
+              </p>
             </div>
           </div>
           <!-- </div> -->
           <form @submit.prevent="addDestination(tripData._id)" class="p-3">
             <input
+              class="bg-lightest-grey pl-1"
               type="text"
               v-model="newDestination.location"
-              placeholder="Enter Address or Lat,Long"
+              placeholder="Address or coordinates"
             />
-            <button type="submit">Add</button>
+            <button class="btn-dark text-light-grey" type="submit">Add</button>
           </form>
         </div>
       </div>
@@ -86,12 +92,6 @@
 </template>
 
 <script>
-//       console.log("latitude: ", latitude);
-//       // initialize(latitude,longitude);
-//     }
-//   });
-// });
-
 export default {
   name: "Destination",
   mounted() {
@@ -156,7 +156,6 @@ export default {
 #title-container h4 {
   color: black;
   cursor: pointer;
-  font-weight: bold;
   padding: 1em 0;
 }
 .dropdown {
@@ -181,15 +180,25 @@ export default {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  left: 4%;
-  top: 2%;
+  right: 5%;
+  bottom: 1%;
+}
+.text-light-grey {
+  color: #ebe6e6;
+}
+.bg-lightest-grey {
+  background: #f3f3f3;
 }
 .list-group-item {
   background-color: transparent;
   color: black;
-  font-weight: bold;
+  border: none;
 }
-
+.list-group {
+  border: 1px solid rgba(0, 0, 0, 0.3);
+  background: rgba(255, 162, 75, 0.4);
+  box-shadow: 1px 3px 9px black;
+}
 .fa-times-circle {
   cursor: pointer;
   font-size: 1.2em;
@@ -200,5 +209,10 @@ export default {
 }
 .fa-times-circle:hover {
   opacity: 0.5;
+}
+#meteor {
+  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.85em;
+  font-weight: bold;
 }
 </style>

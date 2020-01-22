@@ -12,7 +12,8 @@ const Trip = new Schema(
     title: { type: String, required: true },
     authorId: { type: ObjectId, ref: "User", required: true },
     destinations: [Destination],
-    collabs: [{ type: ObjectId, ref: "User" }]
+    collabs: [{ type: ObjectId, ref: "User" }],
+    collabsProfiles: [{ type: Object, ref: "Profile" }]
   },
   { timestamps: true, toJSON: { virtuals: true } }
 );
