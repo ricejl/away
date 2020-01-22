@@ -91,6 +91,7 @@ class CarpoolService {
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
+    return data;
   }
 }
 

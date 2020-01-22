@@ -2,6 +2,7 @@ import express from "express";
 import { Authorize } from "../middleware/authorize";
 import carpoolService from "../services/CarpoolService";
 import tripService from "../services/TripService";
+import socket from "../socket/SocketService";
 
 export default class CarpoolController {
   constructor() {
@@ -23,6 +24,7 @@ export default class CarpoolController {
     try {
       req.body.authorId = req.session.uid;
       let data = await carpoolService.addOccupant(req.params.id, req.body);
+      socket.notifyAddOccupant(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -36,7 +38,8 @@ export default class CarpoolController {
         userId: req.session.uid,
         occupantId: req.params.id
       });
-      return res.send("Deletion Successful");
+      socket.notifyRemoveOccupant(data);
+      return res.send(data);
     } catch (error) {
       next(error);
     }
@@ -50,6 +53,7 @@ export default class CarpoolController {
       req.body.authorId = req.session.uid;
       req.body.collabs = [...trip.collabs];
       let data = await carpoolService.createCarpool(req.body);
+      socket.notifyAddCarpool(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
