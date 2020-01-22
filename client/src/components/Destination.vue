@@ -43,8 +43,10 @@
                   <gmap-marker
                     :key="index"
                     v-for="(m, index) in markers"
-                    :position="m.position"
-                    @click="center = m.position"
+                    :position="center"
+                    :clickable="true"
+                    :draggable="false"
+                    @click="center = center"
                   ></gmap-marker>
                 </gmap-map>
               </div>
