@@ -5,6 +5,20 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Meal", Meal);
 
 class MealService {
+  async addCollab(authorId, collabId, tripId, payload) {
+    let data = await _repository.updateMany(
+      { tripId: tripId, authorId: authorId },
+      {
+        $addToSet: {
+          collabs: collabId
+        }
+      }
+    );
+    if (!data) {
+      throw new ApiError("Invalid Id or you do not own this trip", 400);
+    }
+    return data;
+  }
   async getMealsByTripId(id, uid) {
     let data = await _repository
       .find({ tripId: id, collabs: { $all: [uid] } })

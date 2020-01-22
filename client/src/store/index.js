@@ -120,6 +120,8 @@ export default new Vuex.Store({
         let trip = await AuthService.AuthenticateCollab(collab);
         console.log(trip);
         dispatch("getTripById", collab.tripId);
+        dispatch("getCarpoolsByTripId", collab.tripId);
+        dispatch("getMealsByTripId", collab.tripId);
       } catch (error) {
         // console.warn(error.message);
       }

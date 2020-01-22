@@ -2,6 +2,8 @@ import express from "express";
 import { Authorize } from "../middleware/authorize";
 import _userService from "../services/UserService";
 import tripService from "../services/TripService";
+import carpoolService from "../services/CarpoolService";
+import mealService from "../services/MealService";
 
 //PUBLIC
 export default class UserController {
@@ -58,6 +60,18 @@ export default class UserController {
       );
 
       let tripCollab = await tripService.addCollab(
+        req.session.uid,
+        user.id,
+        req.body.tripId,
+        req.body
+      );
+      await carpoolService.addCollab(
+        req.session.uid,
+        user.id,
+        req.body.tripId,
+        req.body
+      );
+      await mealService.addCollab(
         req.session.uid,
         user.id,
         req.body.tripId,
