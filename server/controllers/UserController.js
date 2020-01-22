@@ -57,13 +57,13 @@ export default class UserController {
         req.body
       );
 
-      let collab = await tripService.addCollab(
+      let tripCollab = await tripService.addCollab(
         req.session.uid,
         user.id,
         req.body.tripId,
         req.body
       );
-      res.send(collab);
+      res.send(tripCollab);
     } catch (error) {
       next(error);
     }

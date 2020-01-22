@@ -8,7 +8,9 @@
     <div class="row">
       <div class="col-6 mx-auto">
         <form @submit.prevent="addCollab">
-          <label class="text-white" for="email">Add user to this trip...</label>
+          <label class="text-white" for="email"
+            >Add a friend to this trip...</label
+          >
           <input
             type="text"
             name="email"
