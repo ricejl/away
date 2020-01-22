@@ -6,7 +6,7 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //establish connection with socket
-      socket = io("//localhost:3000");
+      socket = io("//localhost:3000" || "/");
       //Handle any on connection events
       socket.on("CONNECTED", data => {
         console.log("Connected to socket");
