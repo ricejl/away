@@ -31,7 +31,11 @@
               >
                 Show map
               </button>
-              <button class="mb-3" @click="showMap = !showMap" v-if="showMap">
+              <button
+                class="mb-3 btn-dark text-light-grey"
+                @click="showMap = !showMap"
+                v-if="showMap"
+              >
                 Hide map
               </button>
               <div v-if="showMap">
@@ -66,7 +70,7 @@
                 </li>
               </ul>
               <p id="meteor">
-                <i class="fas fa-meteor pr-1 pt-2"></i>indicates final
+                <i class="fas fa-meteor pr-1 pt-3"></i>indicates final
                 destination
               </p>
             </div>
@@ -192,7 +196,8 @@ export default {
 }
 .list-group {
   border: 1px solid rgba(0, 0, 0, 0.3);
-  background: rgba(255, 162, 75, 0.5);
+  background: rgba(255, 162, 75, 0.4);
+  box-shadow: 1px 3px 9px black;
 }
 .fa-times-circle {
   cursor: pointer;
