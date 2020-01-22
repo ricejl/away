@@ -7,9 +7,12 @@ export default class NotificationService {
         title,
         html:
           `<form class="needs-validation profile-form" novalidate @change="checkStuff()">` +
-          `<label class="mb-0">Full name <span style="color: red">*</span></label>` +
-          `<input id="name" class="swal2-input" value="${profileData.name ||
-            ""}" placeholder="Enter your name">` +
+          `<label class="mb-0">First Name <span style="color: red">*</span></label>` +
+          `<input id="firstName" class="swal2-input" value="${profileData.firstName ||
+            ""}" placeholder="Enter your first name">` +
+          `<label class="mb-0">Last Name <span style="color: red">*</span></label>` +
+          `<input id="lastName" class="swal2-input" value="${profileData.lastName ||
+            ""}" placeholder="Enter your last name">` +
           `<label class="mb-0">Username <span style="color: red">*</span></label>` +
           `<input id="username" class="swal2-input" value="${profileData.username ||
             ""}" placeholder="Enter a display name">` +
@@ -27,27 +30,36 @@ export default class NotificationService {
         // NOTE for email validation look into validitystate=true, @change
         focusConfirm: false,
         preConfirm: () => {
-          let name = document.getElementById("name").value;
+          let firstName = document.getElementById("firstName").value;
+          let lastName = document.getElementById("lastName").value;
           let username = document.getElementById("username").value;
           let description = document.getElementById("description").value;
           let email = document.getElementById("email");
           let imgURL = document.getElementById("img-url").value;
-          if (!name || !username || !email.value) {
+          if (!firstName || !lastName || !username || !email.value) {
             Swal.showValidationMessage("Please fill out required fields");
           }
           if (email.validity.typeMismatch == true) {
             Swal.showValidationMessage("Invalid Email Address");
           }
-          return [name, username, description, email.value, imgURL];
+          return [
+            firstName,
+            lastName,
+            username,
+            description,
+            email.value,
+            imgURL
+          ];
         }
       });
       if (formValues) {
         return {
-          name: formValues[0],
-          username: formValues[1],
-          description: formValues[2],
-          email: formValues[3],
-          imgURL: formValues[4]
+          firstName: formValues[0],
+          lastName: formValues[1],
+          username: formValues[2],
+          description: formValues[3],
+          email: formValues[4],
+          imgURL: formValues[5]
         };
       }
     } catch (error) {

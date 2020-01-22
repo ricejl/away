@@ -5,12 +5,27 @@ import ApiError from "../utils/ApiError";
 const _repository = mongoose.model("Trip", Trip);
 
 class TripService {
-  async addCollab(authorId, collabId, tripId, payload) {
+  async addCollab(authorId, collabId, tripId) {
     let data = await _repository.findOneAndUpdate(
       { _id: tripId, authorId: authorId },
       {
         $addToSet: {
           collabs: collabId
+        }
+      },
+      { new: true }
+    );
+    if (!data) {
+      throw new ApiError("Invalid Id or you do not own this trip", 400);
+    }
+    return data;
+  }
+  async addCollabProfile(authorId, collabProfile, tripId) {
+    let data = await _repository.findOneAndUpdate(
+      { _id: tripId, authorId: authorId },
+      {
+        $addToSet: {
+          collabsProfiles: collabProfile
         }
       },
       { new: true }
@@ -43,13 +58,6 @@ class TripService {
     } catch (e) {
       console.error(e);
     }
-    // .then(res => {
-    //   return res;
-    // })
-    // .catch(e => {
-    //   console.error(e);
-    //   return e;
-    // });
   }
   //NOTE Below Function Works
   async edit(id, userId, update) {

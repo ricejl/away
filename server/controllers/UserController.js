@@ -4,6 +4,7 @@ import _userService from "../services/UserService";
 import tripService from "../services/TripService";
 import carpoolService from "../services/CarpoolService";
 import mealService from "../services/MealService";
+import profileService from "../services/ProfileService";
 
 //PUBLIC
 export default class UserController {
@@ -62,9 +63,16 @@ export default class UserController {
       let tripCollab = await tripService.addCollab(
         req.session.uid,
         user.id,
-        req.body.tripId,
-        req.body
+        req.body.tripId
       );
+      let collabProfile = await profileService.getProfileByUserId(user.id);
+
+      await tripService.addCollabProfile(
+        req.session.uid,
+        collabProfile,
+        req.body.tripId
+      );
+
       await carpoolService.addCollab(
         req.session.uid,
         user.id,
