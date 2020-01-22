@@ -52,17 +52,22 @@
               </div>
               <ul class="list-group list-group-flush">
                 <li
-                  v-for="destination in tripData.destinations"
+                  v-for="(destination, i) in tripData.destinations"
                   :key="destination._id"
                   class="list-group-item list-group-item-action"
                 >
                   {{ destination.location }}
                   <i
+                    title="delete"
                     class="far fa-times-circle"
                     @click="deleteDestination(destination._id)"
                   ></i>
+                  <i v-if="i == 0" class="fas fa-meteor"></i>
                 </li>
               </ul>
+              <h6>
+                <i class="fas fa-meteor pr-1"></i>indicates final destination
+              </h6>
             </div>
           </div>
           <!-- </div> -->
@@ -191,5 +196,9 @@ export default {
   position: absolute;
   right: 2%;
   top: 35%;
+  opacity: 0.2;
+}
+.fa-times-circle:hover {
+  opacity: 0.5;
 }
 </style>
