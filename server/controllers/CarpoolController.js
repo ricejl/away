@@ -2,6 +2,7 @@ import express from "express";
 import { Authorize } from "../middleware/authorize";
 import carpoolService from "../services/CarpoolService";
 import tripService from "../services/TripService";
+import socket from "../socket/SocketService";
 
 export default class CarpoolController {
   constructor() {
@@ -50,6 +51,7 @@ export default class CarpoolController {
       req.body.authorId = req.session.uid;
       req.body.collabs = [...trip.collabs];
       let data = await carpoolService.createCarpool(req.body);
+      socket.notifyAddCarpool(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);

@@ -19,9 +19,11 @@ class Socket {
   notifyAddDestination(destinationData) {
     this.io.emit("addDestination", destinationData);
   }
-
   notifyRemoveDestination(destinationData) {
     this.io.emit("removeDestination", destinationData);
+  }
+  notifyAddCarpool(carpoolData) {
+    this.io.emit("addCarpool", carpoolData);
   }
 
 
