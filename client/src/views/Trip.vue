@@ -77,6 +77,7 @@ export default {
   background: url("https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60")
     no-repeat bottom;
   background-size: cover;
+  background-position: center top;
   min-height: 100vh;
   font-family: "Montserrat", sans-serif;
 }
