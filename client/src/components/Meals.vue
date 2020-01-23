@@ -1,20 +1,20 @@
 <template>
   <div class="card-container">
-    <div class="title-container w-100" @click="dropdown = !dropdown">
+    <div class="w-100" @click="dropdown = !dropdown">
       <br />
       <div class="d-flex justify-content-center align-items-center">
         <h4 class="mb-0 mr-1">Meals</h4>
         <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
       </div>
       <br />
-      <div v-if="!dropdown" class="arrow down-arrow">
+      <div v-if="!dropdown" class="arrow">
         <i class="fas fa-angle-double-down"></i>
       </div>
-      <div v-else class="arrow up-arrow">
+      <div v-else class="arrow">
         <i class="fas fa-angle-double-up"></i>
       </div>
     </div>
-    <div v-if="dropdown" class="row text-left dropdown w-100">
+    <div v-if="dropdown" class="dropdown pb-3">
       <div class="col-12 col-md-10 mx-auto">
         <ul class="list-group list-group-flush">
           <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
@@ -48,9 +48,7 @@
       v-if="dropdown"
       @click="dropdown = !dropdown"
       class="w-100 text-right arrow bottom-up-arrow"
-    >
-      <i class="fas fa-angle-double-up pr-3"></i>
-    </div>
+    ></div>
   </div>
 </template>
 
@@ -121,8 +119,8 @@ export default {
 }
 .down-arrow {
   position: absolute;
-  right: 2%;
-  top: 0;
+  right: 5%;
+  bottom: 1%;
 }
 .up-arrow {
   position: absolute;
