@@ -76,6 +76,7 @@ class MealService {
         400
       );
     }
+    return data;
   }
 
   async removeFoodItem(payload) {
@@ -87,6 +88,7 @@ class MealService {
     if (!data) {
       throw new ApiError("Invalid ID or you do not own this trip", 400);
     }
+    return data;
   }
 }
 

@@ -2,6 +2,7 @@ import express from "express";
 import { Authorize } from "../middleware/authorize";
 import mealService from "../services/MealService";
 import tripService from "../services/TripService";
+import socket from "../socket/SocketService";
 
 export default class MealController {
   constructor() {
@@ -23,6 +24,7 @@ export default class MealController {
     try {
       req.body.authorId = req.session.uid;
       let data = await mealService.addFoodItem(req.params.id, req.body);
+      socket.notifyAddFoodItem(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -36,7 +38,8 @@ export default class MealController {
         userId: req.session.uid,
         foodItemId: req.params.id
       });
-      return res.send("Deletion Successful");
+      socket.notifyRemoveFoodItem(data);
+      return res.send(data);
     } catch (error) {
       next(error);
     }
@@ -50,6 +53,7 @@ export default class MealController {
       req.body.authorId = req.session.uid;
       req.body.collabs = [...trip.collabs];
       let data = await mealService.createMeal(req.body);
+      socket.notifyAddMeal(data);
       return res.status(201).send(data);
     } catch (error) {
       next(error);
@@ -72,7 +76,8 @@ export default class MealController {
   async deleteMeal(req, res, next) {
     try {
       let data = await mealService.deleteMeal(req.params.id, req.session.uid);
-      return res.send("Deletion successful");
+      socket.notifyRemoveMeal(data);
+      return res.send(data);
     } catch (error) {
       next(error);
     }

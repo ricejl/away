@@ -19,12 +19,30 @@ class Socket {
   notifyAddDestination(destinationData) {
     this.io.emit("addDestination", destinationData);
   }
-
   notifyRemoveDestination(destinationData) {
     this.io.emit("removeDestination", destinationData);
   }
-
-
+  notifyAddCarpool(carpoolData) {
+    this.io.emit("addCarpool", carpoolData);
+  }
+  notifyAddOccupant(occupantData) {
+    this.io.emit("addOccupant", occupantData);
+  }
+  notifyRemoveOccupant(occupantData) {
+    this.io.emit("removeOccupant", occupantData);
+  }
+  notifyAddMeal(mealData) {
+    this.io.emit("addMeal", mealData);
+  }
+  notifyRemoveMeal(mealData) {
+    this.io.emit("removeMeal", mealData);
+  }
+  notifyAddFoodItem(mealData) {
+    this.io.emit("addFoodItem", mealData);
+  }
+  notifyRemoveFoodItem(mealData) {
+    this.io.emit("removeFoodItem", mealData);
+  }
 }
 
 const socket = new Socket();
