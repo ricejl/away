@@ -17,7 +17,13 @@
     <div v-if="dropdown" class="dropdown pb-3">
       <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block">
         <div class="p-3">
-          <h6 class="car-name bg-lightest-grey mb-0 pt-2">{{ carpool.name }}</h6>
+          <h6 class="car-name bg-lightest-grey mb-0 pt-2">
+            {{ carpool.name }}
+            <i
+              @click="removeCarpool(carpool._id)"
+              class="text-right fas fa-times"
+            ></i>
+          </h6>
           <div class="car d-flex justify-content-center bg-lightest-grey text-light p-1">
             <div
               v-for="occupant in carpool.occupants"
@@ -110,6 +116,12 @@ export default {
       let tripId = this.$route.params.tripId;
 
       this.$store.dispatch("removeOccupant", { tripId, carpoolId, occupantId });
+    },
+    removeCarpool(carpoolId) {
+      if (confirm("Are You Sure You Want To Delete This Carpool?")) {
+        let tripId = this.$route.params.tripId;
+        this.$store.dispatch("removeCarpool", { tripId, carpoolId });
+      }
     }
   },
   computed: {
