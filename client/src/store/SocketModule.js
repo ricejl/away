@@ -32,6 +32,18 @@ export default {
       socket.on("removeOccupant", data => {
         dispatch("getCarpoolsByTripId", data.tripId);
       })
+      socket.on("addMeal", data => {
+        dispatch("getMealsByTripId", data.tripId);
+      })
+      socket.on("removeMeal", data => {
+        dispatch("getMealsByTripId", data.tripId);
+      })
+      socket.on("addFoodItem", data => {
+        dispatch("getMealsByTripId", data.tripId);
+      })
+      socket.on("removeFoodItem", data => {
+        dispatch("getMealsByTripId", data.tripId);
+      })
     }
   }
 };

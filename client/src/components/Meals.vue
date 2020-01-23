@@ -17,59 +17,7 @@
     <div v-if="dropdown" class="row text-left dropdown w-100">
       <div class="col-12 col-md-10 mx-auto">
         <ul class="list-group list-group-flush">
-          <li class="list-group-item" v-for="(meal, index) in meals" :key="meal._id">
-            <div class="d-flex justify-content-start align-items-center">
-              <div class="btn-group dropright">
-                <button type="button" class="btn" data-toggle="dropdown">
-                  <i class="fas fa-ellipsis-v"></i>
-                </button>
-                <div class="dropdown-menu">
-                  <button class="dropdown-item">Edit</button>
-                  <button @click="deleteMeal(meal._id)" class="dropdown-item">Delete</button>
-                </div>
-              </div>
-              <h3 class="mb-0">{{meal.title}}</h3>
-            </div>
-            <ul>
-              <li v-for="foodItem in meal.foodItems" :key="foodItem._id">
-                <div class="d-flex justify-content-start align-items-center">
-                  <div class="btn-group dropright">
-                    <button type="button" class="btn btn-sm" data-toggle="dropdown">
-                      <i class="fas fa-ellipsis-v food-item-menu"></i>
-                    </button>
-                    <div class="dropdown-menu">
-                      <button class="dropdown-item">Edit</button>
-                      <button
-                        @click="deleteFoodItem(meal._id, foodItem._id)"
-                        class="dropdown-item"
-                      >Delete</button>
-                    </div>
-                  </div>
-                  <span>{{foodItem.foodName}}</span>
-                </div>
-                <p class="food-item-author">Added by: {{profile.name}}</p>
-              </li>
-            </ul>
-            <form class="w-50 mx-auto" type="text" @submit.prevent="addFoodItem(meal._id, index)">
-              <div class="form-group mb-1">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="newFoodItems[index].foodName"
-                  placeholder="Enter Food Item..."
-                />
-              </div>
-              <div class="form-group mb-1">
-                <input
-                  type="text"
-                  class="form-control"
-                  v-model="newFoodItems[index].details"
-                  placeholder="Food Item Details..."
-                />
-              </div>
-              <button type="submit" class="btn food-item-btn btn-block text-white">Add Item</button>
-            </form>
-          </li>
+          <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
         </ul>
         <div class="row">
           <div class="col-12 col-md-8 mx-auto">
@@ -90,11 +38,7 @@
                   placeholder="Any details for your meal?"
                 />
               </div>
-              <button
-                @click="addFoodItemForm()"
-                type="submit"
-                class="btn meal-btn btn-block text-white"
-              >Add Meal</button>
+              <button type="submit" class="btn meal-btn btn-block text-white">Add Meal</button>
             </form>
           </div>
         </div>
@@ -111,18 +55,13 @@
 </template>
 
 <script>
+import MealComponent from "@/components/MealComponent";
 export default {
   name: "Meals",
   props: ["tripData"],
   mounted() {
-    console.log("Meals view mounted profile:", this.$store.state.profile);
-    this.$store
-      .dispatch("getMealsByTripId", this.$route.params.tripId)
-      .then(res => {
-        this.getFoodItemForms();
-      });
+    this.$store.dispatch("getMealsByTripId", this.$route.params.tripId);
   },
-
   data() {
     return {
       dropdown: false,
@@ -131,8 +70,7 @@ export default {
         details: "",
         foodItems: [],
         tripId: this.$route.params.tripId
-      },
-      newFoodItems: []
+      }
     };
   },
   methods: {
@@ -145,46 +83,6 @@ export default {
         foodItems: [],
         tripId: this.$route.params.tripId
       };
-    },
-    deleteMeal(mealId) {
-      this.$store.dispatch("removeMeal", {
-        mealId: mealId,
-        tripId: this.$route.params.tripId
-      });
-    },
-    addFoodItem(mealId, index) {
-      let foodItem = { ...this.newFoodItems[index] };
-      let tripId = this.$route.params.tripId;
-      this.$store.dispatch("addFoodItem", { mealId, foodItem, tripId });
-      this.newFoodItems[index] = {
-        profileId: this.profile._id,
-        foodName: "",
-        details: ""
-      };
-    },
-    addFoodItemForm() {
-      this.newFoodItems.push({
-        profileId: this.profile._id,
-        foodName: "",
-        details: ""
-      });
-      console.log(this.newFoodItems);
-    },
-    getFoodItemForms() {
-      this.meals.forEach(m => {
-        this.newFoodItems.push({
-          profileId: this.profile._id,
-          foodName: "",
-          details: ""
-        });
-      });
-    },
-    deleteFoodItem(mealId, foodItemId) {
-      this.$store.dispatch("removeFoodItem", {
-        mealId,
-        foodItemId,
-        tripId: this.$route.params.tripId
-      });
     }
   },
   computed: {
@@ -194,6 +92,9 @@ export default {
     profile() {
       return this.$store.state.profile;
     }
+  },
+  components: {
+    MealComponent
   }
 };
 </script>
@@ -229,9 +130,6 @@ export default {
 .bottom-up-arrow {
   cursor: pointer;
 }
-.food-item-author {
-  font-size: 0.75em;
-}
 .form-control {
   height: 2em;
 }
@@ -257,23 +155,7 @@ input:focus {
   border: 1px solid rgba(255, 162, 75);
   box-shadow: 0 0 10px rgba(255, 162, 75);
 }
-.food-item-btn {
-  background: -webkit-linear-gradient(right, #d64eff, #8400ac);
-}
 .meal-btn {
   background: -webkit-linear-gradient(right, #ffa24b, #ca6200);
-}
-.dropdown-menu {
-  background-color: rgba(4, 4, 4, 0.75);
-  border: 1px solid #ffa24b;
-}
-.dropdown-item {
-  color: white;
-}
-.dropdown-item:hover {
-  background-color: rgba(65, 65, 65, 0.75);
-}
-.food-item-menu {
-  font-size: 0.9em;
 }
 </style>
