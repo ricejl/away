@@ -4,6 +4,7 @@
       <br />
       <div class="d-flex justify-content-center align-items-center">
         <h4 class="mb-0">Carpool</h4>
+        <span class="badge badge-primary badge-pill ml-1">{{carpools.length}}</span>
       </div>
       <br />
       <div class="arrow" v-if="!dropdown">
@@ -30,7 +31,6 @@
               :key="occupant.profileId._id"
               class="bg-dark shadow-dark seat m-1 d-flex align-items-center justify-content-center"
               title="occupant.name"
-              FIXME
             >
               <i @click="removeOccupant(carpool._id, occupant._id)" class="fas fa-times"></i>
               {{ occupant.profileId.firstName[0] }}{{ occupant.profileId.lastName[0] }}
@@ -193,5 +193,19 @@ export default {
 .seat {
   height: 4em;
   width: 4em;
+}
+.badge-primary {
+  border: 1px solid rgb(128, 128, 128);
+  color: #fff;
+  background-color: rgba(4, 0, 198, 0.5);
+}
+input,
+.btn,
+.badge-primary {
+  box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -moz-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -webkit-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
+  -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
 }
 </style>
