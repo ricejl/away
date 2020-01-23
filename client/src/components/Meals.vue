@@ -115,7 +115,9 @@ export default {
 }
 .arrow {
   font-size: 1.5em;
-  padding: 0.5em;
+  position: absolute;
+  right: 5%;
+  bottom: 1%;
 }
 .down-arrow {
   position: absolute;

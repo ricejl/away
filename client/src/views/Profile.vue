@@ -12,17 +12,8 @@
           v-if="!profile._id"
           @click="createProfile"
           class="btn"
-        >
-          Create Profile
-        </button>
-        <button
-          v-else
-          id="edit-profile-btn"
-          @click="editProfile(profile)"
-          class="btn"
-        >
-          Edit Profile
-        </button>
+        >Create Profile</button>
+        <button v-else id="edit-profile-btn" @click="editProfile(profile)" class="btn">Edit Profile</button>
         <img
           class="profile-img"
           :src="
@@ -35,7 +26,7 @@
     </div>
     <div class="row">
       <div class="col-12 pt-4">
-        <h3>{{ profile.name }}</h3>
+        <h3>{{ profile.firstName }} {{ profile.lastName }}</h3>
         <p>"{{ profile.description || "Live, Laugh, Love" }}"</p>
       </div>
     </div>
@@ -49,9 +40,7 @@
             :key="trip.id"
             :to="{ name: 'trip', params: { tripId: trip._id } }"
           >
-            <li class="list-group-item list-group-item-action">
-              {{ trip.title }}
-            </li>
+            <li class="list-group-item list-group-item-action">{{ trip.title }}</li>
           </router-link>
         </ul>
       </div>

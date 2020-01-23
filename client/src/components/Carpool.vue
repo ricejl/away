@@ -1,8 +1,10 @@
 <template>
-  <div class="row card-container">
-    <div class="col-12 w-100" @click="dropdown = !dropdown">
+  <div class="card-container">
+    <div class="w-100" @click="dropdown = !dropdown">
       <br />
-      <h4 class="mb-0">Carpool</h4>
+      <div class="d-flex justify-content-center align-items-center">
+        <h4 class="mb-0">Carpool</h4>
+      </div>
       <br />
       <div class="arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
@@ -12,7 +14,7 @@
       </div>
     </div>
 
-    <div v-if="dropdown" class="col-12 dropdown pb-3">
+    <div v-if="dropdown" class="dropdown pb-3">
       <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block">
         <div class="p-3">
           <h6 class="car-name bg-lightest-grey mb-0 pt-2">{{ carpool.name }}</h6>
@@ -145,6 +147,17 @@ export default {
   right: 5%;
   bottom: 1%;
 }
+.down-arrow {
+  position: absolute;
+  right: 5%;
+  bottom: 1%;
+}
+.up-arrow {
+  position: absolute;
+  right: 2%;
+  top: 0;
+}
+
 .car-name {
   max-width: 10em;
 }

@@ -6,7 +6,6 @@
         <h4 class="mb-0">Members</h4>
         <span class="badge badge-primary badge-pill ml-1">{{members.length}}</span>
       </div>
-
       <br />
       <div class="arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
