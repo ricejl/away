@@ -7,20 +7,13 @@
     </div>
     <div class="row justify-content-around">
       <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
-        <div class="card-container">
-          <i @click="removeTrip(trip._id)" class="text-right fas fa-times"></i>
-          <div class="card-body">
-            <router-link
-              v-if="user.hasProfile"
-              :to="{ name: 'trip', params: { tripId: trip._id } }"
-            >
-              <h1 class="mb-0">{{ trip.title }}</h1>
-            </router-link>
-            <router-link v-else-if="!user.hasProfile">
-              <h1 @click="errorMessage" class="mb-0">{{ trip.title }}</h1>
-            </router-link>
+        <router-link v-if="user.hasProfile" :to="{ name: 'trip', params: { tripId: trip._id } }">
+          <div class="card-container">
+            <!-- <i @click="removeTrip(trip._id)" class="text-right fas fa-times"></i> -->
+
+            <h1 class="mb-0">{{ trip.title }}</h1>
           </div>
-        </div>
+        </router-link>
       </div>
       <div class="col-12 col-md-6 col-lg-3">
         <div class="card-container">
