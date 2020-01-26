@@ -6,6 +6,8 @@ import Dashboard from "../views/Dashboard.vue";
 import Trip from "../views/Trip.vue";
 import Profile from "../views/Profile.vue";
 import Account from "../views/Account.vue";
+import store from "../store/index.js";
+import NotificationService from "../NotificationService.js";
 
 Vue.use(VueRouter);
 
@@ -33,7 +35,17 @@ const routes = [
   {
     path: "/dashboard",
     name: "dashboard",
-    component: Dashboard
+    component: Dashboard,
+    beforeEnter: (to, from, next) => {
+      if (store.state.user.hasProfile) {
+        next();
+      } else {
+        NotificationService.errorMessage(
+          "You must create a profile to access trips"
+        );
+        next({ path: "profile" });
+      }
+    }
   },
   {
     path: "/trip/:tripId",

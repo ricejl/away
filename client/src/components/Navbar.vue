@@ -22,6 +22,7 @@
             <a class="nav-link">My Trips</a>
           </li>
         </router-link>
+
         <router-link :to="{name: 'profile'}">
           <li :class="{active: this.$route.name == 'profile'}" class="nav-item">
             <a class="nav-link" href="#">Profile</a>
@@ -48,7 +49,8 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     }
-  }
+  },
+  computed: {}
 };
 </script>
 

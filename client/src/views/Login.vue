@@ -12,12 +12,7 @@
             <!-- LOGIN FORM -->
             <form v-if="loginForm" @submit.prevent="loginUser">
               <div class="form-group">
-                <input
-                  type="email"
-                  v-model="creds.email"
-                  class="form-control"
-                  placeholder="Email"
-                />
+                <input type="email" v-model="creds.email" class="form-control" placeholder="Email" />
               </div>
               <div class="form-group">
                 <input
@@ -50,10 +45,7 @@
               <button>Register</button>
             </form>
           </div>
-          <div
-            @click="loginForm = !loginForm"
-            class="col-12 text-center hoverhand"
-          >
+          <div @click="loginForm = !loginForm" class="col-12 text-center hoverhand">
             <p v-if="loginForm">click here to register</p>
             <p v-else>click here to login</p>
           </div>

@@ -6,7 +6,7 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //Establish connection with socket:
-      socket = io();
+      socket = io("//localhost:3000");
       //Offline testing:
       // socket = io("//localhost:3000")
 
@@ -22,28 +22,28 @@ export default {
       });
       socket.on("removeDestination", data => {
         commit("setResource", { resource: "activeTrip", data: data });
-      })
+      });
       socket.on("addCarpool", data => {
         dispatch("getCarpoolsByTripId", data.tripId);
-      })
+      });
       socket.on("addOccupant", data => {
         dispatch("getCarpoolsByTripId", data.tripId);
-      })
+      });
       socket.on("removeOccupant", data => {
         dispatch("getCarpoolsByTripId", data.tripId);
-      })
+      });
       socket.on("addMeal", data => {
         dispatch("getMealsByTripId", data.tripId);
-      })
+      });
       socket.on("removeMeal", data => {
         dispatch("getMealsByTripId", data.tripId);
-      })
+      });
       socket.on("addFoodItem", data => {
         dispatch("getMealsByTripId", data.tripId);
-      })
+      });
       socket.on("removeFoodItem", data => {
         dispatch("getMealsByTripId", data.tripId);
-      })
+      });
     }
   }
 };

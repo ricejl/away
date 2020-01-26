@@ -59,7 +59,7 @@
 
 <script>
 import Navbar from "../components/Navbar";
-import NotificationService from "../NotifcationService.js";
+import NotificationService from "../NotificationService.js";
 
 export default {
   name: "Profile",
@@ -74,6 +74,7 @@ export default {
       let profileData = await NotificationService.inputData("Profile", {});
       if (profileData) {
         this.$store.dispatch("createProfile", profileData);
+        this.$store.state.user.hasProfile = true;
       }
     },
     async editProfile(profile) {
