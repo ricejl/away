@@ -8,6 +8,7 @@
         <div class="dropdown-menu">
           <button class="dropdown-item">Edit</button>
           <button @click="deleteMeal(mealData._id)" class="dropdown-item">Delete</button>
+          <button @click="addFoodItem(mealData)" class="dropdown-item">Add Food Item</button>
         </div>
       </div>
       <h3 class="mb-0">{{mealData.title}}</h3>
@@ -29,44 +30,22 @@
           </div>
           <span>{{foodItem.foodName}}</span>
         </div>
-        <p class="food-item-details mb-0 ml-5">{{foodItem.details}}</p>
-        <p class="food-item-author">Added by: {{foodItem.profileId.firstName}}</p>
+        <div class="text-left ml-5">
+          <p class="food-item-details mb-0">{{foodItem.details}}</p>
+          <p class="food-item-author">Added by: {{foodItem.profileId.firstName}}</p>
+        </div>
       </li>
     </ul>
-    <form class="w-50 mx-auto" type="text" @submit.prevent="addFoodItem(mealData._id)">
-      <div class="form-group mb-1">
-        <input
-          type="text"
-          class="form-control"
-          v-model="newFoodItem.foodName"
-          placeholder="Enter Food Item..."
-        />
-      </div>
-      <div class="form-group mb-1">
-        <input
-          type="text"
-          class="form-control"
-          v-model="newFoodItem.details"
-          placeholder="Food Item Details..."
-        />
-      </div>
-      <button type="submit" class="btn food-item-btn btn-block text-white">Add Item</button>
-    </form>
   </li>
 </template>
 
 <script>
+import NotificationService from "../NotifcationService";
 export default {
   name: "MealComponent",
   props: ["mealData"],
   data() {
-    return {
-      newFoodItem: {
-        profileId: this.$store.state.profile._id,
-        foodName: "",
-        details: ""
-      }
-    };
+    return {};
   },
   methods: {
     deleteMeal(mealId) {
@@ -75,15 +54,17 @@ export default {
         tripId: this.$route.params.tripId
       });
     },
-    addFoodItem(mealId) {
-      let foodItem = { ...this.newFoodItem };
-      let tripId = this.$route.params.tripId;
-      this.$store.dispatch("addFoodItem", { mealId, foodItem, tripId });
-      this.newFoodItem = {
-        profileId: this.profile._id,
-        foodName: "",
-        details: ""
-      };
+    async addFoodItem(meal) {
+      let foodItem = await NotificationService.inputFood("Add Food Item", meal);
+      if (foodItem) {
+        foodItem.profileId = this.$store.state.profile._id;
+        let tripId = this.$route.params.tripId;
+        this.$store.dispatch("addFoodItem", {
+          mealId: meal._id,
+          foodItem,
+          tripId
+        });
+      }
     },
     deleteFoodItem(mealId, foodItemId) {
       this.$store.dispatch("removeFoodItem", {
@@ -113,9 +94,6 @@ export default {
 }
 .food-item-author {
   font-size: 0.7em;
-}
-.food-item-btn {
-  background: -webkit-linear-gradient(right, #d64eff, #8400ac);
 }
 .dropdown-menu {
   background-color: rgba(4, 4, 4, 0.75);

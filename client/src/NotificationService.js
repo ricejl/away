@@ -67,6 +67,41 @@ export default class NotificationService {
     }
   }
 
+
+  static async inputFood(title = "Enter Inputs", mealData) {
+    try {
+      const { value: formValues } = await Swal.fire({
+        title,
+        html:
+          `<form class="meal-form"">` +
+          `<label class="mb-0">Food Item<span style="color: red">*</span></label>` +
+          `<input id="food-name" class="swal2-input" value="${mealData.foodItems
+            .foodName || ""}" placeholder="Item name">` +
+          `<label class="mb-0">Details</label>` +
+          `<input id="food-details" class="swal2-input" value="${mealData
+            .foodItems.details || ""}" placeholder="Details">` +
+          `</form>`,
+        focusConfirm: false,
+        preConfirm: () => {
+          let foodName = document.getElementById("food-name").value;
+          let foodDetails = document.getElementById("food-details").value;
+          if (!foodName) {
+            Swal.showValidationMessage("Please fill out required fields");
+          }
+          return [foodName, foodDetails];
+        }
+      });
+      if (formValues) {
+        return {
+          foodName: formValues[0],
+          details: formValues[1]
+        };
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
   static async inputList(title = "Enter Inputs") {
     try {
       const { value: formValues } = await Swal.fire({

@@ -14,8 +14,8 @@
         <i class="fas fa-angle-double-up"></i>
       </div>
     </div>
-    <div v-if="dropdown" class="dropdown pb-3">
-      <div class="col-12 col-md-10 mx-auto">
+    <div v-if="dropdown" class="dropdown w-100 pb-3">
+      <div class="col-12 col-md-8 mx-auto">
         <ul class="list-group list-group-flush">
           <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
         </ul>

@@ -22,6 +22,7 @@ export default class MealController {
 
   async addFoodItem(req, res, next) {
     try {
+      console.log("controller foodItem req.body", req.body);
       req.body.authorId = req.session.uid;
       let data = await mealService.addFoodItem(req.params.id, req.body);
       socket.notifyAddFoodItem(data);
