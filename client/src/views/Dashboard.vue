@@ -6,11 +6,7 @@
       </div>
     </div>
     <div class="row justify-content-around">
-      <div
-        class="col-12 col-md-6 col-lg-3"
-        v-for="trip in trips"
-        :key="trip._id"
-      >
+      <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
         <router-link :to="{ name: 'trip', params: { tripId: trip._id } }">
           <div class="card-container">
             <h1 class="mb-0">{{ trip.title }}</h1>
@@ -39,7 +35,7 @@
 
 <script>
 import Navbar from "@/components/Navbar";
-import NotificationService from "../NotifcationService.js";
+import NotificationService from "../NotificationService.js";
 export default {
   name: "Dashboard",
   mounted() {

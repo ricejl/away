@@ -59,7 +59,7 @@
 
 <script>
 import Navbar from "../components/Navbar";
-import NotificationService from "../NotifcationService.js";
+import NotificationService from "../NotificationService.js";
 
 export default {
   name: "Profile",
