@@ -24,6 +24,10 @@ export default {
       let res = await api.get("trips/" + tripId);
       commit("setResource", { resource: "activeTrip", data: res.data });
     },
+    async removeTrip({ commit, dispatch }, tripId) {
+      let res = await api.delete("trips/" + tripId);
+      dispatch("getAllTrips");
+    },
     async resetActiveTrip({ commit }) {
       commit("resetActiveTrip");
     }

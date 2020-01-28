@@ -67,6 +67,7 @@ export default class NotificationService {
     }
   }
 
+
   static async inputFood(title = "Enter Inputs", mealData) {
     try {
       const { value: formValues } = await Swal.fire({

@@ -74,6 +74,7 @@ export default {
       let profileData = await NotificationService.inputData("Profile", {});
       if (profileData) {
         this.$store.dispatch("createProfile", profileData);
+        this.$store.state.user.hasProfile = true;
       }
     },
     async editProfile(profile) {
