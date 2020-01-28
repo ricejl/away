@@ -7,7 +7,6 @@
     </div>
     <div class="row justify-content-around">
       <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
-
         <router-link :to="{ name: 'trip', params: { tripId: trip._id } }">
           <div class="card-container">
             <!-- <i @click="removeTrip(trip._id)" class="text-right fas fa-times"></i> -->

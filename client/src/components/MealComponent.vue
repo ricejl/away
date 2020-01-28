@@ -40,7 +40,7 @@
 </template>
 
 <script>
-import NotificationService from "../NotifcationService";
+import NotificationService from "../NotificationService";
 export default {
   name: "MealComponent",
   props: ["mealData"],
