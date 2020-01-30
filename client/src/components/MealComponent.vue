@@ -13,6 +13,9 @@
       </div>
       <h3 class="mb-0">{{mealData.title}}</h3>
     </div>
+    <div class="text-left ml-5">
+      <p v-if="mealData.details" class="details mb-0">*{{mealData.details}}*</p>
+    </div>
     <ul class="food-item-ul">
       <li v-for="foodItem in mealData.foodItems" :key="foodItem._id">
         <div class="d-flex justify-content-start align-items-center">
@@ -28,11 +31,13 @@
               >Delete</button>
             </div>
           </div>
-          <span>{{foodItem.foodName}}</span>
+          <span class="pr-2">{{foodItem.foodName}}</span>
+          <p
+            class="food-item-author mb-0 align-self-center"
+          >-&nbsp;Added by: {{foodItem.profileId.firstName}}</p>
         </div>
         <div class="text-left ml-5">
-          <p class="food-item-details mb-0">{{foodItem.details}}</p>
-          <p class="food-item-author">Added by: {{foodItem.profileId.firstName}}</p>
+          <p v-if="foodItem.details" class="details mb-0">*{{foodItem.details}}*</p>
         </div>
       </li>
     </ul>
@@ -89,11 +94,11 @@ export default {
 .food-item-menu {
   font-size: 0.9em;
 }
-.food-item-details {
-  font-size: 0.9em;
+.details {
+  font-size: 0.8em;
 }
 .food-item-author {
-  font-size: 0.7em;
+  font-size: 0.65em;
 }
 .dropdown-menu {
   background-color: rgba(4, 4, 4, 0.75);
