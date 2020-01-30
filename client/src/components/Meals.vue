@@ -1,45 +1,27 @@
 <template>
   <div class="card-container">
-    <div class="w-100" @click="dropdown = !dropdown">
+    <div class="w-100 title-container" @click="dropdown = !dropdown">
       <br />
       <div class="d-flex justify-content-center align-items-center">
         <h4 class="mb-0 mr-1">Meals</h4>
         <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
       </div>
       <br />
-      <div v-if="!dropdown" class="arrow">
+      <div v-if="!dropdown" class="arrow down-arrow">
         <i class="fas fa-angle-double-down"></i>
       </div>
-      <div v-else class="arrow">
+      <div v-else class="arrow up-arrow">
         <i class="fas fa-angle-double-up"></i>
       </div>
     </div>
-    <div v-if="dropdown" class="dropdown w-100 pb-3">
+    <div v-if="dropdown" class="dropdown w-100 pb-1">
       <div class="col-12 col-md-8 mx-auto">
         <ul class="list-group list-group-flush">
           <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
         </ul>
         <div class="row">
           <div class="col-12 col-md-8 mx-auto">
-            <form @submit.prevent="addMeal" class="p-3">
-              <div class="form-group mb-1">
-                <input
-                  type="text"
-                  v-model="newMeal.title"
-                  class="form-control"
-                  placeholder="Enter Meal Title..."
-                />
-              </div>
-              <div class="form-group mb-1">
-                <input
-                  type="text"
-                  v-model="newMeal.details"
-                  class="form-control"
-                  placeholder="Any details for your meal?"
-                />
-              </div>
-              <button type="submit" class="btn meal-btn btn-block text-white">Add Meal</button>
-            </form>
+            <button @click="addMeal()" class="btn meal-btn btn-block text-white">Add Meal</button>
           </div>
         </div>
       </div>
@@ -48,11 +30,14 @@
       v-if="dropdown"
       @click="dropdown = !dropdown"
       class="w-100 text-right arrow bottom-up-arrow"
-    ></div>
+    >
+      <i class="fas fa-angle-double-up mr-3"></i>
+    </div>
   </div>
 </template>
 
 <script>
+import NotificationService from "../NotificationService.js";
 import MealComponent from "@/components/MealComponent";
 export default {
   name: "Meals",
@@ -62,25 +47,20 @@ export default {
   },
   data() {
     return {
-      dropdown: false,
-      newMeal: {
-        title: "",
-        details: "",
-        foodItems: [],
-        tripId: this.$route.params.tripId
-      }
+      dropdown: false
     };
   },
   methods: {
-    addMeal() {
-      let meal = { ...this.newMeal };
-      this.$store.dispatch("addMeal", meal);
-      this.newMeal = {
-        title: "",
-        details: "",
-        foodItems: [],
-        tripId: this.$route.params.tripId
-      };
+    async addMeal() {
+      let data = await NotificationService.inputMeal("Enter New Meal", {});
+      if (data) {
+        let meal = {
+          ...data,
+          foodItems: [],
+          tripId: this.$route.params.tripId
+        };
+        this.$store.dispatch("addMeal", meal);
+      }
     }
   },
   computed: {
@@ -113,19 +93,16 @@ export default {
 }
 .arrow {
   font-size: 1.5em;
-  position: absolute;
-  right: 5%;
-  bottom: 1%;
 }
 .down-arrow {
   position: absolute;
-  right: 5%;
-  bottom: 1%;
+  right: 2%;
+  top: 1%;
 }
 .up-arrow {
   position: absolute;
   right: 2%;
-  top: 0;
+  top: 1%;
 }
 .bottom-up-arrow {
   cursor: pointer;
