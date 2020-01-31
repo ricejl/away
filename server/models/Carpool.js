@@ -11,7 +11,7 @@ const Carpool = new Schema({
   totalSeats: { type: Number, required: true },
   occupants: [Occupant],
   description: { type: String },
-  authorId: { type: ObjectId, ref: "User", required: true },
+  authors: [{ type: ObjectId, ref: "User", required: true }],
   tripId: { type: ObjectId, ref: "Trip", required: true },
   collabs: [{ type: ObjectId, ref: "User" }]
 });

@@ -4,9 +4,11 @@
       <br />
       <div class="d-flex justify-content-center align-items-center">
         <h4 class="mb-0 mr-1">Members</h4>
-        <span class="badge badge-primary badge-pill ml-1">{{
+        <span class="badge badge-primary badge-pill ml-1">
+          {{
           members.length
-        }}</span>
+          }}
+        </span>
       </div>
       <br />
       <div class="arrow" v-if="!dropdown">
@@ -27,9 +29,9 @@
         <div class="first-name">{{ member.firstName }}</div>
       </div>
       <form @submit.prevent="addCollab">
-        <label class="mr-md-1" for="email"
-          ><strong>Add a friend to this trip</strong></label
-        >
+        <label class="mr-md-1" for="email">
+          <strong>Add a friend to this trip</strong>
+        </label>
         <input
           class="bg-lightest-grey pl-1"
           type="text"

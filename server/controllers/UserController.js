@@ -16,6 +16,7 @@ export default class UserController {
       .use(Authorize.authenticated)
       .get("/authenticate", this.authenticate)
       .post("/authenticateCollab", this.authenticateCollab)
+      .put("/update", this.updateUserHasProfile)
       .delete("/logout", this.logout)
       .use(this.defaultRoute);
   }
@@ -101,6 +102,14 @@ export default class UserController {
           message: "Logout Successful"
         });
       });
+    } catch (error) {
+      next(error);
+    }
+  }
+  async updateUserHasProfile(req, res, next) {
+    try {
+      let user = await _userService.updateUserHasProfile(req.session.uid);
+      res.send(user);
     } catch (error) {
       next(error);
     }

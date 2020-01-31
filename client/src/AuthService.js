@@ -73,4 +73,13 @@ export default class AuthService {
       console.warn(e);
     }
   }
+  static async updateUserHasProfile() {
+    try {
+      let res = await auth.put("update");
+      console.log("From updateUserHasProfile" + res.data);
+      return res.data;
+    } catch (error) {
+      console.warn(error);
+    }
+  }
 }

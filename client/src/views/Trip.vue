@@ -13,17 +13,17 @@
           <span class="sr-only">Loading...</span>
         </div>
       </div>
-      <div class="col-12 col-lg-10 mx-auto">
+      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
         <Destination :tripData="trip"></Destination>
       </div>
-      <div class="col-12 col-lg-10 mx-auto">
+      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
         <Members :tripData="trip" />
       </div>
 
-      <div class="col-12 col-lg-10 mx-auto">
+      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
         <Carpool :tripData="trip"></Carpool>
       </div>
-      <div class="col-12 col-lg-10 mx-auto">
+      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
         <Meals :tripData="trip"></Meals>
       </div>
       <!-- <div class="col-12">

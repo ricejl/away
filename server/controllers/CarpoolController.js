@@ -50,7 +50,7 @@ export default class CarpoolController {
         req.body.tripId,
         req.session.uid
       );
-      req.body.authorId = req.session.uid;
+      req.body.authors = [req.session.uid, req.body.tripAuthorId];
       req.body.collabs = [...trip.collabs];
       let data = await carpoolService.createCarpool(req.body);
       socket.notifyAddCarpool(data);
