@@ -15,7 +15,30 @@
       </div>
     </div>
     <div v-if="dropdown" class="dropdown pb-3">
-      <div v-for="list in lists" :key="list._id" class="d-inline-block">{{list.title}}</div>
+      <div v-for="list in lists" :key="list._id" class="d-inline-block bg-lightest-grey m-3 p-3">
+        <div class="p-3">
+          <h6 class="list-name mb-0 pt-2">
+            {{list.title}}
+            <i @click="removeList(list._id)" class="text-right fas fa-times"></i>
+          </h6>
+          <hr />
+          <div v-for="item in list.items" :key="item._id">{{ item.itemName }}</div>
+          <form
+            @submit.prevent="createListItem(list._id)"
+            class="row list-form d-flex direction column"
+          >
+            <input
+              type="text"
+              id="item-name"
+              class="col-8"
+              v-model="newItem.itemName"
+              placeholder="Enter item"
+              required
+            />
+            <button class="btn-dark mx-auto text-light-grey" type="submit">Add</button>
+          </form>
+        </div>
+      </div>
       <hr />
       <h5 class="pb-2">New list</h5>
       <div class="col-12">
@@ -49,6 +72,11 @@ export default {
         title: "",
         tripId: this.$route.params.tripId
       },
+      newItem: {
+        itemName: "",
+        // profileId: this.$state.store.profile._id
+        profileId: ""
+      },
       dropdown: false
     };
   },
@@ -57,13 +85,36 @@ export default {
       let list = { ...this.newList };
       this.$store.dispatch("addList", list);
       this.newList = {
-        title: ""
+        title: "",
+        tripId: this.$route.params.tripId
+      };
+    },
+    removeList(listId) {
+      if (confirm("Are You Sure You Want To Delete This List?")) {
+        let tripId = this.$route.params.tripId;
+        this.$store.dispatch("removeList", { listId, tripId });
+      }
+    },
+    createListItem(listId) {
+      let listItem = { ...this.newItem };
+      let tripId = this.$route.params.tripId;
+      listItem.profileId = this.$store.state.profile._id;
+      console.log("listItem is:", listItem);
+      // NOTE the below has to have the same name as the action in the store
+      this.$store.dispatch("addListItem", { listId, listItem, tripId });
+      this.newItem = {
+        title: "",
+        tripId: this.$route.params.tripId,
+        profileId: ""
       };
     }
   },
   computed: {
     lists() {
       return this.$store.state.lists;
+    },
+    profile() {
+      return this.$store.state.profile;
     }
   }
 };
@@ -81,7 +132,12 @@ export default {
   cursor: pointer;
   margin: 0px 0px;
 }
-
+.bg-lightest-grey {
+  background-color: #f3f3f3;
+}
+.list-name {
+  width: 15em;
+}
 .arrow {
   font-size: 1.5em;
   position: absolute;
