@@ -80,7 +80,6 @@ export default {
     async editProfile(profile) {
       let profileData = await NotificationService.inputData("Profile", profile);
       if (profileData) {
-        console.log("sweetalert edit profile:", profileData);
         this.$store.dispatch("editProfile", {
           profileId: profile._id,
           update: profileData

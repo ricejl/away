@@ -74,11 +74,10 @@ export default {
 
 <style scoped>
 .trip {
-  background: url("https://images.unsplash.com/photo-1504851149312-7a075b496cc7?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60")
-    no-repeat bottom;
+  background: url("https://images.unsplash.com/photo-1536746803623-cef87080bfc8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1864&q=80");
   background-size: cover;
-  background-position: center top;
-  min-height: 100vh;
+  background-position: center;
+  background-attachment: fixed;
   font-family: "Montserrat", sans-serif;
 }
 .card-container {
