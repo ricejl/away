@@ -52,7 +52,7 @@ class MealService {
 
   async editMeal(id, userId, update) {
     let data = await _repository.findOneAndUpdate(
-      { _id: id, collabs: { $all: [userId] } },
+      { _id: id, authors: { $all: [userId] } },
       update,
       { new: true }
     );
@@ -68,7 +68,7 @@ class MealService {
   async deleteMeal(id, userId) {
     let data = await _repository.findOneAndRemove({
       _id: id,
-      collabs: { $all: [userId] }
+      authors: { $all: [userId] }
     });
     if (!data) {
       throw new ApiError(
@@ -81,7 +81,7 @@ class MealService {
 
   async removeFoodItem(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.mealId, collabs: { $all: [payload.userId] } },
+      { _id: payload.mealId, authors: { $all: [payload.userId] } },
       { $pull: { foodItems: { _id: payload.foodItemId } } },
       { new: true }
     );

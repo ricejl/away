@@ -1,4 +1,5 @@
 import Axios from "axios";
+import NotificationService from "../NotificationService.js";
 
 let base = window.location.host.includes("localhost:8080")
   ? "//localhost:3000/"
@@ -21,12 +22,20 @@ export default {
       dispatch("getMealsByTripId", meal.tripId);
     },
     async editMeal({ commit, dispatch }, { mealId, update }) {
-      let res = await api.put("meals/" + mealId, update);
-      dispatch("getMealsByTripId", update.tripId);
+      try {
+        let res = await api.put("meals/" + mealId, update);
+        dispatch("getMealsByTripId", update.tripId);
+      } catch (error) {
+        NotificationService.errorMessage("You can't edit that meal.");
+      }
     },
     async removeMeal({ dispatch }, { mealId, tripId }) {
-      let res = await api.delete("meals/" + mealId);
-      dispatch("getMealsByTripId", tripId);
+      try {
+        let res = await api.delete("meals/" + mealId);
+        dispatch("getMealsByTripId", tripId);
+      } catch (error) {
+        NotificationService.errorMessage("You can't delete that meal.");
+      }
     },
     async addFoodItem({ commit, dispatch }, { mealId, foodItem, tripId }) {
       let res = await api.post("meals/" + mealId + "/foodItems", foodItem);
