@@ -80,13 +80,18 @@ export default new Vuex.Store({
     async login({ commit, dispatch }, creds) {
       try {
         let user = await AuthService.Login(creds);
-        commit("setUser", user);
+        console.log(user);
         let profile = await api.get("profiles");
         if (profile.data._id) {
+          user.hasProfile = true;
+          commit("setUser", user);
+
+          console.log(profile);
           commit("setResource", { resource: "profile", data: profile.data });
           router.push({ name: "dashboard" });
         } else {
           router.push({ name: "profile" });
+          commit("setUser", user);
         }
       } catch (e) {
         console.warn(e.message);
