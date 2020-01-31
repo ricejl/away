@@ -91,7 +91,8 @@ export default {
       newCarpool: {
         name: "",
         totalSeats: 0,
-        tripId: this.$route.params.tripId
+        tripId: this.$route.params.tripId,
+        tripAuthorId: this.tripData.authorId
       },
       dropdown: false
     };
@@ -99,12 +100,14 @@ export default {
   methods: {
     createCarpool() {
       let carpool = { ...this.newCarpool };
+      console.log(carpool);
       let tripId = this.$route.params.tripId;
       this.$store.dispatch("addCarpool", { tripId, carpool });
       this.newCarpool = {
         name: "",
         totalSeats: 0,
-        tripId: this.$route.params.tripId
+        tripId: this.$route.params.tripId,
+        tripAuthorId: this.tripData.authorId
       };
     },
     addOccupant(tripId, carpoolId) {

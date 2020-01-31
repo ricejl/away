@@ -80,13 +80,10 @@ export default new Vuex.Store({
     async login({ commit, dispatch }, creds) {
       try {
         let user = await AuthService.Login(creds);
-        console.log(user);
         let profile = await api.get("profiles");
-        if (profile.data._id) {
-          user.hasProfile = true;
-          commit("setUser", user);
 
-          console.log(profile);
+        if (profile.data._id) {
+          commit("setUser", user);
           commit("setResource", { resource: "profile", data: profile.data });
           router.push({ name: "dashboard" });
         } else {
@@ -117,6 +114,16 @@ export default new Vuex.Store({
         dispatch("getMealsByTripId", collab.tripId);
       } catch (error) {
         // console.warn(error.message);
+      }
+    },
+    async updateUserHasProfile({ dispatch, commit }) {
+      try {
+        let res = await AuthService.updateUserHasProfile();
+        if (res.data) {
+          commit("setResource", { resource: "user", data: res.data });
+        }
+      } catch (error) {
+        console.warn(error.message);
       }
     },
     //#endregion

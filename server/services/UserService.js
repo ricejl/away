@@ -61,6 +61,17 @@ class UserService {
     console.log(user);
     return user;
   }
+  async updateUserHasProfile(userId) {
+    let user = await _repository.findOneAndUpdate(
+      { _id: userId },
+      { hasProfile: true },
+      { new: true }
+    );
+    if (!user) {
+      throw new ApiError("User Not Found", 401);
+    }
+    return user;
+  }
   generateHash(password) {
     return bcrypt.hashSync(password, SALT);
   }

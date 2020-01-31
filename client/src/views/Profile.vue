@@ -75,6 +75,7 @@ export default {
       if (profileData) {
         this.$store.dispatch("createProfile", profileData);
         this.$store.state.user.hasProfile = true;
+        this.$store.dispatch("updateUserHasProfile");
       }
     },
     async editProfile(profile) {
