@@ -17,7 +17,6 @@ export default {
       console.log("store create pofile res.data: ", res.data);
       commit("setResource", { resource: "profile", data: res.data });
     },
-
     async getProfileByUserId({ commit, dispatch }) {
       let res = await api.get("profiles");
       commit("setResource", { resource: "profile", data: res.data });
