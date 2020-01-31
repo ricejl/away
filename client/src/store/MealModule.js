@@ -27,6 +27,7 @@ export default {
         dispatch("getMealsByTripId", update.tripId);
       } catch (error) {
         NotificationService.errorMessage("You can't edit that meal");
+
       }
     },
     async removeMeal({ dispatch }, { mealId, tripId }) {
@@ -35,6 +36,7 @@ export default {
         dispatch("getMealsByTripId", tripId);
       } catch (error) {
         NotificationService.errorMessage("You can't delete that meal");
+
       }
     },
     async addFoodItem({ commit, dispatch }, { mealId, foodItem, tripId }) {

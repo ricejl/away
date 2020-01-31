@@ -81,7 +81,7 @@ class MealService {
 
   async removeFoodItem(payload) {
     let data = await _repository.findOneAndUpdate(
-      { _id: payload.mealId, collabs: { $all: [payload.userId] } },
+      { _id: payload.mealId, authors: { $all: [payload.userId] } },
       { $pull: { foodItems: { _id: payload.foodItemId } } },
       { new: true }
     );

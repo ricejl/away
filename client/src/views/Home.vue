@@ -2,7 +2,7 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col-12 fakenavbar">
-        <div class="appName">away</div>
+        <img class="away-logo" src="../assets/away-logo-inverted.png" alt />
       </div>
     </div>
     <div class="row pt-5">
@@ -30,16 +30,10 @@
         </div>
       </div>
     </div>
-
-    <!-- <img alt="Vue logo" src="../assets/logo.png" /> -->
-    <!-- <HelloWorld msg="Welcome to Your Vue.js App"/> -->
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-// import HelloWorld from '@/components/HelloWorld.vue'
-
 export default {
   name: "home",
   computed: {
@@ -47,22 +41,18 @@ export default {
       return this.$store.state.user;
     }
   },
-  components: {
-    // HelloWorld
-  }
+  components: {}
 };
 </script>
 
 <style scoped>
-.appName {
-  margin-top: -0.5rem;
-  font-size: 3rem;
-  font-family: "Great Vibes", sans-serif;
-}
 .fakenavbar {
   height: 10vh;
   background-color: black;
   color: white;
+}
+.away-logo {
+  height: 9vh;
 }
 .home {
   background: url("https://images.unsplash.com/photo-1537000413083-5cf29e3cfcd1?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=701&q=80")

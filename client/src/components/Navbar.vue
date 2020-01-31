@@ -1,7 +1,9 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark negativeMargin">
     <router-link :to="{name: 'home'}">
-      <a class="navbar-brand">away</a>
+      <a class="navbar-brand">
+        <img class="away-logo" src="../assets/away-logo-inverted.png" alt />
+      </a>
     </router-link>
     <button
       class="navbar-toggler"
@@ -61,10 +63,8 @@ export default {
 .navbar {
   padding: 0rem 1rem;
 }
-.navbar-brand {
-  font-family: "Great Vibes", sans-serif;
-  font-size: 3rem;
-  padding: 0rem;
+.away-logo {
+  height: 9vh;
 }
 .negativeMargin {
   margin: 0px -15px 0px -15px;
