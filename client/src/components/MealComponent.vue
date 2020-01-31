@@ -6,7 +6,7 @@
           <i class="fas fa-ellipsis-v"></i>
         </button>
         <div class="dropdown-menu">
-          <button class="dropdown-item">Edit</button>
+          <button @click="editMeal(mealData)" class="dropdown-item">Edit</button>
           <button @click="deleteMeal(mealData._id)" class="dropdown-item">Delete</button>
           <button @click="addFoodItem(mealData)" class="dropdown-item">Add Food Item</button>
         </div>
@@ -58,6 +58,14 @@ export default {
         mealId: mealId,
         tripId: this.$route.params.tripId
       });
+    },
+    async editMeal(mealData) {
+      let data = await NotificationService.inputMeal("Edit Meal", mealData);
+      let meal = {
+        ...data,
+        tripId: this.$route.params.tripId
+      };
+      this.$store.dispatch("editMeal", { mealId: mealData._id, update: meal });
     },
     async addFoodItem(meal) {
       let foodItem = await NotificationService.inputFood("Add Food Item", meal);
