@@ -24,7 +24,6 @@
               <i class="fas fa-ellipsis-v food-item-menu"></i>
             </button>
             <div class="dropdown-menu">
-              <button class="dropdown-item">Edit</button>
               <button
                 @click="deleteFoodItem(mealData._id, foodItem._id)"
                 class="dropdown-item"
