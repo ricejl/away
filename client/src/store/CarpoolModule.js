@@ -1,4 +1,5 @@
 import Axios from "axios";
+import NotificationService from "../NotificationService.js";
 
 let base = window.location.host.includes("localhost:8080")
   ? "//localhost:3000/"
@@ -25,8 +26,12 @@ export default {
       dispatch("getCarpoolsByTripId", tripId);
     },
     async removeCarpool({ commit, dispatch }, { tripId, carpoolId }) {
-      let res = await api.delete("carpools/" + carpoolId);
-      dispatch("getCarpoolsByTripId", tripId);
+      try {
+        let res = await api.delete("carpools/" + carpoolId);
+        dispatch("getCarpoolsByTripId", tripId);
+      } catch (error) {
+        NotificationService.errorMessage("You can't delete that carpool.");
+      }
     },
     async addOccupant({ commit, dispatch }, { tripId, carpoolId, occupant }) {
       let res = await api.post(

@@ -69,7 +69,7 @@ class CarpoolService {
   async deleteCarpool(id, userId) {
     let data = await _repository.findOneAndRemove({
       _id: id,
-      collabs: { $all: [userId] }
+      authors: { $all: [userId] }
     });
     if (!data) {
       throw new ApiError(
