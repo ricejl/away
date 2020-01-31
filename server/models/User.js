@@ -6,7 +6,7 @@ const User = new Schema(
   {
     email: { type: String, required: true, unique: true },
     hash: { type: String, required: true },
-    hasProfile: { type: Boolean, default: false }
+    hasProfile: { type: Boolean }
   },
   { timestamps: true }
 );
