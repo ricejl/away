@@ -32,7 +32,10 @@
               class="bg-dark shadow-dark seat m-1 d-flex align-items-center justify-content-center"
               title="occupant.name"
             >
-              <i @click="removeOccupant(carpool._id, occupant._id)" class="fas fa-times"></i>
+              <i
+                @click="removeOccupant(carpool._id, occupant._id, occupant.profileId._id, carpool.authors)"
+                class="fas fa-times"
+              ></i>
               {{ occupant.profileId.firstName[0] }}{{ occupant.profileId.lastName[0] }}
             </div>
             <div
@@ -79,6 +82,7 @@
 </template>
 
 <script>
+import NotificationService from "@/NotificationService";
 export default {
   name: "Carpool",
   props: ["tripData"],
@@ -115,11 +119,25 @@ export default {
       let occupant = { profileId: this.$store.state.profile._id };
       this.$store.dispatch("addOccupant", { tripId, carpoolId, occupant });
     },
-    removeOccupant(carpoolId, occupantId) {
+    removeOccupant(carpoolId, occupantId, occupantProfileId, carpoolAuthors) {
       let tripId = this.$route.params.tripId;
 
-      this.$store.dispatch("removeOccupant", { tripId, carpoolId, occupantId });
+      console.log(this.$store.state.profile._id, occupantProfileId);
+      if (
+        this.$store.state.profile._id == occupantProfileId ||
+        carpoolAuthors.includes(this.$store.state.user._id)
+      ) {
+        this.$store.dispatch("removeOccupant", {
+          tripId,
+          carpoolId,
+          occupantId
+        });
+      } else
+        NotificationService.errorMessage(
+          "You can't remove this person from a carpool"
+        );
     },
+
     removeCarpool(carpoolId) {
       if (confirm("Are You Sure You Want To Delete This Carpool?")) {
         let tripId = this.$route.params.tripId;
