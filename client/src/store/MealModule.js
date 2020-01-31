@@ -26,7 +26,8 @@ export default {
         let res = await api.put("meals/" + mealId, update);
         dispatch("getMealsByTripId", update.tripId);
       } catch (error) {
-        NotificationService.errorMessage("You can't edit that meal.");
+        NotificationService.errorMessage("You can't edit that meal");
+
       }
     },
     async removeMeal({ dispatch }, { mealId, tripId }) {
@@ -34,7 +35,8 @@ export default {
         let res = await api.delete("meals/" + mealId);
         dispatch("getMealsByTripId", tripId);
       } catch (error) {
-        NotificationService.errorMessage("You can't delete that meal.");
+        NotificationService.errorMessage("You can't delete that meal");
+
       }
     },
     async addFoodItem({ commit, dispatch }, { mealId, foodItem, tripId }) {
