@@ -51,7 +51,7 @@ export default class MealController {
         req.body.tripId,
         req.session.uid
       );
-      req.body.authorId = req.session.uid;
+      req.body.authors = [req.session.uid, req.body.tripAuthorId];
       req.body.collabs = [...trip.collabs];
       let data = await mealService.createMeal(req.body);
       socket.notifyAddMeal(data);

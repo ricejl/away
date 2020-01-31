@@ -57,7 +57,8 @@ export default {
         let meal = {
           ...data,
           foodItems: [],
-          tripId: this.$route.params.tripId
+          tripId: this.$route.params.tripId,
+          tripAuthorId: this.tripData.authorId
         };
         this.$store.dispatch("addMeal", meal);
       }
