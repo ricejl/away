@@ -112,9 +112,7 @@ export default new Vuex.Store({
         dispatch("getTripById", collab.tripId);
         dispatch("getCarpoolsByTripId", collab.tripId);
         dispatch("getMealsByTripId", collab.tripId);
-      } catch (error) {
-        // console.warn(error.message);
-      }
+      } catch (error) {}
     },
     async updateUserHasProfile({ dispatch, commit }) {
       try {

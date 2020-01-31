@@ -139,10 +139,8 @@ export default {
     },
 
     removeCarpool(carpoolId) {
-      if (confirm("Are You Sure You Want To Delete This Carpool?")) {
-        let tripId = this.$route.params.tripId;
-        this.$store.dispatch("removeCarpool", { tripId, carpoolId });
-      }
+      let tripId = this.$route.params.tripId;
+      this.$store.dispatch("removeCarpool", { tripId, carpoolId });
     }
   },
   computed: {
