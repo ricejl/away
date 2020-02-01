@@ -85,7 +85,8 @@ export default {
     return {
       newList: {
         title: "",
-        tripId: this.$route.params.tripId
+        tripId: this.$route.params.tripId,
+        tripAuthorId: this.tripData.authorId
       },
       newItem: {
         itemName: "",
@@ -101,7 +102,8 @@ export default {
       this.$store.dispatch("addList", list);
       this.newList = {
         title: "",
-        tripId: this.$route.params.tripId
+        tripId: this.$route.params.tripId,
+        tripAuthorId: this.tripData.authorId
       };
     },
     removeList(listId) {

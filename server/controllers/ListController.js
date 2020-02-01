@@ -47,7 +47,7 @@ export default class ListController {
         req.body.tripId,
         req.session.uid
       );
-      req.body.authorId = req.session.uid;
+      req.body.authors = [req.session.uid, req.body.tripAuthorId];
       req.body.collabs = [...trip.collabs];
       let data = await listService.createList(req.body);
       return res.status(201).send(data);
