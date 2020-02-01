@@ -61,6 +61,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import NotificationService from "@/NotificationService";
 export default {
   name: "Carpool",
@@ -91,8 +92,6 @@ export default {
     },
     removeOccupant(carpoolId, occupantId, occupantProfileId, carpoolAuthors) {
       let tripId = this.$route.params.tripId;
-
-      console.log(this.$store.state.profile._id, occupantProfileId);
       if (
         this.$store.state.profile._id == occupantProfileId ||
         carpoolAuthors.includes(this.$store.state.user._id)
@@ -107,12 +106,21 @@ export default {
           "You can't remove this person from a carpool"
         );
     },
-
-    removeCarpool(carpoolId) {
-      if (confirm("Are You Sure You Want To Delete This Carpool?")) {
-        let tripId = this.$route.params.tripId;
-        this.$store.dispatch("removeCarpool", { tripId, carpoolId });
-      }
+    async removeCarpool(carpoolId) {
+      Swal.fire({
+        title: "Are You Sure You Want To Delete This Carpool?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          let tripId = this.$route.params.tripId;
+          this.$store.dispatch("removeCarpool", { tripId, carpoolId });
+          Swal.fire("Deleted!", "Your carpool has been deleted.", "success");
+        }
+      });
     }
   },
   computed: {
