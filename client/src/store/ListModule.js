@@ -1,4 +1,5 @@
 import Axios from "axios";
+import NotificationService from "../NotificationService.js";
 
 let base = window.location.host.includes("localhost:8080")
   ? "//localhost:3000/"
@@ -26,8 +27,12 @@ export default {
       dispatch("getListsByTripId", update.tripId);
     },
     async removeList({ commit, dispatch }, { listId, tripId }) {
-      let res = await api.delete("lists/" + listId);
-      dispatch("getListsByTripId", tripId);
+      try {
+        let res = await api.delete("lists/" + listId);
+        dispatch("getListsByTripId", tripId);
+      } catch (error) {
+        NotificationService.errorMessage("You can't delete that list.");
+      }
     },
     async addListItem({ commit, dispatch }, { listId, listItem, tripId }) {
       console.log("listModule says listItem is: ", listItem);
