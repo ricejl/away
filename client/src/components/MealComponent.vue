@@ -79,12 +79,17 @@ export default {
         });
       }
     },
-    deleteFoodItem(mealId, foodItemId) {
-      this.$store.dispatch("removeFoodItem", {
-        mealId,
-        foodItemId,
-        tripId: this.$route.params.tripId
-      });
+    deleteFoodItem(mealId, foodItemId, foodItemProfileId, mealAuthors) {
+      if (
+        this.$store.state.profile._id == foodItemProfileId ||
+        mealAuthors.includes(this.$store.state.user._id)
+      ) {
+        this.$store.dispatch("removeFoodItem", {
+          mealId,
+          foodItemId,
+          tripId: this.$route.params.tripId
+        });
+      } else NotificationService.errorMessage("You can't remove this item");
     }
   },
   computed: {

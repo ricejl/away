@@ -1,3 +1,4 @@
+import NotificationService from "./NotificationService.js";
 import Axios from "axios";
 let baseUrl = location.host.includes("localhost") ? "//localhost:3000/" : "/";
 
@@ -17,6 +18,7 @@ export default class AuthService {
       let res = await auth.post("login", creds);
       return res.data;
     } catch (e) {
+      NotificationService.errorMessage("Wrong email or password");
       throw new Error(
         `[login failed] : ${
           !e.response ? "No response from server" : e.response.data.error
@@ -71,6 +73,7 @@ export default class AuthService {
       return res.data;
     } catch (e) {
       console.warn(e);
+      NotificationService.errorMessage("Member not found");
     }
   }
   static async updateUserHasProfile() {

@@ -129,11 +129,12 @@ export default {
       this.center = this.$store.state.coords;
       this.markers.push(this.$store.state.coords);
     },
-    deleteDestination(id) {
-      this.$store.dispatch("removeDestination", {
+    async deleteDestination(id) {
+      await this.$store.dispatch("removeDestination", {
         tripId: this.$route.params.tripId,
         destinationId: id
       });
+      this.getCoords(this.$store.state.activeTrip.destinations[0].location);
     },
     launchURL() {
       window.open(
