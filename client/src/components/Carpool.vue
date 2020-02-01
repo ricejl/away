@@ -7,10 +7,10 @@
         <span class="badge badge-primary badge-pill ml-1">{{carpools.length}}</span>
       </div>
       <br />
-      <div class="arrow" v-if="!dropdown">
+      <div class="arrow down-arrow" v-if="!dropdown">
         <i class="fas fa-angle-double-down"></i>
       </div>
-      <div v-else class="arrow">
+      <div v-else class="arrow up-arrow">
         <i class="fas fa-angle-double-up"></i>
       </div>
     </div>
@@ -56,6 +56,13 @@
       <div class="col-12">
         <button @click="createCarpool()" class="btn-dark mx-auto text-light-grey">Add</button>
       </div>
+    </div>
+    <div
+      v-if="dropdown"
+      @click="dropdown = !dropdown"
+      class="w-100 text-right arrow bottom-up-arrow"
+    >
+      <i class="fas fa-angle-double-up mr-3"></i>
     </div>
   </div>
 </template>
@@ -150,27 +157,27 @@ export default {
 }
 .title-container {
   cursor: pointer;
+  position: relative;
 }
 .top-card {
   background: rgba(255, 162, 75, 0.75) !important;
 }
 .arrow {
   font-size: 1.5em;
-  position: absolute;
-  right: 5%;
-  bottom: 1%;
 }
 .down-arrow {
   position: absolute;
-  right: 5%;
-  bottom: 1%;
+  right: 2%;
+  top: 1%;
 }
 .up-arrow {
   position: absolute;
   right: 2%;
-  top: 0;
+  top: 1%;
 }
-
+.bottom-up-arrow {
+  cursor: pointer;
+}
 .car-name {
   max-width: 10em;
 }
