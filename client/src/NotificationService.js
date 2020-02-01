@@ -67,12 +67,44 @@ export default class NotificationService {
     }
   }
 
+  /********************CARPOOLS********************/
+  static async inputCar(title = "Enter Inputs") {
+    try {
+      const { value: formValues } = await Swal.fire({
+        title,
+        html:
+          `<label class="mb-0">Carpool Name<span style="color: red">*</span></label>` +
+          `<input id="carpool-name" class="swal2-input">` +
+          `<label class="mb-0">Number of Seats<span style="color: red">*</span></label>` +
+          `<input type="number" min="1" id="seat-details" class="swal2-input" placeholder="1">`,
+        focusConfirm: false,
+        preConfirm: () => {
+          let carPoolName = document.getElementById("carpool-name").value;
+          let seatDetails = document.getElementById("seat-details").value;
+          if (!carPoolName || !seatDetails) {
+            Swal.showValidationMessage("Please fill out required fields");
+          }
+          return [carPoolName, seatDetails];
+        }
+      });
+      if (formValues) {
+        return {
+          name: formValues[0],
+          totalSeats: formValues[1]
+        };
+      }
+    } catch (error) {
+      return error;
+    }
+  }
+
+  /********************MEALS********************/
   static async inputMeal(title = "Enter Inputs", meal) {
     try {
       const { value: formValues } = await Swal.fire({
         title,
         html:
-          `<form class="meal-form"">` +
+          `<form class="meal-form">` +
           `<label class="mb-0">Meal Name<span style="color: red">*</span></label>` +
           `<input id="meal-name" class="swal2-input" value="${meal.title || ""}" placeholder="Meal name">` +
           `<label class="mb-0">Meal Details</label>` +
