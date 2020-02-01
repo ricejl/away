@@ -31,7 +31,7 @@
           <div v-for="item in list.items" :key="item._id">
             {{ item.itemName }}
             <i
-              @click="removeListItem(list._id, item._id)"
+              @click="removeListItem(list._id, item._id, item.profileId._id, list.authors)"
               class="text-right fas fa-times"
             ></i>
           </div>
@@ -126,11 +126,17 @@ export default {
         profileId: ""
       };
     },
-    removeListItem(listId, listItemId) {
-      if (confirm("Are You Sure You Want To Delete This Item?")) {
-        let tripId = this.$route.params.tripId;
+    removeListItem(listId, listItemId, listItemProfileId, listAuthors) {
+      let tripId = this.$route.params.tripId;
+      if (
+        this.$$store.state.profile._id == listItemProfileId ||
+        listAuthors.includes(this.$store.state.user._id)
+      ) {
         this.$store.dispatch("removeListItem", { listId, listItemId, tripId });
-      }
+      } else
+        NotificationService.errorMessage(
+          "You can't remove this item from the list"
+        );
     },
     async addItem(listId) {
       let data = await NotificationService.inputListItem("Enter New Item", {});
