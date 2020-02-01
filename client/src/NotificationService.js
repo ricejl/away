@@ -107,7 +107,7 @@ export default class NotificationService {
           `<form class="meal-form">` +
           `<label class="mb-0">Meal Name<span style="color: red">*</span></label>` +
           `<input id="meal-name" class="swal2-input" value="${meal.title ||
-            ""}" placeholder="Meal name">` +
+            ""}" placeholder="e.g., Sunday breakfast">` +
           `<label class="mb-0">Meal Details</label>` +
           `<input id="meal-details" class="swal2-input" value="${meal.details ||
             ""}" placeholder="Details">` +

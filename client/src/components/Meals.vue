@@ -1,17 +1,21 @@
 <template>
   <div class="card-container">
-    <div class="w-100 title-container" @click="dropdown = !dropdown">
-      <br />
-      <div class="d-flex justify-content-center align-items-center">
-        <h4 class="mb-0 mr-1">Meals</h4>
-        <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
-      </div>
-      <br />
-      <div v-if="!dropdown" class="arrow down-arrow">
-        <i class="fas fa-angle-double-down"></i>
-      </div>
-      <div v-else class="arrow up-arrow">
-        <i class="fas fa-angle-double-up"></i>
+    <div id="title-container" class="w-100 pointer" @click="dropdown = !dropdown">
+      <div class="row">
+        <div class="col-12">
+          <!-- <br /> -->
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="mb-0 mr-1">Shared Meals</h4>
+            <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
+          </div>
+          <!-- <br /> -->
+          <div v-if="!dropdown" class="arrow">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div v-else class="arrow">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="dropdown" class="dropdown w-100 pb-1">
@@ -19,20 +23,20 @@
         <ul class="list-group list-group-flush">
           <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
         </ul>
-        <div class="row">
+        <div class="row pt-3 pb-3">
           <div class="col-12 col-md-8 mx-auto">
-            <button @click="addMeal()" class="btn meal-btn btn-block text-white">Add Meal</button>
+            <button @click="addMeal()" class="btn-dark text-light-grey">Add Meal</button>
           </div>
         </div>
       </div>
     </div>
-    <div
+    <!-- <div
       v-if="dropdown"
       @click="dropdown = !dropdown"
       class="w-100 text-right arrow bottom-up-arrow"
     >
       <i class="fas fa-angle-double-up mr-3"></i>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -79,6 +83,11 @@ export default {
 </script>
 
 <style scoped>
+#title-container h4 {
+  color: black;
+  cursor: pointer;
+  padding: 1em 0;
+}
 .card-container {
   background: rgba(232, 212, 180, 0.75);
   display: flex;
@@ -88,25 +97,15 @@ export default {
   margin-top: 1em;
   min-height: 5em;
 }
-.title-container {
+.pointer {
   cursor: pointer;
-  position: relative;
 }
 .arrow {
-  font-size: 1.5em;
-}
-.down-arrow {
-  position: absolute;
-  right: 2%;
-  top: 1%;
-}
-.up-arrow {
-  position: absolute;
-  right: 2%;
-  top: 1%;
-}
-.bottom-up-arrow {
   cursor: pointer;
+  font-size: 1.5em;
+  position: absolute;
+  right: 5%;
+  bottom: 1%;
 }
 .form-control {
   height: 2em;
@@ -120,7 +119,7 @@ export default {
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
 }
-input,
+/* input, */
 .btn,
 .badge-primary {
   box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
@@ -129,11 +128,11 @@ input,
   -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
   -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
 }
-input:focus {
+/* input:focus {
   border: 1px solid rgba(255, 162, 75);
   box-shadow: 0 0 10px rgba(255, 162, 75);
-}
-.meal-btn {
-  background: -webkit-linear-gradient(right, #ffa24b, #ca6200);
+} */
+.text-light-grey {
+  color: #ebe6e6;
 }
 </style>

@@ -11,7 +11,9 @@
           <button @click="addFoodItem(mealData)" class="dropdown-item">Add Food Item</button>
         </div>
       </div>
-      <h3 class="mb-0">{{mealData.title}}</h3>
+      <h5 class="mb-0">
+        <strong>{{mealData.title}}</strong>
+      </h5>
     </div>
     <div class="text-left ml-5">
       <p v-if="mealData.details" class="details mb-0">*{{mealData.details}}*</p>
@@ -20,20 +22,19 @@
       <li v-for="foodItem in mealData.foodItems" :key="foodItem._id">
         <div class="d-flex justify-content-start align-items-center">
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-sm" data-toggle="dropdown">
-              <i class="fas fa-ellipsis-v food-item-menu"></i>
+            <button
+              type="button"
+              class="btn btn-sm"
+              title="delete"
+              @click="deleteFoodItem(mealData._id, foodItem._id)"
+            >
+              <i class="far fa-times-circle food-item-menu"></i>
             </button>
-            <div class="dropdown-menu">
-              <button
-                @click="deleteFoodItem(mealData._id, foodItem._id, foodItem.profileId._id, mealData.authors)"
-                class="dropdown-item"
-              >Delete</button>
-            </div>
           </div>
           <span class="pr-2">{{foodItem.foodName}}</span>
           <p
             class="food-item-author mb-0 align-self-center"
-          >-&nbsp;Added by: {{foodItem.profileId.firstName}}</p>
+          >-&nbsp;by: {{foodItem.profileId.firstName}}</p>
         </div>
         <div class="text-left ml-5">
           <p v-if="foodItem.details" class="details mb-0">*{{foodItem.details}}*</p>
@@ -122,5 +123,13 @@ export default {
 .dropdown-item:hover {
   background-color: rgba(65, 65, 65, 0.75);
   color: white;
+}
+.fa-times-circle,
+.fa-ellipsis-v {
+  opacity: 0.4;
+}
+.fa-times-circle:hover,
+.fa-ellipsis-v:hover {
+  opacity: 0.8;
 }
 </style>
