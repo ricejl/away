@@ -113,7 +113,7 @@ export default {
           "You can't remove this person from a carpool"
         );
     },
-    async removeCarpool(carpoolId) {
+    removeCarpool(carpoolId) {
       Swal.fire({
         title: "Are You Sure You Want To Delete This Carpool?",
         icon: "warning",

@@ -21,7 +21,7 @@ export default class AuthService {
       NotificationService.errorMessage("Wrong email or password");
       throw new Error(
         `[login failed] : ${
-        !e.response ? "No response from server" : e.response.data.error
+          !e.response ? "No response from server" : e.response.data.error
         }`
       );
     }
@@ -33,7 +33,7 @@ export default class AuthService {
     } catch (e) {
       throw new Error(
         `[registration failed] : ${
-        !e.response ? "No response from server" : e.response.data.error
+          !e.response ? "No response from server" : e.response.data.error
         }`
       );
     }
@@ -45,7 +45,7 @@ export default class AuthService {
     } catch (e) {
       throw new Error(
         `[logout failed] : ${
-        !e.response ? "No response from server" : e.response.data.error
+          !e.response ? "No response from server" : e.response.data.error
         }`
       );
     }
@@ -61,7 +61,7 @@ export default class AuthService {
     } catch (e) {
       console.warn(
         `[Authentication failed] : ${
-        !e.response ? "No response from server" : e.response.data.error
+          !e.response ? "No response from server" : e.response.data.error
         }`
       );
     }
@@ -73,6 +73,7 @@ export default class AuthService {
       return res.data;
     } catch (e) {
       console.warn(e);
+      NotificationService.errorMessage("Member not found");
     }
   }
   static async updateUserHasProfile() {

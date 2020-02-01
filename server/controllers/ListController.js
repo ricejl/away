@@ -1,6 +1,7 @@
 import express from "express";
 import { Authorize } from "../middleware/authorize";
 import listService from "../services/ListService";
+import tripService from "../services/TripService";
 
 export default class ListController {
   constructor() {
@@ -42,10 +43,12 @@ export default class ListController {
   }
   async createList(req, res, next) {
     try {
-      req.body.authorId = req.session.uid;
-      req.body.collabs = [];
-      req.body.collabs.push(req.session.uid);
-      // console.log(req.body);
+      let trip = await tripService.getByTripId(
+        req.body.tripId,
+        req.session.uid
+      );
+      req.body.authors = [req.session.uid, req.body.tripAuthorId];
+      req.body.collabs = [...trip.collabs];
       let data = await listService.createList(req.body);
       return res.status(201).send(data);
     } catch (error) {
