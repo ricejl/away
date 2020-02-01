@@ -1,6 +1,6 @@
 <template>
   <div class="card-container">
-    <div class="w-100 title-container" @click="dropdown = !dropdown">
+    <div id="title-container" class="w-100 pointer" @click="dropdown = !dropdown">
       <div class="row">
         <div class="col-12">
           <!-- <br /> -->
@@ -23,7 +23,7 @@
         <ul class="list-group list-group-flush">
           <MealComponent v-for="meal in meals" :key="meal._id" :mealData="meal" />
         </ul>
-        <div class="row">
+        <div class="row pt-3 pb-3">
           <div class="col-12 col-md-8 mx-auto">
             <button @click="addMeal()" class="btn-dark text-light-grey">Add Meal</button>
           </div>
@@ -83,6 +83,11 @@ export default {
 </script>
 
 <style scoped>
+#title-container h4 {
+  color: black;
+  cursor: pointer;
+  padding: 1em 0;
+}
 .card-container {
   background: rgba(232, 212, 180, 0.75);
   display: flex;
@@ -92,7 +97,7 @@ export default {
   margin-top: 1em;
   min-height: 5em;
 }
-.title-container {
+.pointer {
   cursor: pointer;
 }
 .arrow {
@@ -102,22 +107,6 @@ export default {
   right: 5%;
   bottom: 1%;
 }
-/* .arrow {
-  font-size: 1.5em;
-}
-.down-arrow {
-  position: absolute;
-  right: 2%;
-  top: 1%;
-}
-.up-arrow {
-  position: absolute;
-  right: 2%;
-  top: 1%;
-}
-.bottom-up-arrow {
-  cursor: pointer;
-} */
 .form-control {
   height: 2em;
 }
@@ -130,7 +119,7 @@ export default {
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
 }
-input,
+/* input, */
 .btn,
 .badge-primary {
   box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
@@ -139,10 +128,10 @@ input,
   -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
   -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
 }
-input:focus {
+/* input:focus {
   border: 1px solid rgba(255, 162, 75);
   box-shadow: 0 0 10px rgba(255, 162, 75);
-}
+} */
 .text-light-grey {
   color: #ebe6e6;
 }

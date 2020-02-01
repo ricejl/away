@@ -11,7 +11,9 @@
           <button @click="addFoodItem(mealData)" class="dropdown-item">Add Food Item</button>
         </div>
       </div>
-      <h3 class="mb-0">{{mealData.title}}</h3>
+      <h5 class="mb-0">
+        <strong>{{mealData.title}}</strong>
+      </h5>
     </div>
     <div class="text-left ml-5">
       <p v-if="mealData.details" class="details mb-0">*{{mealData.details}}*</p>
@@ -32,7 +34,7 @@
           <span class="pr-2">{{foodItem.foodName}}</span>
           <p
             class="food-item-author mb-0 align-self-center"
-          >-&nbsp;Added by: {{foodItem.profileId.firstName}}</p>
+          >-&nbsp;by: {{foodItem.profileId.firstName}}</p>
         </div>
         <div class="text-left ml-5">
           <p v-if="foodItem.details" class="details mb-0">*{{foodItem.details}}*</p>
