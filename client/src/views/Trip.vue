@@ -84,6 +84,7 @@ export default {
   background-position: center;
   background-attachment: fixed;
   font-family: "Montserrat", sans-serif;
+  min-height: 100vh;
 }
 .card-container {
   background: rgba(232, 212, 180, 0.75);
