@@ -6,7 +6,7 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //Establish connection with socket:
-      socket = io("//localhost:3000");
+      socket = io();
       //Offline testing:
       // socket = io("//localhost:3000")
 
