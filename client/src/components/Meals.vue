@@ -1,17 +1,21 @@
 <template>
   <div class="card-container">
     <div class="w-100 title-container" @click="dropdown = !dropdown">
-      <br />
-      <div class="d-flex justify-content-center align-items-center">
-        <h4 class="mb-0 mr-1">Meals</h4>
-        <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
-      </div>
-      <br />
-      <div v-if="!dropdown" class="arrow down-arrow">
-        <i class="fas fa-angle-double-down"></i>
-      </div>
-      <div v-else class="arrow up-arrow">
-        <i class="fas fa-angle-double-up"></i>
+      <div class="row">
+        <div class="col-12">
+          <!-- <br /> -->
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="mb-0 mr-1">Shared Meals</h4>
+            <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
+          </div>
+          <!-- <br /> -->
+          <div v-if="!dropdown" class="arrow">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div v-else class="arrow">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="dropdown" class="dropdown w-100 pb-1">
@@ -21,18 +25,18 @@
         </ul>
         <div class="row">
           <div class="col-12 col-md-8 mx-auto">
-            <button @click="addMeal()" class="btn meal-btn btn-block text-white">Add Meal</button>
+            <button @click="addMeal()" class="btn-dark text-light-grey">Add Meal</button>
           </div>
         </div>
       </div>
     </div>
-    <div
+    <!-- <div
       v-if="dropdown"
       @click="dropdown = !dropdown"
       class="w-100 text-right arrow bottom-up-arrow"
     >
       <i class="fas fa-angle-double-up mr-3"></i>
-    </div>
+    </div>-->
   </div>
 </template>
 
@@ -90,9 +94,15 @@ export default {
 }
 .title-container {
   cursor: pointer;
-  position: relative;
 }
 .arrow {
+  cursor: pointer;
+  font-size: 1.5em;
+  position: absolute;
+  right: 5%;
+  bottom: 1%;
+}
+/* .arrow {
   font-size: 1.5em;
 }
 .down-arrow {
@@ -107,7 +117,7 @@ export default {
 }
 .bottom-up-arrow {
   cursor: pointer;
-}
+} */
 .form-control {
   height: 2em;
 }
@@ -133,7 +143,7 @@ input:focus {
   border: 1px solid rgba(255, 162, 75);
   box-shadow: 0 0 10px rgba(255, 162, 75);
 }
-.meal-btn {
-  background: -webkit-linear-gradient(right, #ffa24b, #ca6200);
+.text-light-grey {
+  color: #ebe6e6;
 }
 </style>

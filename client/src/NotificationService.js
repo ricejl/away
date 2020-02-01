@@ -9,22 +9,22 @@ export default class NotificationService {
           `<form class="needs-validation profile-form" novalidate @change="checkStuff()">` +
           `<label class="mb-0">First Name <span style="color: red">*</span></label>` +
           `<input id="firstName" class="swal2-input" value="${profileData.firstName ||
-          ""}" placeholder="Enter your first name">` +
+            ""}" placeholder="Enter your first name">` +
           `<label class="mb-0">Last Name <span style="color: red">*</span></label>` +
           `<input id="lastName" class="swal2-input" value="${profileData.lastName ||
-          ""}" placeholder="Enter your last name">` +
+            ""}" placeholder="Enter your last name">` +
           `<label class="mb-0">Username <span style="color: red">*</span></label>` +
           `<input id="username" class="swal2-input" value="${profileData.username ||
-          ""}" placeholder="Enter a display name">` +
+            ""}" placeholder="Enter a display name">` +
           `<label class="mb-0">Favorite quote</label>` +
           `<input id="description" class="swal2-input" value="${profileData.description ||
-          ""}" placeholder="Enter favorite quote">` +
+            ""}" placeholder="Enter favorite quote">` +
           `<label class="mb-0">Email <span style="color: red">*</span></label>` +
           `<input id="email" type="email" class="swal2-input" value="${profileData.email ||
-          ""}" placeholder="Enter public email address">` +
+            ""}" placeholder="Enter public email address">` +
           `<label class="mb-0">Image URL</label>` +
           `<input id="img-url" type="text" class="swal2-input" value="${profileData.imgURL ||
-          ""}" placeholder="Enter image URL">` +
+            ""}" placeholder="Enter image URL">` +
           `<span style="color: red">*</span> indicates required field` +
           `</form>`,
         // NOTE for email validation look into validitystate=true, @change
@@ -74,9 +74,11 @@ export default class NotificationService {
         html:
           `<form class="meal-form"">` +
           `<label class="mb-0">Meal Name<span style="color: red">*</span></label>` +
-          `<input id="meal-name" class="swal2-input" value="${meal.title || ""}" placeholder="Meal name">` +
+          `<input id="meal-name" class="swal2-input" value="${meal.title ||
+            ""}" placeholder="e.g., Sunday breakfast">` +
           `<label class="mb-0">Meal Details</label>` +
-          `<input id="meal-details" class="swal2-input" value="${meal.details || ""}" placeholder="Details">` +
+          `<input id="meal-details" class="swal2-input" value="${meal.details ||
+            ""}" placeholder="Details">` +
           `</form>`,
         focusConfirm: false,
         preConfirm: () => {

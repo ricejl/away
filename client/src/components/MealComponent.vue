@@ -20,15 +20,14 @@
       <li v-for="foodItem in mealData.foodItems" :key="foodItem._id">
         <div class="d-flex justify-content-start align-items-center">
           <div class="btn-group dropright">
-            <button type="button" class="btn btn-sm" data-toggle="dropdown">
-              <i class="fas fa-ellipsis-v food-item-menu"></i>
+            <button
+              type="button"
+              class="btn btn-sm"
+              title="delete"
+              @click="deleteFoodItem(mealData._id, foodItem._id)"
+            >
+              <i class="far fa-times-circle food-item-menu"></i>
             </button>
-            <div class="dropdown-menu">
-              <button
-                @click="deleteFoodItem(mealData._id, foodItem._id)"
-                class="dropdown-item"
-              >Delete</button>
-            </div>
           </div>
           <span class="pr-2">{{foodItem.foodName}}</span>
           <p
@@ -117,5 +116,13 @@ export default {
 .dropdown-item:hover {
   background-color: rgba(65, 65, 65, 0.75);
   color: white;
+}
+.fa-times-circle,
+.fa-ellipsis-v {
+  opacity: 0.4;
+}
+.fa-times-circle:hover,
+.fa-ellipsis-v:hover {
+  opacity: 0.8;
 }
 </style>
