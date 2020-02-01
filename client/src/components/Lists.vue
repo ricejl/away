@@ -113,19 +113,19 @@ export default {
       }
     },
     // NOTE Depreciated
-    createListItem(listId) {
-      let listItem = { ...this.newItem };
-      let tripId = this.$route.params.tripId;
-      listItem.profileId = this.$store.state.profile._id;
-      // console.log("listItem is:", listItem);
-      // NOTE the below has to have the same name as the action in the store
-      this.$store.dispatch("addListItem", { listId, listItem, tripId });
-      this.newItem = {
-        itemName: "",
-        tripId: this.$route.params.tripId,
-        profileId: ""
-      };
-    },
+    // createListItem(listId) {
+    //   let listItem = { ...this.newItem };
+    //   let tripId = this.$route.params.tripId;
+    //   listItem.profileId = this.$store.state.profile._id;
+    //   // console.log("listItem is:", listItem);
+    //   // NOTE the below has to have the same name as the action in the store
+    //   this.$store.dispatch("addListItem", { listId, listItem, tripId });
+    //   this.newItem = {
+    //     itemName: "",
+    //     tripId: this.$route.params.tripId,
+    //     profileId: ""
+    //   };
+    // },
     removeListItem(listId, listItemId) {
       if (confirm("Are You Sure You Want To Delete This Item?")) {
         let tripId = this.$route.params.tripId;
