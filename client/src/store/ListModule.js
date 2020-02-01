@@ -30,6 +30,7 @@ export default {
       dispatch("getListsByTripId", tripId);
     },
     async addListItem({ commit, dispatch }, { listId, listItem, tripId }) {
+      console.log("listModule says listItem is: ", listItem);
       let res = await api.post("lists/" + listId + "/items", listItem);
       dispatch("getListsByTripId", tripId);
     },

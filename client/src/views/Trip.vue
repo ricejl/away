@@ -32,6 +32,9 @@
         </div>
       </div>-->
       <div class="col-12 col-lg-10 mx-auto">
+        <Lists :tripData="trip"></Lists>
+      </div>
+      <div class="col-12 col-lg-10 mx-auto mb-3">
         <div class="card-container">
           <i class="fas fa-plus"></i>
         </div>
@@ -46,6 +49,7 @@ import Destination from "@/components/Destination";
 import Carpool from "@/components/Carpool";
 import Meals from "@/components/Meals";
 import Members from "@/components/Members";
+import Lists from "@/components/Lists";
 
 export default {
   name: "Trip",
@@ -66,7 +70,8 @@ export default {
     Destination,
     Carpool,
     Meals,
-    Members
+    Members,
+    Lists
   },
   methods: {}
 };
