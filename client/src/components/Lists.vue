@@ -107,10 +107,8 @@ export default {
       };
     },
     removeList(listId) {
-      if (confirm("Are You Sure You Want To Delete This List?")) {
-        let tripId = this.$route.params.tripId;
-        this.$store.dispatch("removeList", { listId, tripId });
-      }
+      let tripId = this.$route.params.tripId;
+      this.$store.dispatch("removeList", { listId, tripId });
     },
     // NOTE Depreciated
     createListItem(listId) {
@@ -129,7 +127,7 @@ export default {
     removeListItem(listId, listItemId, listItemProfileId, listAuthors) {
       let tripId = this.$route.params.tripId;
       if (
-        this.$$store.state.profile._id == listItemProfileId ||
+        this.$store.state.profile._id == listItemProfileId ||
         listAuthors.includes(this.$store.state.user._id)
       ) {
         this.$store.dispatch("removeListItem", { listId, listItemId, tripId });
