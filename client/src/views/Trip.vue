@@ -31,13 +31,8 @@
           <h4 class="mb-0">Car Pool</h4>
         </div>
       </div>-->
-      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
+      <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto mb-3">
         <Lists :tripData="trip"></Lists>
-      </div>
-      <div class="col-12 col-lg-10 mx-auto mb-3">
-        <div class="card-container">
-          <i class="fas fa-plus"></i>
-        </div>
       </div>
     </div>
   </div>
