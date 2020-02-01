@@ -1,6 +1,8 @@
 import NotificationService from "./NotificationService.js";
 import Axios from "axios";
-let baseUrl = location.host.includes("localhost") ? "//localhost:3000/" : "/";
+let baseUrl = window.location.host.includes("localhost")
+  ? "//localhost:3000/"
+  : "//awayapp.herokuapp.com/";
 
 let auth = Axios.create({
   baseURL: baseUrl + "account/",

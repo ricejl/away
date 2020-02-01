@@ -3,7 +3,7 @@ import NotificationService from "../NotificationService.js";
 
 let base = window.location.host.includes("localhost:8080")
   ? "//localhost:3000/"
-  : "/";
+  : "//awayapp.herokuapp.com/";
 
 let api = Axios.create({
   baseURL: base + "api/",
@@ -27,7 +27,6 @@ export default {
         dispatch("getMealsByTripId", update.tripId);
       } catch (error) {
         NotificationService.errorMessage("You can't edit that meal");
-
       }
     },
     async removeMeal({ dispatch }, { mealId, tripId }) {
@@ -36,7 +35,6 @@ export default {
         dispatch("getMealsByTripId", tripId);
       } catch (error) {
         NotificationService.errorMessage("You can't delete that meal");
-
       }
     },
     async addFoodItem({ commit, dispatch }, { mealId, foodItem, tripId }) {

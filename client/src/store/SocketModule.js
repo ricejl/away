@@ -6,7 +6,11 @@ export default {
   actions: {
     initalizeSocket({ commit, dispatch }) {
       //Establish connection with socket:
-      socket = io();
+      let baseUrl = window.location.host.includes("localhost")
+        ? "//localhost:3000/"
+        : "//awayapp.herokuapp.com/";
+
+      socket = io(baseUrl);
       //Offline testing:
       // socket = io("//localhost:3000")
 
