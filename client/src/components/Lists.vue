@@ -74,6 +74,7 @@
 
 <script>
 import NotificationService from "../NotificationService.js";
+import Swal from "sweetalert2";
 
 export default {
   name: "Lists",
@@ -107,8 +108,19 @@ export default {
       };
     },
     removeList(listId) {
-      let tripId = this.$route.params.tripId;
-      this.$store.dispatch("removeList", { listId, tripId });
+      Swal.fire({
+        title: "Are You Sure You Want To Delete This List?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          let tripId = this.$route.params.tripId;
+          this.$store.dispatch("removeList", { listId, tripId });
+        }
+      });
     },
     // NOTE Depreciated
     createListItem(listId) {

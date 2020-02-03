@@ -125,7 +125,6 @@ export default {
         if (result.value) {
           let tripId = this.$route.params.tripId;
           this.$store.dispatch("removeCarpool", { tripId, carpoolId });
-          Swal.fire("Deleted!", "Your carpool has been deleted.", "success");
         }
       });
     }

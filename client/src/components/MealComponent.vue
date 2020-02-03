@@ -45,6 +45,7 @@
 </template>
 
 <script>
+import Swal from "sweetalert2";
 import NotificationService from "../NotificationService";
 export default {
   name: "MealComponent",
@@ -54,9 +55,20 @@ export default {
   },
   methods: {
     deleteMeal(mealId) {
-      this.$store.dispatch("removeMeal", {
-        mealId: mealId,
-        tripId: this.$route.params.tripId
+      Swal.fire({
+        title: "Are You Sure You Want To Delete This Meal?",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then(result => {
+        if (result.value) {
+          this.$store.dispatch("removeMeal", {
+            mealId: mealId,
+            tripId: this.$route.params.tripId
+          });
+        }
       });
     },
     async editMeal(mealData) {
