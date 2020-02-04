@@ -29,11 +29,14 @@
           </h6>
           <hr class="hr-thick" />
           <div v-for="item in list.items" :key="item._id">
-            {{ item.itemName }}
+            <span class="pr-2">{{item.itemName}}</span>
             <i
               @click="removeListItem(list._id, item._id, item.profileId._id, list.authors)"
               class="text-right fas fa-times"
             ></i>
+            <p
+              class="food-item-author mb-0 align-self-center"
+            >&nbsp;by: {{item.profileId.firstName}}</p>
           </div>
           <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
           <!-- <form
