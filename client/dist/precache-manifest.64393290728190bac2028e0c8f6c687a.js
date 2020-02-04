@@ -1,7 +1,7 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "4df2777c40929911fd55",
-    "url": "/css/app.c29d0040.css"
+    "revision": "cfeb4e4a71a0e50d23a0",
+    "url": "/css/app.05355980.css"
   },
   {
     "revision": "86a6dfdd51f6803af196",
@@ -12,12 +12,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/away-logo-inverted.aa39d44e.png"
   },
   {
-    "revision": "8f3e277546bf0fa7a70d8632953ad598",
+    "revision": "b1a77b61b4e5da099914114b746fb80d",
     "url": "/index.html"
   },
   {
-    "revision": "4df2777c40929911fd55",
-    "url": "/js/app.57dfcaf4.js"
+    "revision": "cfeb4e4a71a0e50d23a0",
+    "url": "/js/app.ae2e55fa.js"
   },
   {
     "revision": "86a6dfdd51f6803af196",
