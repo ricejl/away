@@ -2,7 +2,7 @@
   <div class="login container-fluid">
     <div class="row">
       <div class="col-12 fakenavbar">
-        <div class="appName">away</div>
+        <img class="away-logo mt-1" src="../assets/away-logo-white.svg" alt />
       </div>
     </div>
     <div class="row pt-5">
@@ -92,10 +92,8 @@ export default {
 .hoverhand {
   cursor: pointer;
 }
-.appName {
-  margin-top: -0.5rem;
-  font-size: 3rem;
-  font-family: "Great Vibes", sans-serif;
+.away-logo {
+  height: 9vh;
 }
 .fakenavbar {
   height: 10vh;
