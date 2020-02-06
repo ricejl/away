@@ -2,7 +2,7 @@
   <div class="home container-fluid">
     <div class="row">
       <div class="col-12 fakenavbar">
-        <img class="away-logo" src="../assets/away-logo-inverted.png" alt />
+        <img class="away-logo mt-1" src="../assets/away-logo-white.svg" alt />
       </div>
     </div>
     <div class="row pt-5">

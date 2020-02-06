@@ -2,7 +2,7 @@
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark negativeMargin">
     <router-link :to="{name: 'home'}">
       <a class="navbar-brand">
-        <img class="away-logo" src="../assets/away-logo-inverted.png" alt />
+        <img class="away-logo" src="../assets/away-logo-white.svg" alt />
       </a>
     </router-link>
     <button
