@@ -102,6 +102,7 @@ a {
 }
 .card-container {
   background: rgba(232, 212, 180, 0.75);
+  border: 1px solid rgba(232, 212, 180);
   display: flex;
   justify-content: center;
   align-items: center;

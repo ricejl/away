@@ -1,17 +1,21 @@
 <template>
   <div class="card-container">
-    <div class="w-100 title-container" @click="dropdown = !dropdown">
-      <br />
-      <div class="d-flex justify-content-center align-items-center">
-        <h4 class="mb-0">Carpool</h4>
-        <span class="badge badge-primary badge-pill ml-1">{{carpools.length}}</span>
-      </div>
-      <br />
-      <div class="arrow down-arrow" v-if="!dropdown">
-        <i class="fas fa-angle-double-down"></i>
-      </div>
-      <div v-else class="arrow up-arrow">
-        <i class="fas fa-angle-double-up"></i>
+    <div id="title-container" class="w-100" @click="dropdown = !dropdown">
+      <!-- <br /> -->
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="mb-0">Carpool</h4>
+            <span class="badge badge-primary badge-pill ml-1">{{carpools.length}}</span>
+          </div>
+          <!-- <br /> -->
+          <div class="arrow down-arrow" v-if="!dropdown">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div v-else class="arrow up-arrow">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -153,26 +157,21 @@ export default {
   margin-top: 1em;
   min-height: 5em;
   margin: 0px 0px;
-}
-.title-container {
   cursor: pointer;
-  position: relative;
+}
+#title-container h4 {
+  color: black;
+  cursor: pointer;
+  padding: 1em 0;
 }
 .top-card {
   background: rgba(255, 162, 75, 0.75) !important;
 }
 .arrow {
   font-size: 1.5em;
-}
-.down-arrow {
   position: absolute;
-  right: 2%;
-  top: 1%;
-}
-.up-arrow {
-  position: absolute;
-  right: 2%;
-  top: 1%;
+  right: 7%;
+  bottom: 1%;
 }
 .bottom-up-arrow {
   cursor: pointer;

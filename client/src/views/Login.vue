@@ -22,7 +22,7 @@
                   placeholder="Password"
                 />
               </div>
-              <button>Login</button>
+              <button>Log in</button>
             </form>
             <!-- REGISTRATION FORM -->
             <form v-else @submit.prevent="register">

@@ -1,21 +1,25 @@
 <template>
   <div class="members card-container">
-    <div class="w-100" @click="dropdown = !dropdown">
-      <br />
-      <div class="d-flex justify-content-center align-items-center">
-        <h4 class="mb-0 mr-1">Members</h4>
-        <span class="badge badge-primary badge-pill ml-1">
-          {{
-          members.length
-          }}
-        </span>
-      </div>
-      <br />
-      <div class="arrow" v-if="!dropdown">
-        <i class="fas fa-angle-double-down"></i>
-      </div>
-      <div v-else class="arrow">
-        <i class="fas fa-angle-double-up"></i>
+    <div id="title-container" class="w-100" @click="dropdown = !dropdown">
+      <!-- <br /> -->
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="mb-0 mr-1">Members</h4>
+            <span class="badge badge-primary badge-pill ml-1">
+              {{
+              members.length
+              }}
+            </span>
+          </div>
+          <!-- <br /> -->
+          <div class="arrow" v-if="!dropdown">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div v-else class="arrow">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+        </div>
       </div>
     </div>
 
@@ -78,12 +82,11 @@ export default {
 </script>
 
 <style scoped>
-/* .dropdown {
-  transition: transform 1s ease-in-out;
+#title-container h4 {
+  color: black;
+  cursor: pointer;
+  padding: 1em 0;
 }
-.dropdown > div {
-  transition-delay: 0.5s;
-} */
 .card-container {
   background: rgba(232, 212, 180, 0.75);
   display: flex;
@@ -101,10 +104,10 @@ export default {
 .arrow {
   font-size: 1.5em;
   position: absolute;
-  right: 5%;
+  right: 7%;
   bottom: 1%;
 }
-.down-arrow {
+/* .down-arrow {
   position: absolute;
   right: 5%;
   bottom: 1%;
@@ -113,7 +116,7 @@ export default {
   position: absolute;
   right: 2%;
   top: 0;
-}
+} */
 .font-size-pill {
   font-size: 0.9em;
 }
