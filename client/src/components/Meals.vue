@@ -30,13 +30,6 @@
         </div>
       </div>
     </div>
-    <!-- <div
-      v-if="dropdown"
-      @click="dropdown = !dropdown"
-      class="w-100 text-right arrow bottom-up-arrow"
-    >
-      <i class="fas fa-angle-double-up mr-3"></i>
-    </div>-->
   </div>
 </template>
 
@@ -104,7 +97,7 @@ export default {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  right: 5%;
+  right: 7%;
   bottom: 1%;
 }
 .form-control {
@@ -119,7 +112,6 @@ export default {
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
 }
-/* input, */
 .btn,
 .badge-primary {
   box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
@@ -128,10 +120,6 @@ export default {
   -o-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
   -ms-box-shadow: 0 5px 20px 0px rgba(0, 0, 0, 0.05);
 }
-/* input:focus {
-  border: 1px solid rgba(255, 162, 75);
-  box-shadow: 0 0 10px rgba(255, 162, 75);
-} */
 .text-light-grey {
   color: #ebe6e6;
 }

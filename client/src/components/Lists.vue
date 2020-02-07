@@ -1,17 +1,21 @@
 <template>
   <div class="card-container">
-    <div class="w-100" @click="dropdown = !dropdown">
-      <br />
-      <div class="d-flex justify-content-center align-items-center">
-        <h4 class="mb-0">Custom Lists</h4>
-        <span class="badge badge-primary badge-pill ml-1">{{lists.length}}</span>
-      </div>
-      <br />
-      <div class="arrow" v-if="!dropdown">
-        <i class="fas fa-angle-double-down"></i>
-      </div>
-      <div v-else class="arrow">
-        <i class="fas fa-angle-double-up"></i>
+    <div id="title-container" class="w-100" @click="dropdown = !dropdown">
+      <!-- <br /> -->
+      <div class="row">
+        <div class="col-12">
+          <div class="d-flex justify-content-center align-items-center">
+            <h4 class="mb-0">Custom Lists</h4>
+            <span class="badge badge-primary badge-pill ml-1">{{lists.length}}</span>
+          </div>
+          <!-- <br /> -->
+          <div class="arrow" v-if="!dropdown">
+            <i class="fas fa-angle-double-down"></i>
+          </div>
+          <div v-else class="arrow">
+            <i class="fas fa-angle-double-up"></i>
+          </div>
+        </div>
       </div>
     </div>
     <div v-if="dropdown" class="dropdown pb-3">
@@ -159,8 +163,6 @@ export default {
           profileId: this.$store.state.profile._id
         };
         let tripId = this.$route.params.tripId;
-
-        console.log("addItem says listItem is: ", listItem);
         this.$store.dispatch("addListItem", { listId, listItem, tripId });
       }
     }
@@ -177,6 +179,11 @@ export default {
 </script>
 
 <style scoped>
+#title-container h4 {
+  color: black;
+  cursor: pointer;
+  padding: 1em 0;
+}
 .hr-thick {
   border-width: 3px;
   border-color: black;
@@ -201,10 +208,10 @@ export default {
 .arrow {
   font-size: 1.5em;
   position: absolute;
-  right: 5%;
+  right: 7%;
   bottom: 1%;
 }
-.down-arrow {
+/* .down-arrow {
   position: absolute;
   right: 5%;
   bottom: 1%;
@@ -213,7 +220,7 @@ export default {
   position: absolute;
   right: 2%;
   top: 0;
-}
+} */
 .badge-primary {
   border: 1px solid rgb(128, 128, 128);
   color: #fff;

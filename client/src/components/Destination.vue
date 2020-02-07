@@ -185,7 +185,7 @@ export default {
   cursor: pointer;
   font-size: 1.5em;
   position: absolute;
-  right: 5%;
+  right: 7%;
   bottom: 1%;
 }
 .text-light-grey {
