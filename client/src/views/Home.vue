@@ -5,7 +5,7 @@
         <img class="away-logo" src="../assets/away-logo-inverted.png" alt />
       </div>
     </div>
-    <div class="row pt-5">
+    <!-- <div class="row pt-5">
       <div class="col-12 mt-4">
         <div class="btn-container">
           <button class="demo-btn mx-auto text-white">
@@ -13,7 +13,8 @@
           </button>
         </div>
       </div>
-    </div>
+    </div>-->
+    <br />
     <div class="row">
       <div class="col-12">
         <div class="btn-container">
