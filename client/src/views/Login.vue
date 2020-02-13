@@ -112,9 +112,6 @@ export default {
   padding: 3em 1em 0em 1em;
 }
 form button {
-  /* FIXME choose one background/border combo below */
-  background: rgba(4, 0, 198, 0.5);
-  border: none;
   background: rgba(255, 162, 75, 0.8);
   border: 1px solid rgb(255, 162, 75);
   font-size: 1.4em;
