@@ -26,7 +26,7 @@
               type="button"
               class="btn btn-sm"
               title="delete"
-              @click="deleteFoodItem(mealData._id, foodItem._id)"
+              @click="deleteFoodItem(mealData._id, foodItem._id, foodItem.profileId._id, mealData.authors)"
             >
               <i class="far fa-times-circle food-item-menu"></i>
             </button>
