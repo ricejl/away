@@ -1,23 +1,31 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "cfeb4e4a71a0e50d23a0",
-    "url": "/css/app.05355980.css"
+    "revision": "661107549206c25ad0e7a7f5ff95c22a",
+    "url": "/away-logo-cropped.png"
+  },
+  {
+    "revision": "2743dbd14d318d025545ec71bf2ab96a",
+    "url": "/away-logo-favicon.png"
+  },
+  {
+    "revision": "6dcc38df901d9d703de8",
+    "url": "/css/app.8201f376.css"
   },
   {
     "revision": "86a6dfdd51f6803af196",
     "url": "/css/chunk-vendors.188e04d6.css"
   },
   {
-    "revision": "aa39d44e1e8c212c1903de252a2264ab",
-    "url": "/img/away-logo-inverted.aa39d44e.png"
+    "revision": "6ed3c261099cff5b3ec744457ddc65a7",
+    "url": "/img/away-logo-white.6ed3c261.svg"
   },
   {
-    "revision": "b1a77b61b4e5da099914114b746fb80d",
+    "revision": "26c0ae921f35500ffd58995a44011b29",
     "url": "/index.html"
   },
   {
-    "revision": "cfeb4e4a71a0e50d23a0",
-    "url": "/js/app.ae2e55fa.js"
+    "revision": "6dcc38df901d9d703de8",
+    "url": "/js/app.db403414.js"
   },
   {
     "revision": "86a6dfdd51f6803af196",
