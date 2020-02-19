@@ -1,14 +1,12 @@
 <template>
   <div class="card-container">
     <div id="title-container" class="w-100" @click="dropdown = !dropdown">
-      <!-- <br /> -->
       <div class="row">
         <div class="col-12">
           <div class="d-flex justify-content-center align-items-center">
             <h4 class="mb-0">Carpool</h4>
             <span class="badge badge-primary badge-pill ml-1">{{carpools.length}}</span>
           </div>
-          <!-- <br /> -->
           <div class="arrow down-arrow" v-if="!dropdown">
             <i class="fas fa-angle-double-down"></i>
           </div>

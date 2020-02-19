@@ -11,8 +11,6 @@ export default {
         : "//awayapp.herokuapp.com/";
 
       socket = io(baseUrl);
-      //Offline testing:
-      // socket = io("//localhost:3000")
 
       //Handle any on connection events
       socket.on("CONNECTED", data => {

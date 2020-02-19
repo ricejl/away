@@ -11,7 +11,6 @@ export default class ProfileController {
       .get("/:id", this.getByProfileId)
       .post("", this.create)
       .put("/:id", this.edit);
-    // .delete("/:id", this.delete);
   }
 
   defaultRoute(req, res, next) {

@@ -21,7 +21,6 @@ export default {
       let res = await api.post("lists", list);
       dispatch("getListsByTripId", list.tripId);
     },
-    //NOTE Double check update contains tripId
     async editList({ commit, dispatch }, { listId, update }) {
       let res = await api.put("lists/" + listId, update);
       dispatch("getListsByTripId", update.tripId);
