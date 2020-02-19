@@ -8,7 +8,6 @@
         getCoords(trip.destinations[0].location);
       "
     >
-      <!-- <br /> -->
       <div class="row">
         <div class="col-12">
           <h4
@@ -16,7 +15,6 @@
             class="mb-0"
           >{{ trip.destinations[0].location }}</h4>
           <h4 v-else class="mb-0">Destination</h4>
-          <!-- <br /> -->
           <div class="arrow" v-if="!dropdown">
             <i class="fas fa-angle-double-down"></i>
           </div>
@@ -78,7 +76,6 @@
               </div>
             </div>
           </div>
-          <!-- </div> -->
           <form @submit.prevent="addDestination(tripData._id)" class="p-3">
             <input
               class="bg-lightest-grey pl-1"

@@ -9,8 +9,6 @@
       <div class="col-12 col-md-6 col-lg-3" v-for="trip in trips" :key="trip._id">
         <router-link :to="{ name: 'trip', params: { tripId: trip._id } }">
           <div class="card-container">
-            <!-- <i @click="removeTrip(trip._id)" class="text-right fas fa-times"></i> -->
-
             <h1 class="mb-0">{{ trip.title }}</h1>
           </div>
         </router-link>
@@ -114,7 +112,6 @@ form input {
   max-width: 90%;
 }
 form button {
-  /* background: rgba(4, 0, 198, 0.5); */
   background: inherit;
   border: none;
   font-size: 1.4em;

@@ -75,11 +75,6 @@ export default {
   methods: {
     register() {
       this.$store.dispatch("register", this.newUser);
-      // this.newUser = {
-      //   email: "",
-      //   password: "",
-      //   hasProfile: false
-      // };
     },
     loginUser() {
       this.$store.dispatch("login", this.creds);

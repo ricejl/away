@@ -26,11 +26,7 @@
       <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto">
         <Meals :tripData="trip"></Meals>
       </div>
-      <!-- <div class="col-12">
-        <div class="card-container">
-          <h4 class="mb-0">Car Pool</h4>
-        </div>
-      </div>-->
+
       <div v-if="trip.authorId" class="col-12 col-lg-10 mx-auto mb-3">
         <Lists :tripData="trip"></Lists>
       </div>

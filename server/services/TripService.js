@@ -84,7 +84,6 @@ class TripService {
   // #endregion
 
   // #region -- SECTION DESTINATIONS --
-  //Below function is not being used, think about removing later
   async getDestinationsByTripId(tripId, userId) {
     let data = await _repository.find({ _id: tripId, authorId: userId });
     if (!data) {

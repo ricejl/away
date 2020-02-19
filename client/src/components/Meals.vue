@@ -3,12 +3,10 @@
     <div id="title-container" class="w-100 pointer" @click="dropdown = !dropdown">
       <div class="row">
         <div class="col-12">
-          <!-- <br /> -->
           <div class="d-flex justify-content-center align-items-center">
             <h4 class="mb-0 mr-1">Shared Meals</h4>
             <span class="badge badge-primary badge-pill ml-1">{{meals.length}}</span>
           </div>
-          <!-- <br /> -->
           <div v-if="!dropdown" class="arrow">
             <i class="fas fa-angle-double-down"></i>
           </div>

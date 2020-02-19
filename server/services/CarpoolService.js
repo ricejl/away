@@ -35,7 +35,6 @@ class CarpoolService {
     let data = await _repository.create(rawData);
     return data;
   }
-  //NOTE Need a check that keeps users from adding themselves to multiple cars: check occupant arrays from all carpool before adding, etc
   async addOccupant(carpoolId, rawData) {
     let data = await _repository.findOneAndUpdate(
       { _id: carpoolId, collabs: { $all: [rawData.authorId] } },

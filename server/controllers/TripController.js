@@ -21,15 +21,10 @@ export default class TripController {
       .post("", this.create)
       .post("/:id/destinations", this.addDestination)
       .post("/:id/collabs", this.addCollab)
-      // .post("/:id/carpools", this.addCarpool)
-      // .post("/:tripId/carpools/:id/occupants", this.addOccupant)
       .put("/:id", this.edit)
       .put("/:tripId/destinations/:id", this.editDestination)
-      // .put("/:id/carpools", this.editCarpool)
-      // .put("/:tripId/carpools/:id", this.removeOccupant)
       .delete("/:id", this.delete)
       .delete("/:tripId/destinations/:id", this.removeDestination);
-    // .delete("/:tripId/carpools/:id", this.removeCarpool);
   }
 
   defaultRoute(req, res, next) {

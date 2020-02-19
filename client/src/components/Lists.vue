@@ -1,14 +1,12 @@
 <template>
   <div class="card-container">
     <div id="title-container" class="w-100" @click="dropdown = !dropdown">
-      <!-- <br /> -->
       <div class="row">
         <div class="col-12">
           <div class="d-flex justify-content-center align-items-center">
             <h4 class="mb-0">Custom Lists</h4>
             <span class="badge badge-primary badge-pill ml-1">{{lists.length}}</span>
           </div>
-          <!-- <br /> -->
           <div class="arrow" v-if="!dropdown">
             <i class="fas fa-angle-double-down"></i>
           </div>
@@ -43,20 +41,6 @@
             >&nbsp;by: {{item.profileId.firstName}}</p>
           </div>
           <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
-          <!-- <form
-            @submit.prevent="createListItem(list._id)"
-            class="row list-form d-flex direction column mt-3"
-          >
-            <input
-              type="text"
-              id="item-name"
-              class="col-8"
-              v-model="newItem.itemName"
-              placeholder="Enter item"
-              required
-            />
-            <button class="btn-dark mx-auto text-light-grey" type="submit">Add</button>
-          </form>-->
         </div>
       </div>
       <hr />
@@ -98,7 +82,6 @@ export default {
       },
       newItem: {
         itemName: "",
-        // profileId: this.$state.store.profile._id
         profileId: ""
       },
       dropdown: false
@@ -129,13 +112,11 @@ export default {
         }
       });
     },
-    // NOTE Depreciated
     createListItem(listId) {
       let listItem = { ...this.newItem };
       let tripId = this.$route.params.tripId;
       listItem.profileId = this.$store.state.profile._id;
-      // console.log("listItem is:", listItem);
-      // NOTE the below has to have the same name as the action in the store
+
       this.$store.dispatch("addListItem", { listId, listItem, tripId });
       this.newItem = {
         itemName: "",
@@ -211,16 +192,7 @@ export default {
   right: 7%;
   bottom: 1%;
 }
-/* .down-arrow {
-  position: absolute;
-  right: 5%;
-  bottom: 1%;
-}
-.up-arrow {
-  position: absolute;
-  right: 2%;
-  top: 0;
-} */
+
 .badge-primary {
   border: 1px solid rgb(128, 128, 128);
   color: #fff;

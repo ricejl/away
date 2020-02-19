@@ -1,7 +1,6 @@
 <template>
   <div class="members card-container">
     <div id="title-container" class="w-100" @click="dropdown = !dropdown">
-      <!-- <br /> -->
       <div class="row">
         <div class="col-12">
           <div class="d-flex justify-content-center align-items-center">
@@ -12,7 +11,6 @@
               }}
             </span>
           </div>
-          <!-- <br /> -->
           <div class="arrow" v-if="!dropdown">
             <i class="fas fa-angle-double-down"></i>
           </div>
@@ -107,16 +105,7 @@ export default {
   right: 7%;
   bottom: 1%;
 }
-/* .down-arrow {
-  position: absolute;
-  right: 5%;
-  bottom: 1%;
-}
-.up-arrow {
-  position: absolute;
-  right: 2%;
-  top: 0;
-} */
+
 .font-size-pill {
   font-size: 0.9em;
 }
