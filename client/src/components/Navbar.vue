@@ -24,15 +24,9 @@
             <a class="nav-link">My Trips</a>
           </li>
         </router-link>
-
         <router-link :to="{name: 'profile'}">
           <li :class="{active: this.$route.name == 'profile'}" class="nav-item">
             <a class="nav-link" href="#">Profile</a>
-          </li>
-        </router-link>
-        <router-link :to="{name: 'account'}">
-          <li :class="{active: this.$route.name == 'account'}" class="nav-item">
-            <a class="nav-link">Account</a>
           </li>
         </router-link>
         <li class="nav-item">
