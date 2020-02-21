@@ -8,8 +8,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/away-logo-favicon.png"
   },
   {
-    "revision": "91c7e0ab58a7776b3d47",
-    "url": "/css/app.85dee1df.css"
+    "revision": "56f388af2ad65cbc9d52",
+    "url": "/css/app.ef07e35b.css"
   },
   {
     "revision": "86a6dfdd51f6803af196",
@@ -20,12 +20,12 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/img/away-logo-white.6ed3c261.svg"
   },
   {
-    "revision": "2883367a3ef6e5fbf0a7e3ef364eb1fd",
+    "revision": "2546e8448c10ea59e1f1e0be59592e67",
     "url": "/index.html"
   },
   {
-    "revision": "91c7e0ab58a7776b3d47",
-    "url": "/js/app.ea51d2ce.js"
+    "revision": "56f388af2ad65cbc9d52",
+    "url": "/js/app.8ec2e0fd.js"
   },
   {
     "revision": "86a6dfdd51f6803af196",
