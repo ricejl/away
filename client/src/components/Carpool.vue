@@ -59,13 +59,6 @@
         <button @click="createCarpool()" class="btn-dark mx-auto text-light-grey">Add</button>
       </div>
     </div>
-    <div
-      v-if="dropdown"
-      @click="dropdown = !dropdown"
-      class="w-100 text-right arrow bottom-up-arrow"
-    >
-      <i class="fas fa-angle-double-up mr-3"></i>
-    </div>
   </div>
 </template>
 
