@@ -30,18 +30,20 @@
         {{ member.firstName[0] }}{{ member.lastName[0] }}
         <div class="first-name">{{ member.firstName }}</div>
       </div>
-      <form @submit.prevent="addCollab">
-        <label class="mr-md-1" for="email">
+      <form @submit.prevent="addCollab" class="pr-3 pl-3">
+        <label class="mr-1" for="email">
           <strong>Add a friend to this trip</strong>
         </label>
-        <input
-          class="bg-lightest-grey pl-1"
-          type="text"
-          name="email"
-          v-model="newCollab.email"
-          placeholder="Friend's email..."
-        />
-        <button class="btn-dark">Add</button>
+        <div>
+          <input
+            class="bg-lightest-grey pl-1"
+            type="text"
+            name="email"
+            v-model="newCollab.email"
+            placeholder="Friend's email..."
+          />
+          <button class="btn-dark">Add</button>
+        </div>
       </form>
     </div>
   </div>

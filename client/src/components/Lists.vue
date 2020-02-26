@@ -45,21 +45,22 @@
         <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
       </div>
       <hr />
-      <h5 class="pb-2">New list</h5>
-      <div class="col-12">
-        <form @submit.prevent="createList()" class="row list-form d-flex direction-column">
-          <label for="list-name" class="col-5 pr-1">List name</label>
+      <form @submit.prevent="createList()" class="pr-3 pl-3">
+        <label for="list-name" class="mr-sm-2">
+          <strong>Create a new list</strong>
+        </label>
+        <div>
           <input
             type="text"
             id="list-name"
-            class="col-5"
+            class="bg-lightest-grey"
             v-model="newList.title"
             placeholder="Enter name"
             required
           />
           <button class="btn-dark mx-auto text-light-grey" type="submit">Add</button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -216,6 +217,9 @@ export default {
 }
 .remove-list-item:hover {
   opacity: 0.7;
+}
+.bg-lightest-grey {
+  background: #f3f3f3;
 }
 .badge-primary {
   border: 1px solid rgb(128, 128, 128);
