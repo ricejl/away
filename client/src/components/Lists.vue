@@ -44,7 +44,8 @@
         </div>
         <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
       </div>
-      <hr />
+
+      <hr id="bottom-hr-width" />
       <form @submit.prevent="createList()" class="pr-3 pl-3">
         <label for="list-name" class="mr-sm-2">
           <strong>Create a new list</strong>
@@ -225,5 +226,8 @@ export default {
   border: 1px solid rgb(128, 128, 128);
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
+}
+#bottom-hr-width {
+  max-width: 90%;
 }
 </style>
