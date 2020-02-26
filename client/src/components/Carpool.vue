@@ -18,13 +18,14 @@
     </div>
 
     <div v-if="dropdown" class="dropdown pb-3">
-      <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block">
-        <div class="p-3">
+      <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block p-3">
+        <div class="car-shadow">
           <h6 class="car-name bg-lightest-grey mb-0 pt-2 pl-1 pr-1">
             {{ carpool.name }}
             <i
               @click="removeCarpool(carpool._id)"
-              class="text-right fas fa-times"
+              class="text-right fas fa-times delete-carpool"
+              title="delete carpool"
             ></i>
           </h6>
           <div class="car d-flex justify-content-center bg-lightest-grey text-light p-1">
@@ -32,11 +33,11 @@
               v-for="occupant in carpool.occupants"
               :key="occupant.profileId._id"
               class="bg-dark shadow-dark seat m-1 d-flex align-items-center justify-content-center"
-              title="occupant.name"
             >
               <i
                 @click="removeOccupant(carpool._id, occupant._id, occupant.profileId._id, carpool.authors)"
-                class="fas fa-times"
+                class="far fa-times-circle remove-occupant"
+                title="remove occupant"
               ></i>
               {{ occupant.profileId.firstName[0] }}{{ occupant.profileId.lastName[0] }}
             </div>
@@ -169,6 +170,7 @@ export default {
 }
 .car-name {
   max-width: 10em;
+  position: relative;
 }
 .bg-lightest-grey {
   background-color: #f3f3f3;
@@ -186,10 +188,29 @@ export default {
 .car {
   max-width: 10em;
   flex-wrap: wrap;
+  /* box-shadow: 1px 3px 9px black; */
+}
+.car-shadow {
+  box-shadow: 1px 3px 9px black;
 }
 .seat {
   height: 4em;
   width: 4em;
+  position: relative;
+}
+.remove-occupant {
+  position: absolute;
+  right: 0.2em;
+  opacity: 0.2;
+  font-size: 0.9em;
+}
+.delete-carpool {
+  position: absolute;
+  right: 0.5em;
+  opacity: 0.3;
+}
+.delete-carpool:hover {
+  opacity: 0.7;
 }
 .badge-primary {
   border: 1px solid rgb(128, 128, 128);

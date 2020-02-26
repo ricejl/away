@@ -20,45 +20,48 @@
       <div
         v-for="list in lists"
         :key="list._id"
-        class="d-inline-block bg-lightest-grey m-3 p-3 align-top"
+        class="list d-inline-block bg-lightest-grey m-3 p-3 align-top"
       >
-        <div class="p-3">
-          <h6 class="list-name mb-0 pt-2">
-            <b>
-              {{list.title}}
-              <i @click="removeList(list._id)" class="text-right fas fa-times"></i>
-            </b>
-          </h6>
-          <hr class="hr-thick" />
-          <div v-for="item in list.items" :key="item._id">
-            <span class="pr-2">{{item.itemName}}</span>
+        <h6 class="list-name mb-0">
+          <b>
+            {{list.title}}
             <i
-              @click="removeListItem(list._id, item._id, item.profileId._id, list.authors)"
-              class="text-right fas fa-times"
+              @click="removeList(list._id)"
+              class="fas fa-times delete-list"
+              title="delete list"
             ></i>
-            <p
-              class="food-item-author mb-0 align-self-center"
-            >&nbsp;by: {{item.profileId.firstName}}</p>
-          </div>
-          <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
+          </b>
+        </h6>
+        <hr class="hr-thick" />
+        <div v-for="item in list.items" :key="item._id" class="list-item">
+          <span class="pr-2">{{item.itemName}}</span>
+          <i
+            @click="removeListItem(list._id, item._id, item.profileId._id, list.authors)"
+            class="far fa-times-circle remove-list-item"
+            title="remove item"
+          ></i>
+          <p class="food-item-author mb-0 align-self-center">&nbsp;by: {{item.profileId.firstName}}</p>
         </div>
+        <button class="btn-dark mx-auto text-light-grey mt-3" @click="addItem(list._id)">Add Item</button>
       </div>
-      <hr />
-      <h5 class="pb-2">New list</h5>
-      <div class="col-12">
-        <form @submit.prevent="createList()" class="row list-form d-flex direction-column">
-          <label for="list-name" class="col-5 pr-1">List name</label>
+
+      <hr id="bottom-hr-width" />
+      <form @submit.prevent="createList()" class="pr-3 pl-3">
+        <label for="list-name" class="mr-sm-2">
+          <strong>Create a new list</strong>
+        </label>
+        <div>
           <input
             type="text"
             id="list-name"
-            class="col-5"
+            class="bg-lightest-grey"
             v-model="newList.title"
             placeholder="Enter name"
             required
           />
           <button class="btn-dark mx-auto text-light-grey" type="submit">Add</button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   </div>
 </template>
@@ -192,10 +195,39 @@ export default {
   right: 7%;
   bottom: 1%;
 }
-
+.list {
+  position: relative;
+  box-shadow: 1px 3px 9px black;
+}
+.delete-list {
+  opacity: 0.3;
+  position: absolute;
+  right: 0.5em;
+}
+.delete-list:hover {
+  opacity: 0.7;
+}
+.list-item {
+  position: relative;
+}
+.remove-list-item {
+  position: absolute;
+  top: 0.4em;
+  opacity: 0.3;
+  font-size: 0.9em;
+}
+.remove-list-item:hover {
+  opacity: 0.7;
+}
+.bg-lightest-grey {
+  background: #f3f3f3;
+}
 .badge-primary {
   border: 1px solid rgb(128, 128, 128);
   color: #fff;
   background-color: rgba(4, 0, 198, 0.5);
+}
+#bottom-hr-width {
+  max-width: 90%;
 }
 </style>
