@@ -18,8 +18,8 @@
     </div>
 
     <div v-if="dropdown" class="dropdown pb-3">
-      <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block">
-        <div class="p-3">
+      <div v-for="carpool in carpools" :key="carpool._id" class="d-inline-block p-3">
+        <div class="car-shadow">
           <h6 class="car-name bg-lightest-grey mb-0 pt-2 pl-1 pr-1">
             {{ carpool.name }}
             <i
@@ -188,6 +188,10 @@ export default {
 .car {
   max-width: 10em;
   flex-wrap: wrap;
+  /* box-shadow: 1px 3px 9px black; */
+}
+.car-shadow {
+  box-shadow: 1px 3px 9px black;
 }
 .seat {
   height: 4em;
