@@ -38,7 +38,9 @@ class CarpoolService {
   async addOccupant(carpoolId, rawData) {
     let data = await _repository.findOneAndUpdate(
       { _id: carpoolId, collabs: { $all: [rawData.authorId] } },
-      { $addToSet: { occupants: rawData } },
+      // { $addToSet: { occupants: rawData } },
+      // { "occupants": { "$ne": rawData } },
+      { "$push": { "occupants": { "$each": [rawData], "$position": rawData.order } } },
       { new: true, upsert: true }
     );
     if (!data) {

@@ -28,7 +28,13 @@
               title="delete carpool"
             ></i>
           </h6>
-          <div class="car d-flex justify-content-center bg-lightest-grey text-light p-1">
+          <draggable
+            :list="carpool.occupants"
+            :options="{animation:100}"
+            :element="'div'"
+            @change="updateCarpool(carpool)"
+            class="car d-flex justify-content-center bg-lightest-grey text-light p-1"
+          >
             <div
               v-for="occupant in carpool.occupants"
               :key="occupant.profileId._id"
@@ -45,12 +51,12 @@
               v-for="(freeSeats, i) in carpool.totalSeats -
                 carpool.occupants.length"
               :key="i"
-              @click="addOccupant(tripData._id, carpool._id)"
+              @click="addOccupant(tripData._id, carpool._id, i)"
               class="bg-light-grey seat m-1 d-flex justify-content-center align-items-center"
             >
               <i class="fas fa-plus color-light-grey"></i>
             </div>
-          </div>
+          </draggable>
         </div>
       </div>
 
@@ -64,6 +70,7 @@
 </template>
 
 <script>
+import Draggable from "vuedraggable";
 import Swal from "sweetalert2";
 import NotificationService from "@/NotificationService";
 export default {
@@ -88,9 +95,16 @@ export default {
       };
       this.$store.dispatch("addCarpool", { tripId: carpool.tripId, carpool });
     },
-    addOccupant(tripId, carpoolId) {
+    updateCarpool(carpool) {
+      this.$store.dispatch("editCarpool", {
+        tripId: this.$route.params.tripId,
+        carpoolId: carpool._id,
+        update: carpool
+      });
+    },
+    addOccupant(tripId, carpoolId, i) {
       console.log("carpool id from add occupant", carpoolId);
-      let occupant = { profileId: this.$store.state.profile._id };
+      let occupant = { profileId: this.$store.state.profile._id, order: i + 1 };
       this.$store.dispatch("addOccupant", { tripId, carpoolId, occupant });
     },
     removeOccupant(carpoolId, occupantId, occupantProfileId, carpoolAuthors) {
@@ -129,6 +143,9 @@ export default {
     carpools() {
       return this.$store.state.carpools;
     }
+  },
+  components: {
+    Draggable
   }
 };
 </script>
