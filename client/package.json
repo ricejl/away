@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "@pderas/vue2-geocoder": "^1.1.0",
-    "axios": "^0.21.2",
+    "axios": "^1.6.0",
     "dotenv": "^8.2.0",
     "register-service-worker": "^1.6.2",
     "socket.io-client": "^2.3.0",
